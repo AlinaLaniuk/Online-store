@@ -7,7 +7,7 @@
   gap: 15px;
   box-sizing: border-box;
 
-  .card-item {
+  .card {
     display: flex;
     flex-direction: column;
     padding-bottom: 5px;
@@ -15,10 +15,10 @@
     border: 1px solid black;
     box-sizing: border-box;
 
-    .card-item__content {
+    .card__content {
       height: 85%;
 
-      .card-item__title {
+      .card__title {
         margin: 0;
         padding: 5px 0;
         border-bottom: 1px solid black;
@@ -28,7 +28,7 @@
         box-sizing: border-box;
       }
 
-      .card-item__desc {
+      .card__desc {
         width: 50%;
         height: min-content;
         display: flex;
@@ -38,18 +38,18 @@
         border: 1px solid black;
         font-size: 14px;
 
-        .card-item__category,
-        .card-item__brand,
-        .card-item__price,
-        .card-item__discount,
-        .card-item__rating,
-        .card-item__stock {
+        .card__category,
+        .card__brand,
+        .card__price,
+        .card__discount,
+        .card__rating,
+        .card__stock {
           margin: 0;
         }
       }
     }
 
-    .card-item__buttons {
+    .card__buttons {
       height: 15%;
       display: flex;
       gap: 20px;
@@ -68,7 +68,7 @@
   gap: 15px;
   box-sizing: border-box;
 
-  .card-item {
+  .card {
     display: flex;
     flex-direction: column;
     padding-bottom: 5px;
@@ -76,10 +76,10 @@
     border: 1px solid black;
     box-sizing: border-box;
 
-    .card-item__content {
+    .card__content {
       height: 85%;
 
-      .card-item__title {
+      .card__title {
         margin: 0;
         padding: 5px 0;
         border-bottom: 1px solid black;
@@ -89,13 +89,13 @@
         box-sizing: border-box;
       }
 
-      .card-item__desc {
+      .card__desc {
         display: none;
       }
     }
   }
 
-  .card-item__buttons {
+  .card__buttons {
     height: 15%;
     display: flex;
     gap: 20px;
