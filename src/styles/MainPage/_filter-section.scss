@@ -1,0 +1,73 @@
+.filter-section {
+  padding: 10px 0;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid black;
+
+  .filter-section__buttons {
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .filter-section__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid black;
+    list-style-type: none;
+
+    .filter-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid black;
+
+      .filter-item__title {
+        margin: 0;
+        padding: 10px 0;
+        text-align: center;
+        border-bottom: 1px solid black;
+      }
+
+      .filter-item__list {
+        margin: 0;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        list-style-type: none;
+      }
+    }
+
+    .filter-item_type_checkbox {
+      height: 200px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .filter-item_type_range {
+      display: block;
+
+      .filter-range__desc {
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .filter-item__min,
+        .filter-item__max {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

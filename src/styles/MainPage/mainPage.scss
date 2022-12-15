@@ -1,0 +1,30 @@
+@import './_filter-section';
+@import './_display-bar';
+@import './_card-list';
+
+.main-page {
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  box-sizing: border-box;
+
+  .filter-section {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+
+  .display-bar {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .cards-section {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+}
