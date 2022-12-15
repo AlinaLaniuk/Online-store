@@ -2,7 +2,7 @@ import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
 
-  public getTemplate(data: IDataItem, currency: string): HTMLElement {
+  public getTemplate(data: IDataItem, currency: string): void {
     const card = document.createElement("li");
     card.className = "card";
     card.style.background = `url(${data.thumbnail})`;
@@ -55,6 +55,7 @@ export class CardMainView {
       cardStock
     );
 
-    return card;
+    const cardList = <HTMLElement>document.querySelector('.card-list');
+    cardList.append(card)
   }
 }

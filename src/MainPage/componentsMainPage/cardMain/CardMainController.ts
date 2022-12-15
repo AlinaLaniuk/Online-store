@@ -13,7 +13,7 @@ export class CardMainController {
     this.model = new CardMainModel(this.view.getTemplate, this.data);
   }
 
-  public drawCard(): HTMLElement {
-    return this.model.getCard();
+  public drawCard() {
+    this.model.getCard();
   }
 }

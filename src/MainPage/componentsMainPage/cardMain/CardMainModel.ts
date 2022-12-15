@@ -11,6 +11,6 @@ export class CardMainModel {
   }
 
   public getCard() {
-    return this.getTemplate(this.cardData, currency);
+    this.getTemplate(this.cardData, currency);
   }
 }

@@ -6,6 +6,6 @@ export class MainModel {
   }
 
   public getMain() {
-    return this.getTemplate();
+    this.getTemplate();
   }
 }

@@ -12,12 +12,9 @@ export class MainController {
   }
 
   public drawMain() {
-    const mainContent = this.model.getMain();;
+    this.model.getMain();
 
     const cardField = new CardsFieldController();
-
-    mainContent.append(cardField.drawCardField());
-
-    return mainContent;
+    cardField.drawCardField();
   }
 }

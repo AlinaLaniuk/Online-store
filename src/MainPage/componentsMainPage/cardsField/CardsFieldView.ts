@@ -1,8 +1,9 @@
 export class CardsFieldView {
-  public getTemplate(): HTMLElement {
+  public getTemplate() {
     const cardField = document.createElement('ul');
     cardField.className = 'card-list';
 
-    return cardField;
+    const mainContent = <HTMLElement>document.querySelector('.main-content');
+    mainContent.append(cardField);
   }
 }

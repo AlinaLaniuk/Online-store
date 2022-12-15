@@ -12,15 +12,13 @@ export class CardsFieldController {
     this.model = new CardsFieldModel(this.view.getTemplate);
   }
 
-  public drawCardField(): Element {
-    const cardField = this.model.getCardField();
+  public drawCardField() {
+    this.model.getCardField();
 
     onlineStoreData.forEach((item): void => {
       const cardMain = new CardMainController(item);
 
-      cardField.append(cardMain.drawCard());
-
+      cardMain.drawCard();
     });
-    return cardField;
   }
 }

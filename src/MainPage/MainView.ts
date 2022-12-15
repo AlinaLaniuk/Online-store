@@ -3,6 +3,7 @@ export class MainView {
     const mainContent = document.createElement('div');
     mainContent.className = 'main-content';
 
-    return mainContent;
+    const main = <HTMLElement>document.querySelector('.page')
+    main.append(mainContent);
   }
 }

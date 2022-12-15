@@ -4,8 +4,8 @@ export class CardsFieldModel {
   constructor(getTemplate: Function) {
     this.getTemplate = getTemplate;
   }
-  
+
   public getCardField() {
-    return this.getTemplate();
+    this.getTemplate();
   }
 }
