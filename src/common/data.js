@@ -1920,3 +1920,4 @@ const onlineStoreData = [
     ],
   },
 ];
+export default onlineStoreData;
