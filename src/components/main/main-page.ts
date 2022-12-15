@@ -18,21 +18,22 @@ import {
   dataItem,
   filterCheckboxItem,
   filterOption,
-} from "../../components/interface";
-import "../../styles/scss.scss";
+} from "../interface";
+import "../../styles/main.scss";
 import {
   checkboxItemTemplate,
   checkboxItemContent,
 } from "../../common/constants";
-import { filterSectionContent, filterSectionTemplate, sortOptionsList } from "../../common/constants";
+import {
+  filterSectionContent,
+  filterSectionTemplate,
+  sortOptionsList,
+} from "../../common/constants";
 
 const main = <HTMLElement>document.querySelector(".main");
 
 function generateCheckboxItem(el: filterCheckboxItem, container: HTMLElement) {
-  const checkboxItem = getTemplate(
-    checkboxItemTemplate,
-    checkboxItemContent
-  );
+  const checkboxItem = getTemplate(checkboxItemTemplate, checkboxItemContent);
   const label = <HTMLElement>(
     checkboxItem.querySelector(".checkbox-item__label")
   );
@@ -177,7 +178,10 @@ function generateItems(): void {
 }
 
 function generateFilterSection(container: HTMLElement): void {
-  const filterSection = getTemplate(filterSectionTemplate, filterSectionContent);
+  const filterSection = getTemplate(
+    filterSectionTemplate,
+    filterSectionContent
+  );
 
   container.append(filterSection);
   generateFilterSectionContent();
@@ -267,17 +271,6 @@ function generateCardList(container: HTMLElement): void {
   generateCardListContent();
 }
 
-(function generateMainPage() {
-  const mainPage = <HTMLElement>document.createElement("div");
-  mainPage.className = "main-page";
-
-  main.append(mainPage);
-
-  generateFilterSection(mainPage);
-  generateDisplayBar(mainPage);
-  generateCardList(mainPage);
-})();
-
 // cards view buttons
 function handleViewSmall(list: HTMLElement, buttons: NodeListOf<Element>) {
   list.classList.add("card-list_type_small");
@@ -324,3 +317,14 @@ function setViewBar() {
     });
   });
 }
+
+export function generateMainPage() {
+  const mainPage = <HTMLElement>document.createElement("div");
+  mainPage.className = "main-page";
+
+  main.append(mainPage);
+
+  generateFilterSection(mainPage);
+  generateDisplayBar(mainPage);
+  generateCardList(mainPage);
+};
