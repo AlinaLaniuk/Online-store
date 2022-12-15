@@ -1,0 +1,59 @@
+.card-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  box-sizing: border-box;
+
+  .card-item {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+    height: 265px;
+    border: 1px solid black;
+    box-sizing: border-box;
+
+    .card-item__content {
+      height: 85%;
+
+      .card-item__title {
+        margin: 0;
+        padding: 5px 0;
+        border-bottom: 1px solid black;
+        background: rgba(0, 0, 0, .7);
+        color: white;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .card-item__desc {
+        width: 50%;
+        height: min-content;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        background: rgba(150, 150, 150, 0.5);
+        border: 1px solid black;
+        font-size: 14px;
+
+        .card-item__category,
+        .card-item__brand,
+        .card-item__price,
+        .card-item__discount,
+        .card-item__rating,
+        .card-item__stock {
+          margin: 0;
+        }
+      }
+    }
+
+    .card-item__buttons {
+      height: 15%;
+      display: flex;
+      gap: 20px;
+      align-self: center;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.filter-item_type_range {
+  display: block;
+
+  .filter-range__desc {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .filter-item__min,
+    .filter-item__max {
+      margin: 0;
+    }
+  }
+}

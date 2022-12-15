@@ -8,5 +8,116 @@
     <link rel="icon" href="favicon.ico" type="image/ico" />
   </head>
   <body class="page">
+    <header class="header"></header>
+    <main class="main"></main>
+    <footer class="footer"></footer>
+
+    <!-- filter section -->
+    <template id="filter-section-template">
+      <aside class="filter-section">
+        <div class="filter-section__buttons">
+          <button class="filter-section__reset">Reset Filters</button>
+
+          <button class="filter-section__copy">Copy Link</button>
+        </div>
+
+        <ul class="filter-section__list"></ul>
+      </aside>
+    </template>
+
+    <!-- filter checkbox -->
+    <template id="filter-checkbox-template">
+      <li class="filter-item filter-item_type_checkbox">
+        <h3 class="filter-item__title"></h3>
+        <ul class="filter-item__list"></ul>
+      </li>
+    </template>
+
+    <!-- checkbox-item -->
+    <template id="checkbox-item-template">
+      <li class="checkbox-item">
+        <input
+          class="checkbox-item__unput"
+          name="category-item"
+          type="checkbox"
+        />
+        <label class="checkbox-item__label" for="category-item"> </label>
+      </li>
+    </template>
+
+    <!-- filter range -->
+    <template id="filter-range-template">
+      <li class="filter-item filter-item_type_range">
+        <h3 class="filter-item__title"></h3>
+        <div class="filter-range__desc">
+          <p class="filter-item__min"></p>
+          <span class="filter-item__symbol">⟷</span>
+          <p class="filter-item__max"></p>
+        </div>
+        <input type="range" />
+      </li>
+    </template>
+
+    <!-- display bar -->
+    <template id="display-bar-template">
+      <div class="display-bar">
+        <select class="sort-bar" name="" id=""></select>
+
+        <p class="display-bar__items-num"></p>
+
+        <input class="search-bar" type="search" placeholder="Search product" />
+
+        <div class="display-bar__view-button">
+          <label for="view-small">
+            small
+            <input class="cards-view" name="cards-view" id="view-small" type="radio" />
+          </label>
+          <label for="view-big">
+            big
+            <input class="cards-view" name="cards-view" id="view-big" type="radio" />
+          </label>
+        </div>
+      </div>
+    </template>
+
+    <!-- cards section -->
+    <template id="cards-section-template">
+      <section class="cards-section">
+        <ul class="card-list"></ul>
+      </section>
+    </template>
+
+    <!-- card item -->
+    <template id="card-item-template">
+      <li class="card-item">
+        <div class="card-item__content">
+          <h3 class="card-item__title"></h3>
+          <div class="card-item__desc">
+            <p class="card-item__category"></p>
+            <p class="card-item__brand"></p>
+            <p class="card-item__price"></p>
+            <p class="card-item__discount"></p>
+            <p class="card-item__rating"></p>
+            <p class="card-item__stock"></p>
+          </div>
+        </div>
+
+        <div class="card-item__buttons">
+          <button
+            class="card-item__button button button_type_add"
+            type="button"
+          >
+            Add to cart
+          </button>
+
+          <button
+            class="card-item__button button button_type_details"
+            type="button"
+          >
+            Details
+          </button>
+        </div>
+      </li>
+    </template>
   </body>
 </html>

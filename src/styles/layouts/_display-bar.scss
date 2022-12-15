@@ -1,0 +1,13 @@
+.display-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .sort-bar,
+  .search-bar {
+    width: 20%;
+    padding: 5px;
+    text-align: center;
+  }
+}
