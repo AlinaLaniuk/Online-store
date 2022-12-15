@@ -67,7 +67,7 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   mode: "development",
   entry: {
-    main: ["@babel/polyfill", "./pages/main/index.ts"],
+    main: ["@babel/polyfill", "./index.ts"],
     // other pages to be added like in the example bellow:
     // someOtherPage: [
     //   "@babel/polyfill",
@@ -97,7 +97,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: "./pages/main/index.html",
+      template: "./index.html",
       filename: "index.html",
       chunks: ["main"],
     }),
