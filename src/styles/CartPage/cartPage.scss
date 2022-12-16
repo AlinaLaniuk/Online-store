@@ -1,0 +1,37 @@
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+.products-in-cart-wrapper{
+    width: 50%;
+    height: 300px;
+    border: 1px solid black;
+}
+.products-in-cart__top{
+    @include flex(space-between, row);
+    .products-in-cart__limit{
+        width: 20%;
+        @include flex(space-between, row);
+        .products-in-cart__limit__value{
+            width: 20%;
+            height: 20px;
+            border: 1px solid black;
+        }
+    }
+    .products-in-cart__pagination{
+        width: 30%;
+        @include flex(space-between, row);
+        .products-in-cart__pagination__button{
+            width: 10%;
+            height: 20px;
+            background-color: aqua;
+        }
+        .products-in-cart__pagination__value{
+            width: 20%;
+            height: 20px;
+            border: 1px solid black;
+        }
+    }
+}

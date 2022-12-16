@@ -4,5 +4,8 @@ class AppController{
     constructor(){
         this.cartPageController = new CartController();
     }
+    run(){
+        this.cartPageController.runCart();
+    }
 }
 export default AppController;

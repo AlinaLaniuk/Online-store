@@ -1,4 +1,4 @@
 import '../src/styles/main.scss';
 import AppController from './AppController';
-new AppController();
+new AppController().run();
 

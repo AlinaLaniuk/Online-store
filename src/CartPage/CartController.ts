@@ -1,11 +1,17 @@
 import CartModel from "./CartModel";
 import CartView from "./CartView";
+import CardCartController from "./componentsCartPage/cardCart/CardCartController";
 class CartController{
-    CartModel: CartModel;
-    CartView: CartView;
+    cartModel: CartModel;
+    cartView: CartView;
+    cardCartController: CardCartController;
     constructor(){
-        this.CartModel = new CartModel();
-        this.CartView = new CartView();
+        this.cartModel = new CartModel();
+        this.cartView = new CartView();
+        this.cardCartController = new CardCartController();
+    }
+    runCart(){
+        this.cartView.drawProductsInCartBlock();
     }
 }
 export default CartController;
