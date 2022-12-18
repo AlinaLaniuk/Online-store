@@ -12,6 +12,7 @@ class CartController{
     }
     runCart(){
         this.cartView.drawProductsInCartBlock();
+        this.cardCartController.run();
     }
 }
 export default CartController;
