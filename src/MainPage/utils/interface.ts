@@ -23,3 +23,8 @@ export interface filterCheckboxItem {
   title: string;
   items: number;
 }
+
+export interface IRange {
+  min: number;
+  max: number;
+}

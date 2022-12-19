@@ -19,7 +19,8 @@ export const displayBarContent = "display-bar";
 export const cardsSectionTemplate = "cards-section-template";
 export const cardsSectionContent = "cards-section";
 
-export const currency: string = "€";
+export const currencySymbol: string = "€";
+export const rangeSymbol: string = "€";
 
 export const filterOptionsList = [
   {

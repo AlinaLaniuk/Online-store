@@ -1,8 +1,15 @@
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
+  public getCardListTemplate() {
+    const cardList = document.createElement("div");
+    cardList.className = "card-list";
 
-  public getTemplate(data: IDataItem, currency: string): void {
+    const mainContent = <HTMLElement>document.querySelector(".main-content");
+    mainContent.append(cardList);
+  }
+
+  public getCardTemplate(data: IDataItem, currencySymbol: string): void {
     const card = document.createElement("li");
     card.className = "card";
     card.style.background = `url(${data.thumbnail})`;
@@ -30,11 +37,13 @@ export class CardMainView {
 
     const cardPrice = document.createElement("p");
     cardPrice.className = "card__price";
-    cardPrice.textContent = `Price: ${currency}${data.price.toFixed(2)}`;
+    cardPrice.textContent = `Price: ${currencySymbol}${data.price.toFixed(2)}`;
 
     const cardDiscount = document.createElement("p");
     cardDiscount.className = "card__discount";
-    cardDiscount.textContent = `Discount: ${data.discountPercentage.toFixed(2)}`;
+    cardDiscount.textContent = `Discount: ${data.discountPercentage.toFixed(
+      2
+    )}`;
 
     const cardRating = document.createElement("p");
     cardRating.className = "card__rating";
@@ -55,7 +64,7 @@ export class CardMainView {
       cardStock
     );
 
-    const cardList = <HTMLElement>document.querySelector('.card-list');
-    cardList.append(card)
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+    cardList.append(card);
   }
 }

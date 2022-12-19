@@ -1,16 +1,21 @@
-import { currency } from "../../utils/constants";
+import onlineStoreData from "../../../data/data";
+import { currencySymbol } from "../../utils/constants";
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainModel {
-  getTemplate: Function;
-  cardData: IDataItem;
+  getCardTemplate: Function;
+  getCardListTemplate : Function;
 
-  constructor(getTemplate: Function, data: IDataItem) {
-    this.getTemplate = getTemplate;
-    this.cardData = data;
+  constructor(getCardTemplate: Function, getCardListTemplate: Function) {
+    this.getCardTemplate = getCardTemplate;
+    this.getCardListTemplate = getCardListTemplate;
   }
 
-  public getCard() {
-    this.getTemplate(this.cardData, currency);
+  public getCardList() {
+    this.getCardListTemplate();
+
+    onlineStoreData.forEach((item: IDataItem): void => {
+      this.getCardTemplate(item, currencySymbol);
+    });
   }
 }
