@@ -4,4 +4,4 @@ export const productsQuantityInCart: { [key: string]: number } = {
     '5': 2,
     '6': 1,
 }
-export const totalCost = 0;
+export const totalCost: number = 0;

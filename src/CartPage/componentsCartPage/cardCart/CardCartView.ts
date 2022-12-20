@@ -47,7 +47,9 @@ class CardCartView{
     }
 
     drawTotalCostPerProduct(productId: string, totalCost: number){
-      const quantityForOrderBlock = document.querySelector(`.quantity-info__price[data-id="${productId}"]`) as HTMLElement;
+      const quantityInfoBlock = document.querySelector(`.quantity-info[data-id="${productId}"]`) as HTMLElement;
+      const priceBlock = quantityInfoBlock.querySelector(`.quantity-info__price`) as HTMLElement;
+      priceBlock.innerHTML = `$${totalCost}`;
     }
 }
 export default CardCartView;

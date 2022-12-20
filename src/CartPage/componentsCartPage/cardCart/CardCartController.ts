@@ -11,6 +11,7 @@ class CardCartController{
             this.cardCartView.drawStartState,
             this.cardCartView.drawNewProductQuantity,
             this.cardCartView.deleteCard,
+            this.cardCartView.drawTotalCostPerProduct,
             );  
     }
 
