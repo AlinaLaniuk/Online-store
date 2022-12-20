@@ -21,21 +21,21 @@ class CardCartView{
                 </div>
               </div>
             </div>
-            <div class="quantity-info">
+            <div class="quantity-info" data-id="${productInfo.id}">
               <p class="quantity-info__stock">Stock: ${productInfo.stock}</p>
-              <div class="quantity-info__quantity-for-order" data-id="${productInfo.id}">
+              <div class="quantity-info__quantity-for-order">
                 <div class="quantity-info__quantity-for-order__button plus">+</div>
                 <div class="quantity-info__quantity-for-order__value">${quantity}</div>
                 <div class="quantity-info__quantity-for-order__button minus">-</div>
               </div>
-              <p class="quantity-info__price">$${productInfo.price}</p>
+              <p class="quantity-info__price">$</p>
             </div>
           </div>`
         )
     }
 
     drawNewProductQuantity(productId: string, newQuantityValue: number){
-      const quantityForOrderBlock = document.querySelector(`.quantity-info__quantity-for-order[data-id="${productId}"]`) as HTMLElement;
+      const quantityForOrderBlock = document.querySelector(`.quantity-info[data-id="${productId}"]`) as HTMLElement;
       const quantityForOrderElement = quantityForOrderBlock.querySelector('.quantity-info__quantity-for-order__value') as HTMLElement;
       quantityForOrderElement.innerHTML = `${newQuantityValue}`;
     }
@@ -46,5 +46,8 @@ class CardCartView{
       cardContainer.removeChild(card);
     }
 
+    drawTotalCostPerProduct(productId: string, totalCost: number){
+      const quantityForOrderBlock = document.querySelector(`.quantity-info__price[data-id="${productId}"]`) as HTMLElement;
+    }
 }
 export default CardCartView;

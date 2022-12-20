@@ -1,6 +1,6 @@
 import { productInfoType, productsInfo } from "../../types";
 import onlineStoreData from "../../../data/data";
-import { productsIndexInCart, productsQuantityInCart } from "../../../services/appServices";
+import { productsQuantityInCart } from "../../../services/appServices";
 class CardCartModel{
     drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void;
     drawNewProductQuantity: (productId: string, newQuantityValue: number) => void;
@@ -32,10 +32,12 @@ class CardCartModel{
             this.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
         }
     }
+
     deleteProductFromCart(productId: string){
         delete productsQuantityInCart[productId];
         this.deleteCard(productId);
     }
+
     drawCards(){
         const productsInCartData = this.getCurrentProductsInCartInfo();
         productsInCartData.forEach((productData, index) => {
@@ -43,6 +45,12 @@ class CardCartModel{
             const productQuantity = productsQuantityInCart[productDataIdStr];
             this.drawStartState(productData, index, productQuantity)
         })
+    }
+
+    setTotalCostPerProduct(productId: string){
+        const pricePerUnit = onlineStoreData[+productId].price;
+        const totalCost = pricePerUnit * productsQuantityInCart[productId];
+        
     }
 }
 export default CardCartModel;
