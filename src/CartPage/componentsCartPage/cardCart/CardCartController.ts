@@ -10,6 +10,7 @@ class CardCartController{
         this.cardCartModel = new CardCartModel(
             this.cardCartView.drawStartState,
             this.cardCartView.drawNewProductQuantity,
+            this.cardCartView.deleteCard,
             );  
     }
 
@@ -27,7 +28,7 @@ class CardCartController{
             })
         })
     }
-    
+
     run(){
         this.cardCartModel.drawCards();
         this.setPlusMinusButtonsListener();

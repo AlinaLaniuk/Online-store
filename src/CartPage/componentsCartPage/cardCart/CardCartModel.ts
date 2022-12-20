@@ -3,17 +3,20 @@ import onlineStoreData from "../../../data/data";
 import { productsIndexInCart, productsQuantityInCart } from "../../../services/appServices";
 class CardCartModel{
     drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void;
-    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void
-
+    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void;
+    deleteCard: (productId: string) => void
     constructor(drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void,
-    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void
+    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void,
+    deleteCard: (productId: string) => void,
     ){
         this.drawStartState = drawStartState;
         this.drawNewProductQuantity = drawNewProductQuantity;
+        this.deleteCard = deleteCard;
     }
 
     getCurrentProductsInCartInfo(){
-        return productsIndexInCart.map((index) => onlineStoreData[index] );
+        const productsIndexInCart = Object.keys(productsQuantityInCart);
+        return productsIndexInCart.map((index) => onlineStoreData[+index] );
     }
 
     increaseProductQuantity(productId: string){
@@ -22,12 +25,17 @@ class CardCartModel{
     }
 
     decreaseProductQuantity(productId: string){
-        if(productsQuantityInCart[productId] > 0){
+        if(productsQuantityInCart[productId] === 1){
+            this.deleteProductFromCart(productId)
+        } else {
             productsQuantityInCart[productId] -= 1; 
+            this.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
         }
-        this.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
     }
-    
+    deleteProductFromCart(productId: string){
+        delete productsQuantityInCart[productId];
+        this.deleteCard(productId);
+    }
     drawCards(){
         const productsInCartData = this.getCurrentProductsInCartInfo();
         productsInCartData.forEach((productData, index) => {

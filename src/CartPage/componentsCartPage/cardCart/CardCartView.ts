@@ -33,11 +33,18 @@ class CardCartView{
           </div>`
         )
     }
-    
+
     drawNewProductQuantity(productId: string, newQuantityValue: number){
       const quantityForOrderBlock = document.querySelector(`.quantity-info__quantity-for-order[data-id="${productId}"]`) as HTMLElement;
       const quantityForOrderElement = quantityForOrderBlock.querySelector('.quantity-info__quantity-for-order__value') as HTMLElement;
       quantityForOrderElement.innerHTML = `${newQuantityValue}`;
     }
+
+    deleteCard(productId: string){
+      const cardContainer = document.querySelector(`.products-in-cart__content`) as HTMLElement;
+      const card =  cardContainer.querySelector(`.card[data-id="${productId}"]`) as HTMLElement;
+      cardContainer.removeChild(card);
+    }
+
 }
 export default CardCartView;
