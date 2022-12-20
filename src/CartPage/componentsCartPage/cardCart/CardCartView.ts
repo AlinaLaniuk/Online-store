@@ -35,8 +35,8 @@ class CardCartView{
     }
 
     drawNewProductQuantity(productId: string, newQuantityValue: number){
-      const quantityForOrderBlock = document.querySelector(`.quantity-info[data-id="${productId}"]`) as HTMLElement;
-      const quantityForOrderElement = quantityForOrderBlock.querySelector('.quantity-info__quantity-for-order__value') as HTMLElement;
+      const quantityInfoBlock = document.querySelector(`.quantity-info[data-id="${productId}"]`) as HTMLElement;
+      const quantityForOrderElement = quantityInfoBlock.querySelector('.quantity-info__quantity-for-order__value') as HTMLElement;
       quantityForOrderElement.innerHTML = `${newQuantityValue}`;
     }
 

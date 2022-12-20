@@ -15,11 +15,11 @@ class CardCartController{
     }
 
     setPlusMinusButtonsListener(){
-        const quantityForOrderBlocksCollection = document.querySelectorAll('.quantity-info__quantity-for-order');
-        quantityForOrderBlocksCollection.forEach((quantityForOrderBlock) => {
-            const productIdStr = `${(quantityForOrderBlock as HTMLElement).dataset.id}`;
-            const plusButton = quantityForOrderBlock.querySelector('.plus') as HTMLElement;
-            const minusButton = quantityForOrderBlock.querySelector('.minus') as HTMLElement;
+        const quantityInfoBlocksCollection = document.querySelectorAll('.quantity-info');
+        quantityInfoBlocksCollection.forEach((quantityInfoBlock) => {
+            const productIdStr = `${(quantityInfoBlock as HTMLElement).dataset.id}`;
+            const plusButton = quantityInfoBlock.querySelector('.plus') as HTMLElement;
+            const minusButton = quantityInfoBlock.querySelector('.minus') as HTMLElement;
             plusButton.addEventListener('click', () => {
                 this.cardCartModel.increaseProductQuantity(productIdStr);
             })
