@@ -1,7 +1,7 @@
 import { productInfoType, productsInfo } from "../../types";
 
 class CardCartView{
-    drawStartState(productInfo: productInfoType, index: number){
+    drawStartState(productInfo: productInfoType, index: number, quantity: number){
         const productsInCartContent = document.querySelector('.products-in-cart__content') as HTMLElement;
         productsInCartContent.insertAdjacentHTML(
             'beforeend',
@@ -23,15 +23,20 @@ class CardCartView{
             </div>
             <div class="quantity-info">
               <p class="quantity-info__stock">Stock: ${productInfo.stock}</p>
-              <div class="quantity-info__quantity-for-order">
-                <div class="quantity-info__quantity-for-order__button">+</div>
-                <div class="quantity-info__quantity-for-order__value">1</div>
-                <div class="quantity-info__quantity-for-order__button">-</div>
+              <div class="quantity-info__quantity-for-order" data-id="${productInfo.id}">
+                <div class="quantity-info__quantity-for-order__button plus">+</div>
+                <div class="quantity-info__quantity-for-order__value">${quantity}</div>
+                <div class="quantity-info__quantity-for-order__button minus">-</div>
               </div>
               <p class="quantity-info__price">$${productInfo.price}</p>
             </div>
           </div>`
         )
+    }
+    drawNewProductQuantity(productId: string, newQuantityValue: number){
+      const quantityForOrderBlock = document.querySelector(`.quantity-info__quantity-for-order[data-id="${productId}"]`) as HTMLElement;
+      const quantityForOrderElement = quantityForOrderBlock.querySelector('.quantity-info__quantity-for-order__value') as HTMLElement;
+      quantityForOrderElement.innerHTML = `${newQuantityValue}`;
     }
 }
 export default CardCartView;
