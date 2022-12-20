@@ -4,6 +4,7 @@ import { productInfoType, productsInfo } from "../../types";
 class CardCartController{
     cardCartModel: CardCartModel;
     cardCartView: CardCartView;
+
     constructor(){
         this.cardCartView = new CardCartView();
         this.cardCartModel = new CardCartModel(
@@ -11,6 +12,7 @@ class CardCartController{
             this.cardCartView.drawNewProductQuantity,
             );  
     }
+
     setPlusMinusButtonsListener(){
         const quantityForOrderBlocksCollection = document.querySelectorAll('.quantity-info__quantity-for-order');
         quantityForOrderBlocksCollection.forEach((quantityForOrderBlock) => {
@@ -25,6 +27,7 @@ class CardCartController{
             })
         })
     }
+    
     run(){
         this.cardCartModel.drawCards();
         this.setPlusMinusButtonsListener();
