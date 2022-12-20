@@ -1,20 +1,11 @@
 import { productInfoType, productsInfo } from "../../types";
+import viewCallbacksI from "./cardCartTypes";
 import onlineStoreData from "../../../data/data";
 import { productsQuantityInCart, totalCost } from "../../../services/appServices";
 class CardCartModel{
-    drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void;
-    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void;
-    deleteCard: (productId: string) => void;
-    drawTotalCostPerProduct: (productId: string, totalCost: number) => void;
-    constructor(drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void,
-    drawNewProductQuantity: (productId: string, newQuantityValue: number) => void,
-    deleteCard: (productId: string) => void,
-    drawTotalCostPerProduct: (productId: string, totalCost: number) => void,
-    ){
-        this.drawStartState = drawStartState;
-        this.drawNewProductQuantity = drawNewProductQuantity;
-        this.deleteCard = deleteCard;
-        this.drawTotalCostPerProduct = drawTotalCostPerProduct;
+    viewCallbacks: viewCallbacksI;
+    constructor(viewCallbacks: viewCallbacksI){
+        this.viewCallbacks = viewCallbacks;
     }
 
     getCurrentProductsInCartInfo(){
@@ -24,7 +15,7 @@ class CardCartModel{
 
     increaseProductQuantity(productId: string){
         productsQuantityInCart[productId] += 1;
-        this.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
+        this.viewCallbacks.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
         this.drawNewCostPerProduct(productId);
         this.setTotalCountPerCart()
     }
@@ -34,7 +25,7 @@ class CardCartModel{
             this.deleteProductFromCart(productId)
         } else {
             productsQuantityInCart[productId] -= 1; 
-            this.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
+            this.viewCallbacks.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
             this.drawNewCostPerProduct(productId);
         }
         this.setTotalCountPerCart()
@@ -42,7 +33,7 @@ class CardCartModel{
 
     deleteProductFromCart(productId: string){
         delete productsQuantityInCart[productId];
-        this.deleteCard(productId);
+        this.viewCallbacks.deleteCard(productId);
     }
     
     drawCards(){
@@ -50,14 +41,14 @@ class CardCartModel{
         productsInCartData.forEach((productData, index) => {
             const productDataIdStr = `${productData.id}`;
             const productQuantity = productsQuantityInCart[productDataIdStr];
-            this.drawStartState(productData, index, productQuantity);
+            this.viewCallbacks.drawStartState(productData, index, productQuantity);
             const totalPrice = this.setTotalCostPerProduct(productData.id);
-            this.drawTotalCostPerProduct(`${productData.id}`, totalPrice);
+            this.viewCallbacks.drawTotalCostPerProduct(`${productData.id}`, totalPrice);
         })
     }
 
     drawNewCostPerProduct(productId: string){
-        this.drawTotalCostPerProduct(productId, this.setTotalCostPerProduct(+productId))
+        this.viewCallbacks.drawTotalCostPerProduct(productId, this.setTotalCostPerProduct(+productId))
     }
 
     setTotalCountPerCart(){

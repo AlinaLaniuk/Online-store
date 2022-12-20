@@ -17,7 +17,7 @@ class CardCartView{
                 <p class="product-info__description">${productInfo.description}</p>
                 <div class="rating-discount-container">
                   <p class="product-info__rating">Rating: ${productInfo.rating}</p>
-                  <p class="product-info__discount">Discount: ${productInfo.discountPercentage}</p>
+                  <p class="product-info__discount">Discount: ${productInfo.discountPercentage}%</p>
                 </div>
               </div>
             </div>

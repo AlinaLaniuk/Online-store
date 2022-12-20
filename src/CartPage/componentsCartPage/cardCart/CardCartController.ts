@@ -1,6 +1,6 @@
 import CardCartModel from "./CardCartModel";
 import CardCartView from "./CardCartView";
-import { productInfoType, productsInfo } from "../../types";
+
 class CardCartController{
     cardCartModel: CardCartModel;
     cardCartView: CardCartView;
@@ -8,11 +8,11 @@ class CardCartController{
     constructor(){
         this.cardCartView = new CardCartView();
         this.cardCartModel = new CardCartModel(
-            this.cardCartView.drawStartState,
-            this.cardCartView.drawNewProductQuantity,
-            this.cardCartView.deleteCard,
-            this.cardCartView.drawTotalCostPerProduct,
-            );  
+            {drawStartState: this.cardCartView.drawStartState,
+            drawNewProductQuantity: this.cardCartView.drawNewProductQuantity,
+            deleteCard: this.cardCartView.deleteCard,
+            drawTotalCostPerProduct: this.cardCartView.drawTotalCostPerProduct,
+    });  
     }
 
     setPlusMinusButtonsListener(){
