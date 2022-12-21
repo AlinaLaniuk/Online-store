@@ -11,7 +11,7 @@ export class CardMainModel {
     this.getCardListTemplate = getCardListTemplate;
   }
 
-  public getCardList() {
+  public getCardList(): void {
     this.getCardListTemplate();
 
     onlineStoreData.forEach((item: IDataItem): void => {

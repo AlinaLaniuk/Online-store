@@ -8,13 +8,12 @@ export class FiltersController {
   constructor() {
     this.view = new FiltersView();
     this.model = new FiltersModel(
-      this.view.getCategoryList.bind(this.view),
       this.view.generateFilterSection.bind(this.view),
-      this.view.generateItems.bind(this.view)
+      this.view.generateCheckboxItem.bind(this.view),
     );
   }
 
-  public drawFilterList(): void {
+  public run(): void {
     this.model.getFilterSection();
   }
 }

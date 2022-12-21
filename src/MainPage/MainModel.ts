@@ -5,7 +5,7 @@ export class MainModel {
     this.getTemplate = getTemplate;
   }
 
-  public getMain() {
+  public getMain(): void {
     this.getTemplate();
   }
 }

@@ -5,7 +5,7 @@ class AppController{
         this.mainController = new MainController();
     }
     run(){
-        this.mainController.drawMain();
+        this.mainController.run();
     }
 }
 export default AppController;

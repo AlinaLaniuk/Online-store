@@ -1,21 +1,26 @@
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
+  mainWrapper: HTMLElement;
+
+  constructor() {
+    this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
+  }
+  
   public getCardListTemplate() {
     const cardList = document.createElement("section");
     cardList.className = "card-list";
 
-    const mainContent = <HTMLElement>document.querySelector(".main-wrapper");
-    mainContent.append(cardList);
+    this.mainWrapper.append(cardList);
   }
 
   public getCardTemplate(data: IDataItem, currencySymbol: string): void {
     const card = document.createElement("li");
     card.className = "card";
-    card.style.background = `url(${data.thumbnail})`;
-    card.style.backgroundSize = "cover";
-    card.style.backgroundRepeat = "no-repeat";
-    card.style.backgroundPosition = "top center";
+
+    const cardImage = document.createElement("img");
+    cardImage.className = "card__image";
+    cardImage.src = data.thumbnail;
 
     const cardContent = document.createElement("div");
     cardContent.className = "card__content";
@@ -53,7 +58,7 @@ export class CardMainView {
     cardStock.className = "card__stock";
     cardStock.textContent = `Stock: ${data.stock}`;
 
-    card.append(cardContent);
+    card.append(cardImage, cardContent);
     cardContent.append(cardTitle, cardDesc);
     cardDesc.append(
       cardCategory,

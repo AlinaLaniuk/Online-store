@@ -1,5 +1,5 @@
-import { CardMainModel } from './CardMainModel';
-import {CardMainView} from './CardMainView';
+import { CardMainModel } from "./CardMainModel";
+import { CardMainView } from "./CardMainView";
 
 export class CardMainController {
   view: CardMainView;
@@ -7,10 +7,13 @@ export class CardMainController {
 
   constructor() {
     this.view = new CardMainView();
-    this.model = new CardMainModel(this.view.getCardTemplate, this.view.getCardListTemplate);
+    this.model = new CardMainModel(
+      this.view.getCardTemplate,
+      this.view.getCardListTemplate.bind(this.view)
+    );
   }
 
-  public drawCardList() {
+  public run(): void {
     this.model.getCardList();
   }
 }

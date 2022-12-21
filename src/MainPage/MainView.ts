@@ -1,11 +1,7 @@
 export class MainView {
-  public getTemplate() {
-    const mainContent = document.createElement("div");
-    mainContent.className = "main-wrapper";
+  public getTemplate(): void {
+    const mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
 
-    const main = <HTMLElement>document.querySelector(".main");
-
-    main.innerHTML = "";
-    main.append(mainContent);
+    mainWrapper.innerHTML = "";
   }
 }

@@ -16,10 +16,10 @@ export class MainController {
     this.filterController = new FiltersController();
   }
 
-  public drawMain() {
+  public run(): void {
     this.model.getMain();
 
-    this.cardMainController.drawCardList();
-    this.filterController.drawFilterList();
+    this.cardMainController.run();
+    this.filterController.run();
   }
 }
