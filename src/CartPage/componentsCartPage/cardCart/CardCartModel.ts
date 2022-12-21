@@ -28,7 +28,7 @@ class CardCartModel{
             this.viewCallbacks.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
             this.drawNewCostPerProduct(productId);
         }
-        this.setTotalCountPerCart()
+        this.setTotalCountPerCart();
     }
 
     deleteProductFromCart(productId: string){
