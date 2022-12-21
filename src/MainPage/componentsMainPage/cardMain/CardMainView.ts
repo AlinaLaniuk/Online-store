@@ -2,7 +2,7 @@ import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
   public getCardListTemplate() {
-    const cardList = document.createElement("div");
+    const cardList = document.createElement("section");
     cardList.className = "card-list";
 
     const mainContent = <HTMLElement>document.querySelector(".main-content");
