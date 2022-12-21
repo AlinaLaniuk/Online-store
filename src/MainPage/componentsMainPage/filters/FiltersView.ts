@@ -19,7 +19,7 @@ export class FiltersView {
     this.brandList = [];
     this.newCategoryList = [];
     this.newBrandList = [];
-    this.main = <HTMLElement>document.querySelector(".main-content");
+    this.main = <HTMLElement>document.querySelector(".main-wrapper");
   }
 
   // create category list & brand list
@@ -85,7 +85,7 @@ export class FiltersView {
     const filterSection = document.createElement("aside");
     filterSection.className = "filter-section";
 
-    const mainContent = <HTMLElement>document.querySelector(".main-content");
+    const mainContent = <HTMLElement>document.querySelector(".main-wrapper");
     mainContent.append(filterSection);
   }
   // checkbox template
@@ -131,7 +131,7 @@ export class FiltersView {
       `${el.option.toLocaleLowerCase()}-${el.type}`
     );
 
-    const mainContent = <HTMLElement>document.querySelector(".main-content");
+    const mainContent = <HTMLElement>document.querySelector(".main-wrapper");
     const filterSectionList = <HTMLElement>(
       mainContent.querySelector(".filter-section__list")
     );
@@ -198,7 +198,7 @@ export class FiltersView {
       max.textContent = range.max.toString();
     }
 
-    const mainContent = <HTMLElement>document.querySelector(".main-content");
+    const mainContent = <HTMLElement>document.querySelector(".main-wrapper");
     const filterSectionList = <HTMLElement>(
       mainContent.querySelector(".filter-section__list")
     );

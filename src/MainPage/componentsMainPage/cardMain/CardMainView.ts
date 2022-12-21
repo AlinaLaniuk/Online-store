@@ -5,7 +5,7 @@ export class CardMainView {
     const cardList = document.createElement("section");
     cardList.className = "card-list";
 
-    const mainContent = <HTMLElement>document.querySelector(".main-content");
+    const mainContent = <HTMLElement>document.querySelector(".main-wrapper");
     mainContent.append(cardList);
   }
 
