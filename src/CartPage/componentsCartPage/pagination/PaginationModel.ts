@@ -1,9 +1,26 @@
-import { pageNumber, limit, setCurrentLimitValue, increasePageNumber, decreasePageNumber } from "../paginationServices";
+import { pageNumber, limit, setCurrentLimitValue, increasePageNumber, decreasePageNumber, setPaginatedIndexes } from "../paginationServices";
 import { productsQuantityInCart } from "../../../services/appServices";
 class PaginationModel{
-    drawCurrentPage: (pageNumber: number) => void;
+    drawCurrentPageNumber: (pageNumber: number) => void;
     constructor(drawCurrentPage: (pageNumber: number) => void){
-        this.drawCurrentPage = drawCurrentPage;
+        this.drawCurrentPageNumber = drawCurrentPage;
+    }
+
+    getPaginatedIndexes(){
+        const allProductsIndexesInCart = Object.keys(productsQuantityInCart);
+        const paginatedIndexes = [];
+        while(allProductsIndexesInCart.length){
+            const indexesForPage: number[] = [];
+            for(let i = 0; i < limit; i += 1){
+                if(allProductsIndexesInCart.length){
+                    indexesForPage.push(+(allProductsIndexesInCart.shift() as string))
+                } else {
+                    break;
+                }
+            }
+            paginatedIndexes.push(indexesForPage);
+        }
+        setPaginatedIndexes(paginatedIndexes);
     }
 
     passLimitValue(){
@@ -18,18 +35,23 @@ class PaginationModel{
         } 
     }
 
+    setStartLimitValue(){
+        const limitInput = document.querySelector('.products-in-cart__limit__value') as HTMLInputElement;
+        limitInput.value = `${limit}`;
+    }
+
     drawStartPage(){
-        this.drawCurrentPage(pageNumber);
+        this.drawCurrentPageNumber(pageNumber);
     }
 
     goToNextPage(){
         increasePageNumber();
-        this.drawCurrentPage(pageNumber);
+        this.drawCurrentPageNumber(pageNumber);
     }
 
     goToPrevPage(){
         decreasePageNumber();
-        this.drawCurrentPage(pageNumber);
+        this.drawCurrentPageNumber(pageNumber);
     }
 }
 export default PaginationModel;

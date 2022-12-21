@@ -1,5 +1,6 @@
 export let pageNumber: number = 1;
 export let limit: number = 3;
+export let paginatedIndexes: number[][] = [];
 
 export function setCurrentLimitValue(currentLimit: number){
     limit = currentLimit;
@@ -15,4 +16,8 @@ export function decreasePageNumber(){
         pageNumber -= 1;
     }
     console.log(pageNumber);
+}
+
+export function setPaginatedIndexes(newPaginatedIndexes: number[][]){
+    paginatedIndexes = [...newPaginatedIndexes]
 }

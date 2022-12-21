@@ -23,6 +23,7 @@ class PaginationController{
         this.paginationView.searchChangedFields();
         this.paginationModel.drawStartPage();
         this.setPaginationButtonsListener();
+        this.paginationModel.setStartLimitValue();
     }
 }
 export default PaginationController;
