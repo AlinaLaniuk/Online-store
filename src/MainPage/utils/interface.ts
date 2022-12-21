@@ -28,3 +28,8 @@ export interface IRange {
   min: number;
   max: number;
 }
+
+export interface IrangeData {
+  price: IRange;
+  stock: IRange;
+}

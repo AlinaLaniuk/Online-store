@@ -1,5 +1,5 @@
 import onlineStoreData from "../../../data/data";
-// import { IDataItem } from "../../utils/interface";
+import { filterOptionsList } from "../../utils/constants";
 import {
   filterCheckboxItem,
   filterOption,
@@ -15,11 +15,10 @@ export class FiltersModel {
   newCategoryList: filterCheckboxItem[];
   newBrandList: filterCheckboxItem[];
   generateCheckboxItem: Function;
+  rangeData: object;
+  options: filterOption[];
 
-  constructor(
-    generateFilterSection: Function,
-    generateCheckboxItem: Function,
-  ) {
+  constructor(generateFilterSection: Function, generateCheckboxItem: Function) {
     this.categoryList = [];
     this.brandList = [];
     this.newCategoryList = [];
@@ -28,9 +27,14 @@ export class FiltersModel {
     this.generateCheckboxItem = generateCheckboxItem;
 
     this.data = onlineStoreData;
+    this.options = filterOptionsList;
+    this.rangeData = {
+      price: this.getPriceRange(this.data),
+      stock: this.getStockRange(this.data),
+    }
   }
 
-  private getNewCategoryList(data: IDataItem[]): void {
+  getNewCategoryList(data: IDataItem[]): void {
     this.categoryList.sort((a: string, b: string) => (a > b ? 1 : -1));
 
     this.newCategoryList = this.categoryList.map(
@@ -43,7 +47,7 @@ export class FiltersModel {
     );
   }
   // get items number for each brand
-  private getNewBrandList(data: IDataItem[]): void {
+  getNewBrandList(data: IDataItem[]): void {
     this.brandList.sort((a: string, b: string) => (a > b ? 1 : -1));
 
     this.newBrandList = this.brandList.map(
@@ -56,7 +60,7 @@ export class FiltersModel {
     );
   }
 
-  public generateItems(data: IDataItem[]): void {
+  generateItems(data: IDataItem[]): void {
     this.getNewCategoryList(data);
     this.getNewBrandList(data);
 
@@ -73,8 +77,8 @@ export class FiltersModel {
     });
   }
 
-   // create category list & brand list
-   public getCategoryList(data: IDataItem[]): void {
+  // create category list & brand list
+  getCategoryList(data: IDataItem[]): void {
     data.forEach((item: IDataItem): void => {
       const category: string = item.category;
       const brand: string = item.brand;
@@ -88,9 +92,30 @@ export class FiltersModel {
     });
   }
 
-  public getFilterSection(): void {
+  // range
+  getPriceRange(data: IDataItem[]): IRange {
+    data.sort((a: IDataItem, b: IDataItem) => a.price - b.price);
+
+    const min = data[0].price;
+    const max = data[data.length - 1].price;
+
+    return { min: min, max: max };
+  }
+
+  getStockRange(data: IDataItem[]): IRange {
+    data.sort((a: IDataItem, b: IDataItem) => a.stock - b.stock);
+
+    const min = data[0].stock;
+    const max = data[data.length - 1].stock;
+
+    return { min: min, max: max };
+  }
+
+  
+
+  getFilterSection(): void {
+    this.generateFilterSection(this.rangeData, this.options);
     this.getCategoryList(this.data);
-    this.generateFilterSection(this.data);
     this.generateItems(this.data);
   }
 }

@@ -3,9 +3,9 @@ import {
   filterOption,
   IDataItem,
   IRange,
+  IrangeData,
 } from "../../utils/interface";
-import { currencySymbol, filterOptionsList } from "../../utils/constants";
-import { rangeSymbol } from "../../utils/constants";
+import { currencySymbol, rangeSymbol } from "../../utils/constants";
 
 export class FiltersView {
   mainWrapper: HTMLElement;
@@ -15,22 +15,22 @@ export class FiltersView {
   }
 
   // filter list
-  public getFilterSection(): void {
+  getFilterSection(): void {
     const filterSection = document.createElement("aside");
     filterSection.className = "filter-section";
 
-    const filterButtons = document.createElement('div');
-    filterButtons.className = 'filter-section__buttons';
+    const filterButtons = document.createElement("div");
+    filterButtons.className = "filter-section__buttons";
 
-    const resetFiltersBtn = document.createElement('button');
-    resetFiltersBtn.setAttribute('type', 'button');
-    resetFiltersBtn.className = 'filter-section__reset';
-    resetFiltersBtn.textContent = 'Reset Filters';
+    const resetFiltersBtn = document.createElement("button");
+    resetFiltersBtn.setAttribute("type", "button");
+    resetFiltersBtn.className = "filter-section__reset";
+    resetFiltersBtn.textContent = "Reset Filters";
 
-    const copyLinkBtn = document.createElement('button');
-    copyLinkBtn.setAttribute('type', 'button');
-    copyLinkBtn.className = 'filter-section__copy';
-    copyLinkBtn.textContent = 'Copy Link';
+    const copyLinkBtn = document.createElement("button");
+    copyLinkBtn.setAttribute("type", "button");
+    copyLinkBtn.className = "filter-section__copy";
+    copyLinkBtn.textContent = "Copy Link";
 
     filterButtons.append(resetFiltersBtn, copyLinkBtn);
     filterSection.append(filterButtons);
@@ -38,7 +38,7 @@ export class FiltersView {
     this.mainWrapper.append(filterSection);
   }
   // checkbox template
-  public generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
+  generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
     const item = document.createElement("li");
     item.className = "checkbox-item";
 
@@ -65,7 +65,7 @@ export class FiltersView {
     container.append(item);
   }
   // get checkbox filter
-  public generateCheckboxFilter(el: filterOption): void {
+  generateCheckboxFilter(el: filterOption): void {
     const checkboxFilter = document.createElement("li");
     checkboxFilter.className = "filter-item filter-item_type_checkbox";
 
@@ -91,7 +91,7 @@ export class FiltersView {
   }
 
   // range
-  private getPriceRange(data: IDataItem[]): IRange {
+  getPriceRange(data: IDataItem[]): IRange {
     data.sort((a: IDataItem, b: IDataItem) => a.price - b.price);
 
     const min = data[0].price;
@@ -100,7 +100,7 @@ export class FiltersView {
     return { min: min, max: max };
   }
 
-  private getStockRange(data: IDataItem[]): IRange {
+  getStockRange(data: IDataItem[]): IRange {
     data.sort((a: IDataItem, b: IDataItem) => a.stock - b.stock);
 
     const min = data[0].stock;
@@ -109,7 +109,7 @@ export class FiltersView {
     return { min: min, max: max };
   }
 
-  private generateRangeFilter(el: filterOption, data: IDataItem[]): void {
+  generateRangeFilter(el: filterOption, data: IrangeData): void {
     const rangeFilter = document.createElement("li");
     rangeFilter.className = "filter-item filter-item_type_range";
 
@@ -135,12 +135,12 @@ export class FiltersView {
     input.type = "range";
 
     if (el.option === "Price") {
-      const range = this.getPriceRange(data);
+      const range = data.price;
 
       min.textContent = currencySymbol + range.min.toString();
       max.textContent = currencySymbol + range.max.toString();
     } else if (el.option === "Stock") {
-      const range = this.getStockRange(data);
+      const range = data.stock;
 
       min.textContent = range.min.toString();
       max.textContent = range.max.toString();
@@ -159,7 +159,7 @@ export class FiltersView {
   }
 
   // content
-  public generateFilterSection(data: IDataItem[]): void {
+  generateFilterSection(data: IrangeData, options: filterOption[]): void {
     this.getFilterSection();
 
     const filterSectionList = document.createElement("ul");
@@ -169,7 +169,7 @@ export class FiltersView {
     );
     filterSection.append(filterSectionList);
 
-    filterOptionsList.forEach((item: filterOption): void => {
+    options.forEach((item: filterOption): void => {
       if (item.type === "checkbox") {
         this.generateCheckboxFilter(item);
       } else if (item.type === "range") {

@@ -13,7 +13,7 @@ export class FiltersController {
     );
   }
 
-  public run(): void {
+  run(): void {
     this.model.getFilterSection();
   }
 }
