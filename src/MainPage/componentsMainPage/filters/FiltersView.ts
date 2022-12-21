@@ -5,20 +5,21 @@ import {
   IRange,
 } from "../../utils/interface";
 import { currencySymbol, filterOptionsList } from "../../utils/constants";
-import { rangeSymbol } from "../../utils/dist/constants";
+import { rangeSymbol } from "../../utils/constants";
 
 export class FiltersView {
   categoryList: string[];
   brandList: string[];
   newCategoryList: filterCheckboxItem[];
   newBrandList: filterCheckboxItem[];
-  main = <HTMLElement>document.querySelector(".main");
+  main: HTMLElement;
 
   constructor() {
     this.categoryList = [];
     this.brandList = [];
     this.newCategoryList = [];
     this.newBrandList = [];
+    this.main = <HTMLElement>document.querySelector(".main-content");
   }
 
   // create category list & brand list
@@ -80,12 +81,12 @@ export class FiltersView {
   }
 
   // filter list
-  public getFilterList(): void {
-    const filterList = document.createElement("div");
-    filterList.className = "filter-list";
+  public getFilterSection(): void {
+    const filterSection = document.createElement("aside");
+    filterSection.className = "filter-section";
 
     const mainContent = <HTMLElement>document.querySelector(".main-content");
-    mainContent.append(filterList);
+    mainContent.append(filterSection);
   }
   // checkbox template
   generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
@@ -115,7 +116,7 @@ export class FiltersView {
     container.append(item);
   }
   // get checkbox filter
-  private generateCheckboxFilter(el: filterOption): void {
+  generateCheckboxFilter(el: filterOption): void {
     const checkboxFilter = document.createElement("li");
     checkboxFilter.className = "filter-item filter-item_type_checkbox";
 
@@ -130,10 +131,15 @@ export class FiltersView {
       `${el.option.toLocaleLowerCase()}-${el.type}`
     );
 
+    const mainContent = <HTMLElement>document.querySelector(".main-content");
     const filterSectionList = <HTMLElement>(
-      this.main.querySelector(".filter-section__list")
+      mainContent.querySelector(".filter-section__list")
     );
-    filterSectionList.append(checkboxFilter);
+
+    checkboxFilter.append(title, filterList);
+    if (filterSectionList) {
+      filterSectionList.append(checkboxFilter);
+    }
   }
 
   // range
@@ -192,14 +198,30 @@ export class FiltersView {
       max.textContent = range.max.toString();
     }
 
+    const mainContent = <HTMLElement>document.querySelector(".main-content");
     const filterSectionList = <HTMLElement>(
-      this.main.querySelector(".filter-section__list")
+      mainContent.querySelector(".filter-section__list")
     );
-    filterSectionList.append(rangeFilter);
+
+    desc.append(min, span, max);
+    rangeFilter.append(title, desc, input);
+
+    if (filterSectionList) {
+      filterSectionList.append(rangeFilter);
+    }
   }
 
   // content
   generateFilterSection(data: IDataItem[]): void {
+    this.getFilterSection();
+
+    const filterSectionList = document.createElement("ul");
+    filterSectionList.className = "filter-section__list";
+    const filterSection = <HTMLElement>(
+      document.querySelector(".filter-section")
+    );
+    filterSection.append(filterSectionList);
+
     filterOptionsList.forEach((item): void => {
       if (item.type === "checkbox") {
         this.generateCheckboxFilter(item);

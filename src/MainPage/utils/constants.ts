@@ -20,7 +20,7 @@ export const cardsSectionTemplate = "cards-section-template";
 export const cardsSectionContent = "cards-section";
 
 export const currencySymbol: string = "€";
-export const rangeSymbol: string = "€";
+export const rangeSymbol: string = "⟷";
 
 export const filterOptionsList = [
   {
