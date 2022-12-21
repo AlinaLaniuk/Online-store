@@ -23,7 +23,7 @@ export class FiltersView {
   }
 
   // create category list & brand list
-  getCategoryList(data: IDataItem[]): void {
+  public getCategoryList(data: IDataItem[]): void {
     data.forEach((item: IDataItem): void => {
       const category: string = item.category;
       const brand: string = item.brand;
@@ -37,7 +37,7 @@ export class FiltersView {
     });
   }
   // get items number for each category
-  getNewCategoryList(data: IDataItem[]): void {
+  private getNewCategoryList(data: IDataItem[]): void {
     this.categoryList.sort((a: string, b: string) => (a > b ? 1 : -1));
 
     this.newCategoryList = this.categoryList.map(
@@ -50,7 +50,7 @@ export class FiltersView {
     );
   }
   // get items number for each brand
-  getNewBrandList(data: IDataItem[]): void {
+  private getNewBrandList(data: IDataItem[]): void {
     this.brandList.sort((a: string, b: string) => (a > b ? 1 : -1));
 
     this.newBrandList = this.brandList.map(
@@ -63,7 +63,7 @@ export class FiltersView {
     );
   }
 
-  generateItems(data: IDataItem[]): void {
+  public generateItems(data: IDataItem[]): void {
     this.getNewCategoryList(data);
     this.getNewBrandList(data);
 
@@ -89,7 +89,7 @@ export class FiltersView {
     mainContent.append(filterSection);
   }
   // checkbox template
-  generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
+  private generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
     const item = document.createElement("li");
     item.className = "checkbox-item";
 
@@ -116,7 +116,7 @@ export class FiltersView {
     container.append(item);
   }
   // get checkbox filter
-  generateCheckboxFilter(el: filterOption): void {
+  private generateCheckboxFilter(el: filterOption): void {
     const checkboxFilter = document.createElement("li");
     checkboxFilter.className = "filter-item filter-item_type_checkbox";
 
@@ -125,7 +125,7 @@ export class FiltersView {
     title.textContent = el.option;
 
     const filterList = document.createElement("ul");
-    filterList.className = ".filter-item__list";
+    filterList.className = "filter-item__list";
     filterList.setAttribute(
       "id",
       `${el.option.toLocaleLowerCase()}-${el.type}`
@@ -143,7 +143,7 @@ export class FiltersView {
   }
 
   // range
-  getPriceRange(data: IDataItem[]): IRange {
+  private getPriceRange(data: IDataItem[]): IRange {
     data.sort((a: IDataItem, b: IDataItem) => a.price - b.price);
 
     const min = data[0].price;
@@ -152,7 +152,7 @@ export class FiltersView {
     return { min: min, max: max };
   }
 
-  getStockRange(data: IDataItem[]): IRange {
+  private getStockRange(data: IDataItem[]): IRange {
     data.sort((a: IDataItem, b: IDataItem) => a.stock - b.stock);
 
     const min = data[0].stock;
@@ -161,12 +161,12 @@ export class FiltersView {
     return { min: min, max: max };
   }
 
-  generateRangeFilter(el: filterOption, data: IDataItem[]): void {
+  private generateRangeFilter(el: filterOption, data: IDataItem[]): void {
     const rangeFilter = document.createElement("li");
     rangeFilter.className = "filter-item filter-item_type_range";
 
     const title = document.createElement("h3");
-    title.className = ".filter-item__title";
+    title.className = "filter-item__title";
     title.textContent = el.option;
 
     const desc = document.createElement("div");
@@ -177,10 +177,10 @@ export class FiltersView {
     span.textContent = rangeSymbol;
 
     const min = document.createElement("p");
-    min.className = ".filter-item__min";
+    min.className = "filter-item__min";
 
     const max = document.createElement("p");
-    max.className = ".filter-item__max";
+    max.className = "filter-item__max";
 
     const input = document.createElement("input");
     input.className = "filter-item__range";
@@ -212,7 +212,7 @@ export class FiltersView {
   }
 
   // content
-  generateFilterSection(data: IDataItem[]): void {
+  public generateFilterSection(data: IDataItem[]): void {
     this.getFilterSection();
 
     const filterSectionList = document.createElement("ul");
@@ -222,7 +222,7 @@ export class FiltersView {
     );
     filterSection.append(filterSectionList);
 
-    filterOptionsList.forEach((item): void => {
+    filterOptionsList.forEach((item: filterOption): void => {
       if (item.type === "checkbox") {
         this.generateCheckboxFilter(item);
       } else if (item.type === "range") {
