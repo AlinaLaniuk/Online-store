@@ -94,4 +94,16 @@ export class DisplayBarView {
 
     this.setViewInitial();
   }
+
+  handleViewSmall(list: HTMLElement): void {
+    list.classList.add("card-list_type_small");
+    this.cardsViewButtons![0].removeAttribute("disabled");
+    this.cardsViewButtons![0].removeAttribute("checked");
+  }
+
+  handleViewBig(list: HTMLElement) {
+    list.classList.remove("card-list_type_small");
+    this.cardsViewButtons![1].removeAttribute("disabled");
+    this.cardsViewButtons![1].removeAttribute("checked");
+  }
 }
