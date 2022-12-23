@@ -1,3 +1,4 @@
+import { view } from "../../utils/constants";
 import { DisplayBardModel } from "./displayBarModel";
 import { DisplayBarView } from "./displayBarView";
 
@@ -10,7 +11,7 @@ export class DisplayBarController {
     this.model = new DisplayBardModel(
       this.view.generateSection.bind(this.view),
       this.view.handleViewBig.bind(this.view),
-      this.view.handleViewSmall.bind(this.view),
+      this.view.handleViewSmall.bind(this.view)
     );
   }
 
@@ -22,8 +23,16 @@ export class DisplayBarController {
     });
   }
 
+  setSearchBar() {
+    this.view.searchBar!.addEventListener("input", () => {
+      view.search = this.view.searchBar!.value;
+      this.view.searchBar!.setAttribute('value', this.view.searchBar!.value);
+    });
+  }
+
   run(): void {
     this.model.getDisplayBar();
     this.setViewBar();
+    this.setSearchBar();
   }
 }

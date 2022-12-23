@@ -9,11 +9,17 @@ export class CardMainController {
     this.view = new CardMainView();
     this.model = new CardMainModel(
       this.view.getCardTemplate,
-      this.view.getCardListTemplate.bind(this.view)
+      this.view.getCardListTemplate.bind(this.view),
+      this.view.updateCardsView.bind(this.view),
+      this.view.refreshCardList.bind(this.view)
     );
   }
 
   public run(): void {
     this.model.getCardList();
+  }
+
+  update(): void {
+    this.model.updateCardsList();
   }
 }

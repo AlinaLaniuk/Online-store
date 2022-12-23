@@ -13,12 +13,22 @@
   }
 
   .display-bar__button-list {
-    display: flex;
+    display: grid;
     gap: 10px;
+
+    .display-bar__button-title {
+      margin: 0;
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
 
     .display-bar__view-label {
       display: flex;
       gap: 5px;
+      grid-row-start: 2;
+      grid-row-end: 3;
     }
   }
 }

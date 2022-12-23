@@ -54,3 +54,8 @@ export const sortOptionsList = [
   "discount ASC",
   "discount DESC",
 ];
+
+export const view = {
+  isBig: true,
+  search: '',
+}

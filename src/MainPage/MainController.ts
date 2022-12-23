@@ -26,4 +26,8 @@ export class MainController {
     this.displayBarController.run();
     this.cardMainController.run();
   }
+
+  update(): void {
+    this.cardMainController.update();
+  }
 }

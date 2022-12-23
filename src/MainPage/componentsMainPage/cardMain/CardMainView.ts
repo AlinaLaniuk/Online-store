@@ -6,15 +6,26 @@ export class CardMainView {
   constructor() {
     this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
   }
-  
+
   public getCardListTemplate() {
-    const cardList = document.createElement("section");
+    const cardsSection = document.createElement("section");
+    cardsSection.className = "card-section";
+
+    const cardList = document.createElement("ul");
     cardList.className = "card-list";
 
-    this.mainWrapper.append(cardList);
+    cardsSection.append(cardList);
+    this.mainWrapper.append(cardsSection);
+  }
+
+  public refreshCardList(): void {
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+    cardList.innerHTML = '';
   }
 
   public getCardTemplate(data: IDataItem, currencySymbol: string): void {
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+
     const card = document.createElement("li");
     card.className = "card";
 
@@ -69,7 +80,16 @@ export class CardMainView {
       cardStock
     );
 
-    const cardList = <HTMLElement>document.querySelector(".card-list");
     cardList.append(card);
+  }
+
+  updateCardsView(view: boolean): void {
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+
+    if (view === true) {
+      cardList.classList.remove("card-list_type_small");
+    } else {
+      cardList.classList.add("card-list_type_small");
+    }
   }
 }

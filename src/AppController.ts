@@ -7,5 +7,8 @@ class AppController{
     run(){
         this.mainController.run();
     }
+    update(){
+        this.mainController.update();
+    }
 }
 export default AppController;
