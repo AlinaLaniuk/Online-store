@@ -60,7 +60,7 @@ export class FiltersModel {
     );
   }
 
-  generateItems(data: IDataItem[]): void {
+  getItems(data: IDataItem[]): void {
     this.getNewCategoryList(data);
     this.getNewBrandList(data);
 
@@ -116,6 +116,6 @@ export class FiltersModel {
   getFilterSection(): void {
     this.generateFilterSection(this.rangeData, this.options);
     this.getCategoryList(this.data);
-    this.generateItems(this.data);
+    this.getItems(this.data);
   }
 }

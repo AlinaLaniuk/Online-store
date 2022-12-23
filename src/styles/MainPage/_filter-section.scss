@@ -56,6 +56,22 @@
         height: 200px;
         overflow: hidden;
         overflow-y: auto;
+
+        .checkbox-item {
+          width: 100%;
+          display: flex;
+          gap: 20px;
+
+          .checkbox-item__label {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .checkbox-item__text {
+              margin: 0;
+            }
+          }
+        }
       }
     }
 
@@ -68,8 +84,8 @@
         justify-content: space-between;
         align-items: center;
 
-        .filter-item__min,
-        .filter-item__max {
+        .filter-range__min,
+        .filter-range__max {
           margin: 0;
         }
       }

@@ -4,10 +4,21 @@
   justify-content: space-between;
   align-items: center;
 
-  .sort-bar,
-  .search-bar {
+  .display-bar__sort-bar,
+  .display-bar__search-bar {
     width: 20%;
     padding: 5px;
+    border-radius: 20px;
     text-align: center;
+  }
+
+  .display-bar__button-list {
+    display: flex;
+    gap: 10px;
+
+    .display-bar__view-label {
+      display: flex;
+      gap: 5px;
+    }
   }
 }

@@ -15,7 +15,7 @@ export class FiltersView {
   }
 
   // filter list
-  getFilterSection(): void {
+  generateSectionTemplate(): void {
     const filterSection = document.createElement("aside");
     filterSection.className = "filter-section";
 
@@ -51,13 +51,15 @@ export class FiltersView {
     label.className = "checkbox-item__label";
     label.setAttribute("for", "category-item");
 
-    const span = document.createElement("span");
-    label.className = "checkbox-item__span";
+    const text = document.createElement("p");
+    text.className = "checkbox-item__text";
+    text.textContent = data.title;
 
-    label.textContent = data.title;
+    const span = document.createElement("span");
+    span.className = "checkbox-item__span";
 
     span.textContent = `(${data.items}/${data.items})`;
-    label.append(span);
+    label.append(text, span);
     input.setAttribute("id", data.title);
 
     item.append(input, label);
@@ -111,7 +113,7 @@ export class FiltersView {
 
   generateRangeFilter(el: filterOption, data: IrangeData): void {
     const rangeFilter = document.createElement("li");
-    rangeFilter.className = "filter-item filter-item_type_range";
+    rangeFilter.className = "filter-item filter-item_type_range filter-range";
 
     const title = document.createElement("h3");
     title.className = "filter-item__title";
@@ -121,17 +123,17 @@ export class FiltersView {
     desc.className = "filter-range__desc";
 
     const span = document.createElement("span");
-    span.className = "filter-item__symbol";
+    span.className = "filter-range__symbol";
     span.textContent = rangeSymbol;
 
     const min = document.createElement("p");
-    min.className = "filter-item__min";
+    min.className = "filter-range__min";
 
     const max = document.createElement("p");
-    max.className = "filter-item__max";
+    max.className = "filter-range__max";
 
     const input = document.createElement("input");
-    input.className = "filter-item__range";
+    input.className = "filter-range__range";
     input.type = "range";
 
     if (el.option === "Price") {
@@ -160,7 +162,7 @@ export class FiltersView {
 
   // content
   generateFilterSection(data: IrangeData, options: filterOption[]): void {
-    this.getFilterSection();
+    this.generateSectionTemplate();
 
     const filterSectionList = document.createElement("ul");
     filterSectionList.className = "filter-section__list";
