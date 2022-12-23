@@ -6,15 +6,18 @@ export class DisplayBardModel {
   generateSection: Function;
   handleViewBig: Function;
   handleViewSmall: Function;
+  updateFoundItemsNum: Function;
 
   constructor(
     generateSection: Function,
     handleViewBig: Function,
-    handleViewSmall: Function
+    handleViewSmall: Function,
+    updateFoundItemsNum: Function,
   ) {
     this.generateSection = generateSection;
     this.handleViewBig = handleViewBig;
     this.handleViewSmall = handleViewSmall;
+    this.updateFoundItemsNum = updateFoundItemsNum;
   }
 
   handleCardViewChange(event: Event): void {
@@ -33,7 +36,12 @@ export class DisplayBardModel {
     view.isBig = !view.isBig;
   }
 
+  updateItemsNum() {
+    this.updateFoundItemsNum(view.itemsFound);
+  }
+
   getDisplayBar(): void {
-    this.generateSection(onlineStoreData.length, sortOptionsList);
+    view.itemsFound = onlineStoreData.length;
+    this.generateSection(view.itemsFound, sortOptionsList);
   }
 }

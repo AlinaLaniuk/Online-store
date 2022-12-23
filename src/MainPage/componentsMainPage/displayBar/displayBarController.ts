@@ -11,7 +11,8 @@ export class DisplayBarController {
     this.model = new DisplayBardModel(
       this.view.generateSection.bind(this.view),
       this.view.handleViewBig.bind(this.view),
-      this.view.handleViewSmall.bind(this.view)
+      this.view.handleViewSmall.bind(this.view),
+      this.view.updateFoundItemsNum.bind(this.view),
     );
   }
 
@@ -28,6 +29,10 @@ export class DisplayBarController {
       view.search = this.view.searchBar!.value;
       this.view.searchBar!.setAttribute('value', this.view.searchBar!.value);
     });
+  }
+
+  update() {
+    this.model.updateItemsNum();
   }
 
   run(): void {

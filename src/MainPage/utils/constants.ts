@@ -56,6 +56,7 @@ export const sortOptionsList = [
 ];
 
 export const view = {
+  itemsFound: 0,
   isBig: true,
   search: '',
 }

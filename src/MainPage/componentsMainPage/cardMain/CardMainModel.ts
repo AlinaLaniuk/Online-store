@@ -7,7 +7,19 @@ export class CardMainModel {
   getCardListTemplate: Function;
   updateCardsView: Function;
   refreshCardList: Function;
-  data: { id: number; title: string; description: string; price: number; discountPercentage: number; rating: number; stock: number; brand: string; category: string; thumbnail: string; images: string[]; }[];
+  data: {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+  }[];
 
   constructor(
     getCardTemplate: Function,
@@ -25,15 +37,21 @@ export class CardMainModel {
   public getCardList(): void {
     this.getCardListTemplate();
 
-    onlineStoreData.forEach((item: IDataItem): void => {
+    this.data.forEach((item: IDataItem): void => {
       this.getCardTemplate(item, currencySymbol);
     });
+
+    view.itemsFound = this.data.length;
   }
 
   private filterData() {
     this.data = onlineStoreData.filter((item) => {
-      return item.title.toLocaleLowerCase().includes(view.search.toLocaleLowerCase());
+      return item.title
+        .toLocaleLowerCase()
+        .includes(view.search.toLocaleLowerCase());
     });
+
+    view.itemsFound = this.data.length;
   }
 
   updateCardsList(): void {

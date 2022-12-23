@@ -112,4 +112,9 @@ export class DisplayBarView {
     this.cardsViewButtons![1].removeAttribute("disabled");
     this.cardsViewButtons![1].removeAttribute("checked");
   }
+
+  updateFoundItemsNum(items: number) {
+    const itemsNum = <HTMLElement>document.querySelector(".display-bar__items-num");
+    itemsNum.textContent = `Found: ${items}`;
+  }
 }
