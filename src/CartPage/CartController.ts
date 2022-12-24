@@ -26,6 +26,7 @@ class CartController{
         this.paginationController.run();
         productsInCartInfo.subscribe(this.paginationController.subscribeToAppServicesChanges);
         this.summaryController.run();
+        productsInCartInfo.subscribe(this.summaryController.subscribeToTotalQuantityChanging);
     }
 }
 export default CartController;
