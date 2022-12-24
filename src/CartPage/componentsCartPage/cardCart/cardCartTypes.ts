@@ -5,6 +5,7 @@ interface viewCallbacksI {
     drawNewProductQuantity: (productId: string, newQuantityValue: number) => void;
     deleteCard: (productId: string) => void;
     drawTotalCostPerProduct: (productId: string, totalCost: number) => void;
+    deleteCurrentCards: () => void;
 }
 
 export default viewCallbacksI;

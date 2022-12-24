@@ -42,8 +42,13 @@ class CardCartView{
 
     deleteCard(productId: string){
       const cardContainer = document.querySelector(`.products-in-cart__content`) as HTMLElement;
-      const card =  cardContainer.querySelector(`.card[data-id="${productId}"]`) as HTMLElement;
+      const card =  cardContainer.querySelector(`.card[data-id="${productId}"]`) as Node;
       cardContainer.removeChild(card);
+    }
+
+    deleteCurrentCards(){
+      const cardContainer = document.querySelector(`.products-in-cart__content`) as HTMLElement;
+      cardContainer.innerHTML = '';
     }
 
     drawTotalCostPerProduct(productId: string, totalCost: number){

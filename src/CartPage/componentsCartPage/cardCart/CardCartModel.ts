@@ -1,46 +1,58 @@
-import { productInfoType, productsInfo } from "../../types";
 import viewCallbacksI from "./cardCartTypes";
 import onlineStoreData from "../../../data/data";
-import { productsQuantityInCart, totalCost } from "../../../services/appServices";
+import { productsInCartInfo, totalCost } from "../../../services/appServices";
 class CardCartModel{
     viewCallbacks: viewCallbacksI;
+    currentIndexes: number[];
     constructor(viewCallbacks: viewCallbacksI){
         this.viewCallbacks = viewCallbacks;
+        this.currentIndexes = [];
+    }
+
+    setCurrentIndexes(indexes: number[]){
+        this.currentIndexes = [...indexes];
     }
 
     getCurrentProductsInCartInfo(){
-        const productsIndexInCart = Object.keys(productsQuantityInCart);
-        return productsIndexInCart.map((index) => onlineStoreData[+index] );
+        return this.currentIndexes.map((index) => onlineStoreData[index] );
     }
 
     increaseProductQuantity(productId: string){
-        productsQuantityInCart[productId] += 1;
-        this.viewCallbacks.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
-        this.drawNewCostPerProduct(productId);
-        this.setTotalCountPerCart()
+        const productQuantityValue = productsInCartInfo.quantity[productId];
+        if(productQuantityValue < onlineStoreData[+productId].stock){
+            const newProductQuantityValue = productQuantityValue + 1;
+            productsInCartInfo.changeQuantity(productId, newProductQuantityValue);
+            this.viewCallbacks.drawNewProductQuantity(productId, productsInCartInfo.quantity[productId]);
+            this.drawNewCostPerProduct(productId);
+            this.setTotalCountPerCart()
+        }
     }
 
     decreaseProductQuantity(productId: string){
-        if(productsQuantityInCart[productId] === 1){
-            this.deleteProductFromCart(productId)
+        const productQuantityValue = productsInCartInfo.quantity[productId];
+        if(productsInCartInfo.quantity[productId] === 1){
+            productsInCartInfo.changeQuantity(productId, 0);
+            // this.deleteProductFromCart(productId);
         } else {
-            productsQuantityInCart[productId] -= 1; 
-            this.viewCallbacks.drawNewProductQuantity(productId, productsQuantityInCart[productId]);
+            const newProductQuantityValue = productQuantityValue - 1;
+            productsInCartInfo.changeQuantity(productId, newProductQuantityValue); 
+            this.viewCallbacks.drawNewProductQuantity(productId, productsInCartInfo.quantity[productId]);
             this.drawNewCostPerProduct(productId);
         }
         this.setTotalCountPerCart();
     }
 
     deleteProductFromCart(productId: string){
-        delete productsQuantityInCart[productId];
         this.viewCallbacks.deleteCard(productId);
     }
     
     drawCards(){
+        console.log('hi')
         const productsInCartData = this.getCurrentProductsInCartInfo();
+        this.viewCallbacks.deleteCurrentCards();
         productsInCartData.forEach((productData, index) => {
             const productDataIdStr = `${productData.id}`;
-            const productQuantity = productsQuantityInCart[productDataIdStr];
+            const productQuantity = productsInCartInfo.quantity[productDataIdStr];
             this.viewCallbacks.drawStartState(productData, index, productQuantity);
             const totalPrice = this.setTotalCostPerProduct(productData.id);
             this.viewCallbacks.drawTotalCostPerProduct(`${productData.id}`, totalPrice);
@@ -52,13 +64,13 @@ class CardCartModel{
     }
 
     setTotalCountPerCart(){
-        const productsIndexInCart = Object.keys(productsQuantityInCart);
-        totalCost: productsIndexInCart.reduce((acc, index) => acc + (onlineStoreData[+index].price * productsQuantityInCart[index]), 0);
+        const productsIndexInCart = Object.keys(productsInCartInfo.quantity);
+        totalCost: productsIndexInCart.reduce((acc, index) => acc + (onlineStoreData[+index].price * productsInCartInfo.quantity[index]), 0);
     }
 
     setTotalCostPerProduct(productId: number){
         const pricePerUnit = onlineStoreData[+productId].price;
-        const totalCost = pricePerUnit * productsQuantityInCart[productId];
+        const totalCost = pricePerUnit * productsInCartInfo.quantity[productId];
         return totalCost;
     }
 }

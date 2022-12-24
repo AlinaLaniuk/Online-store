@@ -1,57 +1,85 @@
-import { pageNumber, limit, setCurrentLimitValue, increasePageNumber, decreasePageNumber, setPaginatedIndexes } from "../paginationServices";
-import { productsQuantityInCart } from "../../../services/appServices";
+import paginationServices from "../paginationServices";
+import { productsInCartInfo } from "../../../services/appServices";
 class PaginationModel{
     drawCurrentPageNumber: (pageNumber: number) => void;
+    paginatedIndexes: number [][];
     constructor(drawCurrentPage: (pageNumber: number) => void){
         this.drawCurrentPageNumber = drawCurrentPage;
+        this.paginatedIndexes = [];
     }
 
     getPaginatedIndexes(){
-        const allProductsIndexesInCart = Object.keys(productsQuantityInCart);
-        const paginatedIndexes = [];
+        const allProductsIndexesInCart = Object.keys(productsInCartInfo.quantity);
+        const newPaginatedIndexes = [];
         while(allProductsIndexesInCart.length){
             const indexesForPage: number[] = [];
-            for(let i = 0; i < limit; i += 1){
+            for(let i = 0; i < paginationServices.limit; i += 1){
                 if(allProductsIndexesInCart.length){
                     indexesForPage.push(+(allProductsIndexesInCart.shift() as string))
                 } else {
                     break;
                 }
             }
-            paginatedIndexes.push(indexesForPage);
+            newPaginatedIndexes.push(indexesForPage);
         }
-        setPaginatedIndexes(paginatedIndexes);
+        this.paginatedIndexes = [...newPaginatedIndexes];
+        paginationServices.pageQuantity = this.paginatedIndexes.length;
+    }
+    
+    getCurrentPageIndexesForDrawing(){
+        let indexOfCurrentArrayForDrawing = paginationServices.pageNumber - 1;
+        if(this.paginatedIndexes[indexOfCurrentArrayForDrawing]){
+            paginationServices.setCurrentIndexesForDrawingCards(this.paginatedIndexes[indexOfCurrentArrayForDrawing]);
+        } else {
+            indexOfCurrentArrayForDrawing = this.paginatedIndexes.length - 1;
+            paginationServices.pageNumber = this.paginatedIndexes.length;
+            this.drawStartPageNumber();
+            paginationServices.setCurrentIndexesForDrawingCards(this.paginatedIndexes[indexOfCurrentArrayForDrawing]);
+        }
     }
 
-    passLimitValue(){
-        const limitInput = document.querySelector('.products-in-cart__limit__value') as HTMLInputElement;
-        const limitInputValue = +limitInput.value;
+    passLimitValue(limitInputValue: number){
+        let nextProductsQuantity = 0;
         if(typeof limitInputValue === "number"){
-            if(limitInputValue > 0){
-                setCurrentLimitValue(limitInputValue);
-            } else if(limitInputValue === 0){
-                setCurrentLimitValue(productsQuantityInCart.length);
-            }
+            paginationServices.setCurrentLimitValue(limitInputValue);
+            this.getPaginatedIndexes();
+            this.getCurrentPageIndexesForDrawing();
+            // for(let i = (paginationServices.pageNumber - 1); i < this.paginatedIndexes.length; i += 1){
+            //     console.log(paginationServices.pageNumber)
+            //     nextProductsQuantity += this.paginatedIndexes[paginationServices.pageNumber - 1].length;
+            // }
+            // console.log(nextProductsQuantity)
+            // if(nextProductsQuantity >= limitInputValue){
+            //     paginationServices.setCurrentLimitValue(limitInputValue);
+            //     this.getPaginatedIndexes();
+            //     this.getCurrentPageIndexesForDrawing();
+            // } else {
+            //     paginationServices.setCurrentLimitValue(productsInCartInfo.quantity.length);
+            // }
         } 
     }
 
     setStartLimitValue(){
         const limitInput = document.querySelector('.products-in-cart__limit__value') as HTMLInputElement;
-        limitInput.value = `${limit}`;
+        limitInput.value = `${paginationServices.limit}`;
     }
 
-    drawStartPage(){
-        this.drawCurrentPageNumber(pageNumber);
+    drawStartPageNumber(){
+        this.drawCurrentPageNumber(paginationServices.pageNumber);
     }
 
     goToNextPage(){
-        increasePageNumber();
-        this.drawCurrentPageNumber(pageNumber);
+        paginationServices.increasePageNumber();
+        this.drawCurrentPageNumber(paginationServices.pageNumber);
+        this.getPaginatedIndexes();
+        this.getCurrentPageIndexesForDrawing();
     }
 
     goToPrevPage(){
-        decreasePageNumber();
-        this.drawCurrentPageNumber(pageNumber);
+        paginationServices.decreasePageNumber();
+        this.drawCurrentPageNumber(paginationServices.pageNumber);
+        this.getPaginatedIndexes();
+        this.getCurrentPageIndexesForDrawing();
     }
 }
 export default PaginationModel;
