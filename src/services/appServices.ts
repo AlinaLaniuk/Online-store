@@ -1,3 +1,4 @@
+import onlineStoreData from "../data/data";
 export const productsInCartInfo: productsInCartInfoI = {
     quantity: {
         '0': 3,
@@ -12,9 +13,16 @@ export const productsInCartInfo: productsInCartInfoI = {
         '67': 4,
     },
     totalQuantity: 0,
+    totalCost: 0,
     countTotalQuantity(){
         const quantityObjValues = Object.values(this.quantity);
         this.totalQuantity = quantityObjValues.reduce((acc, value) => acc + value);
+    },
+    countTotalCost(){
+        const productsInCartIndexes = Object.keys(this.quantity);
+        this.totalCost = productsInCartIndexes.reduce((acc, key) => { 
+            return acc + onlineStoreData[+key].price * this.quantity[+key] 
+        }, 0 )
     },
     changeQuantity(productId, quantity){
         if(quantity === 0){
@@ -22,7 +30,7 @@ export const productsInCartInfo: productsInCartInfoI = {
         } else {
             this.quantity[productId] = quantity;
         }
-        this.countTotalQuantity();
+        this.countTotalCost();
         this.notify();
     },
     subscribers: [],
@@ -41,9 +49,10 @@ interface productsInCartInfoI {
     quantity: { [key: string]: number };
     subscribers: Function[];
     totalQuantity:number;
+    totalCost: number;
     changeQuantity: (productId: string, quantity: number) => void;
+    countTotalCost: () => void;
     countTotalQuantity: () => void;
     subscribe: (func: Function) => void;
     notify: () => void;
 }
-export let totalCost: number = 0;

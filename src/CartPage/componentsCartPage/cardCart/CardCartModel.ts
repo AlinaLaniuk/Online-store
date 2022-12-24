@@ -1,6 +1,6 @@
 import viewCallbacksI from "./cardCartTypes";
 import onlineStoreData from "../../../data/data";
-import { productsInCartInfo, totalCost } from "../../../services/appServices";
+import { productsInCartInfo } from "../../../services/appServices";
 class CardCartModel{
     viewCallbacks: viewCallbacksI;
     currentIndexes: number[];
@@ -24,7 +24,6 @@ class CardCartModel{
             productsInCartInfo.changeQuantity(productId, newProductQuantityValue);
             this.viewCallbacks.drawNewProductQuantity(productId, productsInCartInfo.quantity[productId]);
             this.drawNewCostPerProduct(productId);
-            this.setTotalCountPerCart()
         }
     }
 
@@ -39,7 +38,6 @@ class CardCartModel{
             this.viewCallbacks.drawNewProductQuantity(productId, productsInCartInfo.quantity[productId]);
             this.drawNewCostPerProduct(productId);
         }
-        this.setTotalCountPerCart();
     }
 
     deleteProductFromCart(productId: string){
@@ -61,11 +59,6 @@ class CardCartModel{
 
     drawNewCostPerProduct(productId: string){
         this.viewCallbacks.drawTotalCostPerProduct(productId, this.setTotalCostPerProduct(+productId))
-    }
-
-    setTotalCountPerCart(){
-        const productsIndexInCart = Object.keys(productsInCartInfo.quantity);
-        totalCost: productsIndexInCart.reduce((acc, index) => acc + (onlineStoreData[+index].price * productsInCartInfo.quantity[index]), 0);
     }
 
     setTotalCostPerProduct(productId: number){
