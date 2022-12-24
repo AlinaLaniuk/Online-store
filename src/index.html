@@ -20,7 +20,7 @@
         <div class="products-in-cart__title">Products In Cart</div>
         <div class="products-in-cart__limit">
           <div class="products-in-cart__limit__title">Items:</div>
-          <input type="text" class="products-in-cart__limit__value"></input>
+          <input type="text" class="products-in-cart__limit__value">
         </div>
         <div class="products-in-cart__pagination">
           <div class="products-in-cart__pagination__title">Page:</div>
@@ -31,6 +31,18 @@
       </div>
       <div class="products-in-cart__content"></div>
     </div>
+  </template>
+  <template id="summary">
+    <div class="summary-container">
+      <div class="summary-title">Summary</div>
+      <div class="summary-body">
+        <div class="summary__product-quantity"></div>
+        <div class="summary__total-cost"></div>
+        <input type="text" placeholder="Enter promo code" class="summary__promo-input">
+        <div class="summary__promo-help">Promo for test: 'RS', 'EPM'</div>
+        <button class="summary__button">BUY NOW</button>
+      </div>
+    </div>  
   </template>
 </body>
 
