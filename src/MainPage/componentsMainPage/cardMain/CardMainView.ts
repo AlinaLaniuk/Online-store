@@ -64,12 +64,25 @@ export class CardMainView {
     const cardRating = document.createElement("p");
     cardRating.className = "card__rating";
     cardRating.textContent = `Rating: ${data.rating.toFixed(2)}%`;
-
+    
     const cardStock = document.createElement("p");
     cardStock.className = "card__stock";
     cardStock.textContent = `Stock: ${data.stock}`;
+    
+    const cardButtons = document.createElement("div");
+    cardButtons.className = "card__buttons";
+    
+    const addBtn = document.createElement("button");
+    addBtn.className = "card__add-button";
+    addBtn.textContent = 'Add to card';
+    
+    const detailsBtn = document.createElement("button");
+    detailsBtn.className = "card__details-button";
+    detailsBtn.textContent = 'Details';
 
-    card.append(cardImage, cardContent);
+
+    cardButtons.append(addBtn, detailsBtn)
+    card.append(cardImage, cardContent, cardButtons);
     cardContent.append(cardTitle, cardDesc);
     cardDesc.append(
       cardCategory,

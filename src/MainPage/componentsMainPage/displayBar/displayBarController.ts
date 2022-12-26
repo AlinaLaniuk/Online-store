@@ -12,7 +12,7 @@ export class DisplayBarController {
       this.view.generateSection.bind(this.view),
       this.view.handleViewBig.bind(this.view),
       this.view.handleViewSmall.bind(this.view),
-      this.view.updateFoundItemsNum.bind(this.view),
+      this.view.updateFoundItemsNum.bind(this.view)
     );
   }
 
@@ -25,14 +25,43 @@ export class DisplayBarController {
   }
 
   setSearchBar() {
-    this.view.searchBar!.addEventListener("input", () => {
+    this.view.searchBar!.addEventListener("change", () => {
       view.search = this.view.searchBar!.value;
-      this.view.searchBar!.setAttribute('value', this.view.searchBar!.value);
+      this.view.searchBar!.setAttribute("value", this.view.searchBar!.value);
     });
   }
 
+  // const debounce = (fn, ms) => {
+  //   let timeout;
+  
+  //   return function () {
+  //     const fnCall = () => {
+  //       fn.apply(this, arguments);
+  //     };
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(fnCall, ms);
+  //   };
+  // };
+
+  // debounce = (fn: Function, ms: number) => {
+  //   let timeout: ReturnType<typeof setTimeout>;
+  
+  //   return  () => {
+  //     const fnCall = () => {
+  //       fn.apply(this, DisplayBarController.arguments);
+  //     };
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(fnCall, ms);
+  //   };
+  // };
+  
+  // consoleSomething() {
+  //   console.log('Hi');
+  // }
+  
   update() {
     this.model.updateItemsNum();
+    // this.debounce(this.consoleSomething, 1000)
   }
 
   run(): void {
