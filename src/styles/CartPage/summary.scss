@@ -14,3 +14,6 @@
     height: 80%;
     @include flex(space-between, column);
 }
+.promo-code-field{
+    @include flex(space-between, row);
+}

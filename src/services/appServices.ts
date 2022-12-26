@@ -30,6 +30,8 @@ export const productsInCartInfo: productsInCartInfoI = {
         } else {
             this.quantity[productId] = quantity;
         }
+
+        this.countTotalQuantity();
         this.countTotalCost();
         this.notify();
     },
