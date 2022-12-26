@@ -25,16 +25,16 @@ export class DisplayBarController {
   }
 
   setSearchBar() {
-    this.view.searchBar!.addEventListener("change", () => {
+    this.view.searchBar!.addEventListener("input", () => {
       view.search = this.view.searchBar!.value;
       this.view.searchBar!.setAttribute("value", this.view.searchBar!.value);
     });
   }
 
-  // const debounce = (fn, ms) => {
-  //   let timeout;
-  
-  //   return function () {
+  // debounce = (fn: Function, ms: number) => {
+  //   let timeout: ReturnType<typeof setTimeout>;
+
+  //   return  function() {
   //     const fnCall = () => {
   //       fn.apply(this, arguments);
   //     };
@@ -55,9 +55,9 @@ export class DisplayBarController {
   //   };
   // };
   
-  // consoleSomething() {
-  //   console.log('Hi');
-  // }
+  consoleSomething() {
+    console.log('Hi');
+  }
   
   update() {
     this.model.updateItemsNum();
