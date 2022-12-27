@@ -58,6 +58,15 @@ class SummaryView{
         )
     }
 
+    drawStateNoCodeInUse(){
+        const totalCostElem = document.querySelector('.summary__total-cost') as HTMLElement;
+        totalCostElem.classList.remove('cross-out');
+        const summaryAppliedCodesBlock = document.querySelector('.summary__applied-codes') as HTMLElement;
+        summaryAppliedCodesBlock.classList.add('hide');
+        const newCost = document.querySelector('.summary__new-total-cost') as HTMLElement;
+        newCost.classList.add('hide');
+    }
+
     crossOutTotalCost(){
         const totalCostElem = document.querySelector('.summary__total-cost') as HTMLElement;
         totalCostElem.classList.add('cross-out');

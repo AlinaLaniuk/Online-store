@@ -15,6 +15,7 @@ class SummaryController{
             crossOutTotalCost: this.summaryView.crossOutTotalCost,
             drawNewTotalCost: this.summaryView.drawNewTotalCost,
             drawPromoCodeInfoBlock: this.summaryView.drawPromoCodeInfoBlock,
+            drawStateNoCodeInUse: this.summaryView.drawStateNoCodeInUse,
         });
         this.subscribeToTotalQuantityChanging = this.subscribeToTotalQuantityChanging.bind(this);
         this.setAddButtonListener = this.setAddButtonListener.bind(this);
@@ -63,6 +64,9 @@ class SummaryController{
         const eventTarget = event.target as HTMLElement;
         const promoCode = eventTarget.dataset.id as string;
         this.summaryModel.dropPromoCode(promoCode);
+        const dropButtonParent = eventTarget.parentNode as HTMLElement;
+        const appliedCodesContainer = dropButtonParent.parentNode as HTMLElement;
+        appliedCodesContainer.removeChild(dropButtonParent);
     }
 
     run(){

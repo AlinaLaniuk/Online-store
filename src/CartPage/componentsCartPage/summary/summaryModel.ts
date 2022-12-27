@@ -10,6 +10,7 @@ interface viewCallbacksI{
     crossOutTotalCost: () => void,
     drawNewTotalCost: (newTotalCost: number) => void,
     drawPromoCodeInfoBlock: (promoCode: string, discountSize: number) => void,
+    drawStateNoCodeInUse: () => void,
 }
 class SummaryModel{
     viewCallbacks: viewCallbacksI;
@@ -63,11 +64,12 @@ class SummaryModel{
         const indexOfPromoCodeForDrop = this.promoCodesInUse.indexOf(promoCode);
         this.promoCodesInUse.splice(indexOfPromoCodeForDrop, 1);
         this.countDiscountSize();
-        console.log(this.discountSize);
         productsInCartInfo.countTotalCostWithDiscount(this.discountSize);
-        this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
-        console.log(productsInCartInfo.totalCost);
-        console.log(this.promoCodesInUse)
+        if(this.promoCodesInUse.length === 0){
+            this.viewCallbacks.drawStateNoCodeInUse();
+        } else {
+            this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
+        }
     }
 
     countDiscountSize(){
