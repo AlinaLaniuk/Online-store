@@ -1,5 +1,3 @@
-import { IDataItem } from "../../utils/interface";
-
 export class DisplayBarView {
   mainWrapper: HTMLElement;
   cardsViewButtons: NodeListOf<Element> | null;

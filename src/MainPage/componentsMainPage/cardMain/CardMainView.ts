@@ -1,4 +1,3 @@
-import { productsInCartInfo } from "../../../services/appServices";
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {

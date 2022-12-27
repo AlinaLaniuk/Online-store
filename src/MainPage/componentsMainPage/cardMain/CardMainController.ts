@@ -1,4 +1,3 @@
-import { productsInCartInfo } from "../../../services/appServices";
 import { CardMainModel } from "./CardMainModel";
 import { CardMainView } from "./CardMainView";
 

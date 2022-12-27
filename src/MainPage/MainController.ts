@@ -10,13 +10,22 @@ export class MainController {
   cardMainController: CardMainController;
   filterController: FiltersController;
   displayBarController: DisplayBarController;
-  
+  displayBarObserver: MutationObserver;
+
   constructor() {
     this.view = new MainView();
     this.model = new MainModel(this.view.getTemplate);
     this.cardMainController = new CardMainController();
     this.filterController = new FiltersController();
     this.displayBarController = new DisplayBarController();
+    this.displayBarObserver = new MutationObserver(() => {
+      this.update();
+    });
+  }
+
+  private update(): void {
+    this.cardMainController.update();
+    this.displayBarController.update();
   }
 
   public run(): void {
@@ -25,10 +34,13 @@ export class MainController {
     this.filterController.run();
     this.displayBarController.run();
     this.cardMainController.run();
-  }
 
-  update(): void {
-    this.cardMainController.update();
-    this.displayBarController.update();
+    const displayBar = <Node>document.querySelector(".display-bar");
+    this.displayBarObserver.observe(displayBar, {
+      childList: true,
+      subtree: true,
+      characterDataOldValue: true,
+      attributes: true,
+    });
   }
 }
