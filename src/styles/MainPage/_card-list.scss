@@ -76,6 +76,7 @@
         .card__add-button {
           background: rgb(84, 199, 199);
         }
+
         .card__add-button__active {
           background: rgb(255, 161, 151);
         }
@@ -102,7 +103,7 @@
       box-sizing: border-box;
 
       .card__content {
-        height: 85%;
+        height: 70%;
 
         .card__title {
           margin: 0;
@@ -121,10 +122,8 @@
     }
 
     .card__buttons {
-      height: 15%;
       display: flex;
-      gap: 20px;
-      align-self: center;
+      flex-direction: column;
     }
   }
 }
