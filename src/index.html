@@ -51,6 +51,37 @@
       </div>
     </div>  
   </template>
+  <template id="order">
+    <div class="order-background">
+      <div class="order-container">
+        <div class="order-title">Personal details</div>
+        <input type="text" class="order-input" placeholder="Name">
+        <input type="text" class="order-input" placeholder="Phone number">
+        <input type="text" class="order-input" placeholder="Delivery address">
+        <input type="text" class="order-input" placeholder="E-mail">
+        <div class="bank-card-container">
+          <div class="bank-card-title">Credit card details</div>
+          <div class="bank-card">
+            <div class="bank-card__top">
+              <img class="bank-system-img">
+              <input type="text" class="bank-card-input top" placeholder="Card number">
+            </div>
+            <div class="bank-card__bottom">
+              <div class="bank-card__data">
+                <span class="bank-card__data-title">VALID:</span>
+                <input type="text" class="bank-card__data-input" placeholder="Valid thru">
+              </div>
+              <div class="bank-card__cvv">
+                <span class="bank-card__cvv-title">CVV:</span>
+                <input type="text" class="bank-card__cvv-input" placeholder="Code">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="confirm-button">CONFIRM</button>
+      </div>
+    </div>  
+  </template>
 </body>
 
 </html>

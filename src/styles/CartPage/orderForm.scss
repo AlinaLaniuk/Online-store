@@ -1,0 +1,43 @@
+
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+.order-background{
+    width: 100%;
+    height: 100%;
+    @include flex(center, row);
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+}
+.order-container{
+    width: 70%;
+    height: 300px;
+    background-color: bisque;
+    @include flex(center, column);
+}
+.bank-card-container{
+    height: 120px;
+    @include flex(center, column);
+    background-color:aquamarine;
+}
+.bank-card__bottom{
+    @include flex(center, row);
+}
+.bank-card__data{
+    @include flex(center, row);
+    input{
+        width: 30%;
+    }
+}
+.bank-card__top{
+    @include flex(center, row);
+}
+.bank-card__cvv{
+    @include flex(center, row);
+    input{
+        width: 30%;
+    }
+}
