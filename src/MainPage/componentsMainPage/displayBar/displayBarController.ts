@@ -43,17 +43,17 @@ export class DisplayBarController {
   //   };
   // };
 
-  // debounce = (fn: Function, ms: number) => {
-  //   let timeout: ReturnType<typeof setTimeout>;
+  debounce = (fn: Function, ms: number) => {
+    let timeout: ReturnType<typeof setTimeout>;
   
-  //   return  () => {
-  //     const fnCall = () => {
-  //       fn.apply(this, DisplayBarController.arguments);
-  //     };
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(fnCall, ms);
-  //   };
-  // };
+    return  () => {
+      const fnCall = () => {
+        fn.apply(this, DisplayBarController.arguments);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(fnCall, ms);
+    };
+  };
   
   consoleSomething() {
     console.log('Hi');
@@ -61,7 +61,7 @@ export class DisplayBarController {
   
   update() {
     this.model.updateItemsNum();
-    // this.debounce(this.consoleSomething, 1000)
+    this.debounce(this.consoleSomething, 1000)
   }
 
   run(): void {
