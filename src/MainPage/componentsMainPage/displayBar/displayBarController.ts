@@ -26,10 +26,25 @@ export class DisplayBarController {
   }
 
   setSearchBar() {
-    view.search = this.view.searchBar!.value;
     this.view.searchBar!.setAttribute("value", this.view.searchBar!.value);
+    view.search = this.view.searchBar!.value;
   }
   searchBarDebounced = debounce.run(() => this.setSearchBar(), 1000);
+
+  setSortBar() {
+    this.view.sortBar!.addEventListener("change", () => {
+      const value = this.view.sortBar!.value.split(" ");
+
+      if (value[0] === "discount") {
+        value[0] = "discountPercentage";
+      }
+
+      this.view.sortBar!.setAttribute("value", this.view.sortBar!.value);
+
+      view.sort.key = value[0];
+      view.sort.direction = value[1];
+    });
+  }
 
   // update component
   updateSearchBar() {
@@ -46,5 +61,6 @@ export class DisplayBarController {
     this.model.getDisplayBar();
     this.setViewBar();
     this.updateSearchBar();
+    this.setSortBar();
   }
 }

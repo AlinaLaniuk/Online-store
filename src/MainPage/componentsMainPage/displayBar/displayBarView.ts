@@ -2,11 +2,13 @@ export class DisplayBarView {
   mainWrapper: HTMLElement;
   cardsViewButtons: NodeListOf<Element> | null;
   searchBar: HTMLInputElement | null;
+  sortBar: HTMLSelectElement | null;
 
   constructor() {
     this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
     this.cardsViewButtons = null;
     this.searchBar = null;
+    this.sortBar = null;
   }
 
   generateDisplayTemplate(items: number): void {
@@ -30,12 +32,15 @@ export class DisplayBarView {
 
     const viewButtonsTitle = document.createElement("p");
     viewButtonsTitle.className = "display-bar__button-title";
-    viewButtonsTitle.textContent = 'Cards view';
+    viewButtonsTitle.textContent = "Cards view";
 
     const bigLabel = document.createElement("label");
     bigLabel.className = "display-bar__view-label";
     bigLabel.setAttribute("for", "view-big");
-    bigLabel.textContent = "Big";
+
+    const bigSpan = document.createElement("span");
+    bigSpan.className = "display-bar__view-span";
+    bigSpan.textContent = "Big";
 
     const bigView = document.createElement("input");
     bigView.className = "display-bar__view-button";
@@ -46,7 +51,10 @@ export class DisplayBarView {
     const smallLabel = document.createElement("label");
     smallLabel.className = "display-bar__view-label";
     smallLabel.setAttribute("for", "view-big");
-    smallLabel.textContent = "Small";
+
+    const smallSpan = document.createElement("span");
+    smallSpan.className = "display-bar__view-span";
+    smallSpan.textContent = "Small";
 
     const smallView = document.createElement("input");
     smallView.className = "display-bar__view-button";
@@ -54,8 +62,8 @@ export class DisplayBarView {
     smallView.setAttribute("id", "view-small");
     smallView.setAttribute("type", "radio");
 
-    bigLabel.append(bigView);
-    smallLabel.append(smallView);
+    bigLabel.append(bigSpan, bigView);
+    smallLabel.append(smallSpan, smallView);
     viewButtons.append(viewButtonsTitle, bigLabel, smallLabel);
     displayBar.append(sortBar, itemsNum, searchBar, viewButtons);
     this.mainWrapper.append(displayBar);
@@ -91,7 +99,12 @@ export class DisplayBarView {
     this.cardsViewButtons[0].setAttribute("disabled", "");
     this.cardsViewButtons[0].setAttribute("checked", "");
 
-    this.searchBar = <HTMLInputElement>document.querySelector('.display-bar__search-bar')
+    this.searchBar = <HTMLInputElement>(
+      document.querySelector(".display-bar__search-bar")
+    );
+    this.sortBar = <HTMLSelectElement>(
+      document.querySelector(".display-bar__sort-bar")
+    );
   }
 
   generateSection(items: number, optionList: string[]): void {
@@ -112,7 +125,9 @@ export class DisplayBarView {
   }
 
   updateFoundItemsNum(items: number) {
-    const itemsNum = <HTMLElement>document.querySelector(".display-bar__items-num");
+    const itemsNum = <HTMLElement>(
+      document.querySelector(".display-bar__items-num")
+    );
     itemsNum.textContent = `Found: ${items}`;
   }
 }

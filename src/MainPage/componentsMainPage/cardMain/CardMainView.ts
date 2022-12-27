@@ -78,12 +78,12 @@ export class CardMainView {
     cardButtons.className = "card__buttons";
 
     const addBtn = document.createElement("button");
-    addBtn.className = "card__add-button";
+    addBtn.className = "card__button card__add-button";
 
     this.handleAddBtnState(addBtn, isInCart);
 
     const detailsBtn = document.createElement("button");
-    detailsBtn.className = "card__details-button";
+    detailsBtn.className = "card__button card__details-button";
     detailsBtn.textContent = "Details";
 
     cardButtons.append(addBtn, detailsBtn);

@@ -73,8 +73,18 @@
         gap: 20px;
         align-self: center;
 
+        .card__button {
+          cursor: pointer;
+          transition: all 0.5s ease;
+        }
+
         .card__add-button {
           background: rgb(84, 199, 199);
+
+          &:hover {
+            background: rgb(84, 156, 156);
+            color: white;
+          }
         }
 
         .card__add-button__active {

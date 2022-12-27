@@ -9,19 +9,7 @@ export class CardMainModel {
   updateCardsView: Function;
   refreshCardList: Function;
   handleAddBtnState: Function;
-  data: {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-    images: string[];
-  }[];
+  data: IDataItem[];
 
   constructor(
     getCardTemplate: Function,
@@ -40,6 +28,8 @@ export class CardMainModel {
 
   public getCardList(): void {
     this.getCardListTemplate();
+    this.filterData();
+    this.sortData(view.sort.key, view.sort.direction);
     this.getCards();
     view.itemsFound = this.data.length;
   }
@@ -51,7 +41,7 @@ export class CardMainModel {
     });
   }
 
-  private filterData(): void {
+  filterData(): void {
     this.data = onlineStoreData.filter((item) => {
       return item.title
         .toLocaleLowerCase()
@@ -59,6 +49,24 @@ export class CardMainModel {
     });
 
     view.itemsFound = this.data.length;
+  }
+
+  sortData(key: string, direction: string): void {
+    if (view.sort.key && view.sort.direction) {
+      this.data.sort((a, b): number => {
+        if (direction.toLocaleLowerCase() === "asc") {
+          return <number>a[key as keyof typeof a] >
+            <number>b[key as keyof typeof b]
+            ? 1
+            : -1;
+        } else {
+          return <number>a[key as keyof typeof a] >
+            <number>b[key as keyof typeof b]
+            ? -1
+            : 1;
+        }
+      });
+    }
   }
 
   public handleAddBtn(addBtn: HTMLElement): void {
@@ -81,6 +89,7 @@ export class CardMainModel {
     this.updateCardsView(view.isBig);
 
     this.filterData();
+    this.sortData(view.sort.key, view.sort.direction);
     this.refreshCardList();
     this.getCards();
   }

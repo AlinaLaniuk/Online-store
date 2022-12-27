@@ -49,16 +49,20 @@ export const sortOptionsList = [
   "Sort options:",
   "price ASC",
   "price DESC",
-  "reting ASC",
-  "reting DESC",
+  "rating ASC",
+  "rating DESC",
   "discount ASC",
   "discount DESC",
 ];
 
 export const view = {
+  sort: {
+    key: 'id',
+    direction: 'asc',
+  },
   itemsFound: 0,
-  isBig: true,
   search: '',
+  isBig: true,
 }
 
 
