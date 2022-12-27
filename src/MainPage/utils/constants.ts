@@ -60,3 +60,20 @@ export const view = {
   isBig: true,
   search: '',
 }
+
+
+class Debounce {
+  run(fn: Function, ms: number) {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    return (...args: Event[]): void => {
+      const fnCall = () => {
+        fn.apply(this, args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(fnCall, ms);
+    };
+  }
+}
+
+export const debounce = new Debounce();
