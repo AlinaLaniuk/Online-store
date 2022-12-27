@@ -24,6 +24,10 @@ export const productsInCartInfo: productsInCartInfoI = {
             return acc + onlineStoreData[+key].price * this.quantity[+key] 
         }, 0 )
     },
+    countTotalCostWithDiscount(discountSize){
+        this.countTotalCost();
+        this.totalCost = Math.floor(this.totalCost * (1 - (discountSize / 100)));
+    },
     changeQuantity(productId, quantity){
         if(quantity === 0){
             delete this.quantity[productId];
@@ -57,4 +61,5 @@ interface productsInCartInfoI {
     countTotalQuantity: () => void;
     subscribe: (func: Function) => void;
     notify: () => void;
+    countTotalCostWithDiscount: (discountSize: number) => void;
 }

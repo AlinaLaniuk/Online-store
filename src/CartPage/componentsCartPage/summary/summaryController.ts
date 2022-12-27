@@ -6,9 +6,19 @@ class SummaryController{
     summaryView: SummaryView;
     constructor(){
         this.summaryView = new SummaryView();
-        this.summaryModel = new SummaryModel(this.summaryView.drawProductsQuantity, this.summaryView.drawTotalCostInCart, this.summaryView.drawPromoCodeForAddBlock);
+        this.summaryModel = new SummaryModel({
+            drawProductsQuantity: this.summaryView.drawProductsQuantity,
+            drawTotalCostInCart: this.summaryView.drawTotalCostInCart,
+            drawPromoCodeForAddBlock: this.summaryView.drawPromoCodeForAddBlock,
+            deletePromoCodeBlockForAdd: this.summaryView.deletePromoCodeBlockForAdd,
+            drawAppliedCodesBlock: this.summaryView.drawAppliedCodesBlock,
+            crossOutTotalCost: this.summaryView.crossOutTotalCost,
+            drawNewTotalCost: this.summaryView.drawNewTotalCost,
+            drawPromoCodeInfoBlock: this.summaryView.drawPromoCodeInfoBlock,
+        });
         this.subscribeToTotalQuantityChanging = this.subscribeToTotalQuantityChanging.bind(this);
         this.setAddButtonListener = this.setAddButtonListener.bind(this);
+        this.setDropButtonListener = this.setDropButtonListener.bind(this);
     }
 
     subscribeToTotalQuantityChanging(){
@@ -31,7 +41,6 @@ class SummaryController{
             timeout = setTimeout(funcCall, ms);
             funcCall;
         }
-
     }
 
     async setAddButtonListener(event: Event){
@@ -41,9 +50,19 @@ class SummaryController{
         });
         if(addButtonElem){
             addButtonElem.addEventListener('click', () => {
-                console.log('ccc')
+                const promo = addButtonElem.dataset.id as string; 
+                const dropButton = this.summaryModel.addPromoCode(promo);
+                dropButton.addEventListener('click', this.setDropButtonListener)
+                const addButtonParent = addButtonElem.parentNode as HTMLElement;
+                addButtonParent.parentNode?.removeChild(addButtonParent);
             })
         }
+    }
+
+    setDropButtonListener(event: Event){
+        const eventTarget = event.target as HTMLElement;
+        const promoCode = eventTarget.dataset.id as string;
+        this.summaryModel.dropPromoCode(promoCode);
     }
 
     run(){

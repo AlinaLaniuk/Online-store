@@ -6,7 +6,7 @@
 }
 .summary-container{
     width: 30%;
-    height: 300px;
+    height: 400px;
     border: 1px solid black;
     @include flex(center, column);
 }
@@ -16,4 +16,10 @@
 }
 .promo-code-field{
     @include flex(space-between, row);
+}
+.hide{
+    display: none;
+}
+.cross-out{
+    text-decoration: line-through;
 }

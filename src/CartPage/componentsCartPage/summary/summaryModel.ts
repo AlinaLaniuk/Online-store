@@ -1,31 +1,33 @@
 import { productsInCartInfo } from "../../../services/appServices";
 import promoCodesInfo from "../../../services/promoCodes";
 
-type promoCodesI = ['qwerty'?, '11111'?, 'hello world'?, '12345'?, 'password'?];
-class SummaryModel{
-    drawProductsQuantity: (productsQuantity: number) => void;
-    drawTotalCostInCart: (totalCost: number) => void;
-    drawPromoCodeForAddBlock: (promoCode: string, discountSize: number) => HTMLElement;
-    promoCodesInUse: string[];
-    promoCodeForAdd: string[];
-    constructor(drawProductsQuantity: (productsQuantity: number) => void,
+interface viewCallbacksI{
+    drawProductsQuantity: (productsQuantity: number) => void,
     drawTotalCostInCart: (totalCost: number) => void,
-    drawPromoCodeForAddBlock: (promoCode: string, discountSize: number) => HTMLElement
-    ){
-        this.drawProductsQuantity = drawProductsQuantity;
-        this.drawTotalCostInCart = drawTotalCostInCart;
-        this.drawPromoCodeForAddBlock = drawPromoCodeForAddBlock;
+    drawPromoCodeForAddBlock: (promoCode: string, discountSize: number) => HTMLElement,
+    deletePromoCodeBlockForAdd: () => void,
+    drawAppliedCodesBlock: (promoCode: string, discountSize: number) => HTMLElement,
+    crossOutTotalCost: () => void,
+    drawNewTotalCost: (newTotalCost: number) => void,
+    drawPromoCodeInfoBlock: (promoCode: string, discountSize: number) => void,
+}
+class SummaryModel{
+    viewCallbacks: viewCallbacksI;
+    promoCodesInUse: string[];
+    discountSize: number;
+    constructor(viewCallbacks: viewCallbacksI){
+        this.viewCallbacks = viewCallbacks;
         this.promoCodesInUse = [];
-        this.promoCodeForAdd = [];
         this.setCurrentPromoCode = this.setCurrentPromoCode.bind(this);
+        this.discountSize = 0;
     }
 
     drawNewProductsQuantity(){
-        this.drawProductsQuantity(productsInCartInfo.totalQuantity);
+        this.viewCallbacks.drawProductsQuantity(productsInCartInfo.totalQuantity);
     }
 
     drawNewTotalCostInCart(){
-        this.drawTotalCostInCart(productsInCartInfo.totalCost);
+        this.viewCallbacks.drawTotalCostInCart(productsInCartInfo.totalCost);
     }
 
     setCurrentPromoCode(event: Event){
@@ -37,14 +39,49 @@ class SummaryModel{
             }
             return false;
         });
-        if(currentPromoCode.length !== 0 && !(this.promoCodeForAdd.includes(currentPromoCode[0] as string))){
-            this.promoCodeForAdd.push(currentPromoCode[0] as string);
-            return this.showCurrentPromoCodeField(currentPromoCode[0] as string, promoCodesInfo.promoCodes[currentPromoCode[0] as string]);
+        if(currentPromoCode.length !== 0 && !this.promoCodesInUse.includes(currentPromoCode[0] as string)){
+            return this.showCurrentPromoCodeFieldForAdd(currentPromoCode[0] as string, promoCodesInfo.promoCodes[currentPromoCode[0] as string]);
+        } else {
+            this.viewCallbacks.deletePromoCodeBlockForAdd();
+        }
+        if(this.promoCodesInUse.includes(currentPromoCode[0] as string)){
+            this.showCurrentPromoCodeInfo(currentPromoCode[0] as string, promoCodesInfo.promoCodes[currentPromoCode[0] as string])
         }
     }
+    
+    addPromoCode(promoCode: string){
+        this.promoCodesInUse.push(promoCode);
+        const dropButton = this.viewCallbacks.drawAppliedCodesBlock(promoCode, promoCodesInfo.promoCodes[promoCode]) as HTMLElement;
+        this.countDiscountSize();
+        productsInCartInfo.countTotalCostWithDiscount(this.discountSize);
+        this.viewCallbacks.crossOutTotalCost();
+        this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
+        return dropButton;
+    }
 
-    showCurrentPromoCodeField(promoCode: string, discountSize: number){
-        return this.drawPromoCodeForAddBlock(promoCode, discountSize)
+    dropPromoCode(promoCode: string){
+        const indexOfPromoCodeForDrop = this.promoCodesInUse.indexOf(promoCode);
+        this.promoCodesInUse.splice(indexOfPromoCodeForDrop, 1);
+        this.countDiscountSize();
+        console.log(this.discountSize);
+        productsInCartInfo.countTotalCostWithDiscount(this.discountSize);
+        this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
+        console.log(productsInCartInfo.totalCost);
+        console.log(this.promoCodesInUse)
+    }
+
+    countDiscountSize(){
+        this.discountSize = this.promoCodesInUse.reduce((acc, value) => {
+           return acc + promoCodesInfo.promoCodes[value]
+        }, 0)
+    }
+
+    showCurrentPromoCodeFieldForAdd(promoCode: string, discountSize: number){
+        return this.viewCallbacks.drawPromoCodeForAddBlock(promoCode, discountSize)
+    }
+
+    showCurrentPromoCodeInfo(promoCode: string, discountSize: number){
+        return this.viewCallbacks.drawPromoCodeInfoBlock(promoCode, discountSize)
     }
 }
 export default SummaryModel;
