@@ -6,13 +6,13 @@ class OrderFormView{
         mainWrapper.append(cloneOrderFormTemplate);
     }
 
-    setErrorView(inputElem: HTMLElement, isError: boolean){
+    setErrorView(inputElem: HTMLElement, isValueCorrect: boolean){
         const inputParent = inputElem.parentNode as HTMLElement;
         const errorElem = inputParent.querySelector('.error') as HTMLElement;
-        if(isError){
-            errorElem.classList.remove('hide');
-        } else {
+        if(isValueCorrect){
             errorElem.classList.add('hide');
+        } else {
+            errorElem.classList.remove('hide');
         }
     }
 }

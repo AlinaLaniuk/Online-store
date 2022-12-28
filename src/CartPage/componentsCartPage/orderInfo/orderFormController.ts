@@ -41,10 +41,19 @@ class OrderFormController{
         })
     }
 
+    setPhoneInputListener(){
+        const phoneInput = document.getElementById('phone') as HTMLInputElement;
+        phoneInput.addEventListener('input', () => {
+            const nameInputValue = phoneInput.value;
+            this.orderFormModel.validatePhoneValue(nameInputValue, phoneInput);
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
         this.setOrderFormBgListener();
         this.setNameInputListener();
+        this.setPhoneInputListener();
     }
 }
 export default OrderFormController
