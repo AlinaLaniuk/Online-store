@@ -12,20 +12,20 @@ class CartController{
     cardCartController: CardCartController;
     paginationController: PaginationController;
     summaryController: SummaryController;
-    orderInfoController: OrderFormController;
+    orderFormController: OrderFormController;
     constructor(){
         this.cartModel = new CartModel();
         this.cartView = new CartView();
         this.cardCartController = new CardCartController();
         this.paginationController = new PaginationController();
         this.summaryController = new SummaryController();
-        this.orderInfoController = new OrderFormController();
+        this.orderFormController = new OrderFormController();
     }
 
-    settBuyNowButtonListener(){
+    setBuyNowButtonListener(){
         const buyNowButton = document.querySelector('.summary__button') as HTMLElement;
         buyNowButton.addEventListener('click', () => {
-            this.orderInfoController.run();
+            this.orderFormController.run();
         })
     }
     
@@ -37,7 +37,7 @@ class CartController{
         productsInCartInfo.subscribe(this.paginationController.subscribeToAppServicesChanges);
         this.summaryController.run();
         productsInCartInfo.subscribe(this.summaryController.subscribeToTotalQuantityChanging);
-        this.settBuyNowButtonListener();
+        this.setBuyNowButtonListener();
     }
 }
 export default CartController;

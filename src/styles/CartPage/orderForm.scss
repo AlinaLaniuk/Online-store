@@ -41,3 +41,6 @@
         width: 30%;
     }
 }
+.order-input-container{
+    @include flex(center, row);
+}
