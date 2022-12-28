@@ -49,12 +49,21 @@ class OrderFormController{
         })
     }
 
+    setEmailInputListener(){
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        emailInput.addEventListener('input', () => {
+            const emailInputValue = emailInput.value;
+            this.orderFormModel.validateEmailValue(emailInputValue, emailInput);
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
         this.setOrderFormBgListener();
         this.setNameInputListener();
         this.setPhoneInputListener();
         this.setDeliverInputListener();
+        this.setEmailInputListener();
     }
 }
 export default OrderFormController

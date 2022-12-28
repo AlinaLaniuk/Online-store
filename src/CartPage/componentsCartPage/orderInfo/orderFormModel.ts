@@ -8,6 +8,8 @@ const minWordsLengthForName = 3;
 const minWordsQuantityForName = 2;
 let currentWorldLengthValue: number;
 let currentWorldQuantityValue: number;
+const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 class OrderFormModel{
     viewCallbacks: viewCallbacksI;
     constructor(viewCallbacks: viewCallbacksI){
@@ -62,6 +64,11 @@ class OrderFormModel{
                 isValueCorrect = false;
         }
         this.viewCallbacks.showError(inputElem, isValueCorrect);
+    }
+
+    validateEmailValue(inputValue: string, inputElem: HTMLElement){
+        const isEmailCorrect = emailRegexp.test(inputValue);
+        this.viewCallbacks.showError(inputElem, isEmailCorrect);
     }
 }
 export default OrderFormModel
