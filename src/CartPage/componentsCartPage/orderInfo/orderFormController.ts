@@ -12,16 +12,6 @@ class OrderFormController{
         );
     }
 
-    debounce(func: Function, ms: number){
-        let timeout: ReturnType<typeof setTimeout>;
-        return (...args: Event[]) =>{
-            const funcCall = () => { func.apply(this, args) };
-            clearTimeout(timeout);
-            timeout = setTimeout(funcCall, ms);
-            funcCall;
-        }
-    }
-
     setOrderFormBgListener(){
         const orderFormBg = document.querySelector('.order-background') as HTMLElement;
         orderFormBg.addEventListener('click', (event) => {
@@ -36,8 +26,9 @@ class OrderFormController{
     setNameInputListener(){
         const nameInput = document.getElementById('name') as HTMLInputElement;
         nameInput.addEventListener('input', () => {
+            this.orderFormModel.setCurrentValuesForValidateNameAndDeliveryInputs('name');
             const nameInputValue = nameInput.value;
-            this.orderFormModel.validateNameValue(nameInputValue, nameInput);
+            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, nameInput);
         })
     }
 
@@ -52,8 +43,9 @@ class OrderFormController{
     setDeliverInputListener(){
         const deliveryInput = document.getElementById('delivery') as HTMLInputElement;
         deliveryInput.addEventListener('input', () => {
+            this.orderFormModel.setCurrentValuesForValidateNameAndDeliveryInputs('delivery');
             const nameInputValue = deliveryInput.value;
-            this.orderFormModel.validateDeliveryValue(nameInputValue, deliveryInput);
+            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, deliveryInput);
         })
     }
 

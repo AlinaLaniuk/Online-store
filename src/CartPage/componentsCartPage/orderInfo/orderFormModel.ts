@@ -2,18 +2,25 @@ interface viewCallbacksI{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
 }
 
+const minWordsLengthForDelivery = 5;
+const minWordsQuantityForDelivery = 3;
+const minWordsLengthForName = 3;
+const minWordsQuantityForName = 2;
+let currentWorldLengthValue: number;
+let currentWorldQuantityValue: number;
 class OrderFormModel{
     viewCallbacks: viewCallbacksI;
     constructor(viewCallbacks: viewCallbacksI){
         this.viewCallbacks = viewCallbacks;
     }
 
-    validateNameValue(inputValue: string, inputElem: HTMLElement){
-        const arrayOfInputValue = inputValue.split(' ');
-        if(arrayOfInputValue.length === 2 && arrayOfInputValue[0].length >= 3 && arrayOfInputValue[1].length >= 3){
-            this.viewCallbacks.showError(inputElem, true);
-        } else {
-            this.viewCallbacks.showError(inputElem, false);
+    setCurrentValuesForValidateNameAndDeliveryInputs(typeOfInput: string){
+        if(typeOfInput === 'delivery'){
+            currentWorldLengthValue = minWordsLengthForDelivery;
+            currentWorldQuantityValue = minWordsQuantityForDelivery;
+        } else if (typeOfInput === 'name'){
+            currentWorldLengthValue = minWordsLengthForName;
+            currentWorldQuantityValue = minWordsQuantityForName;
         }
     }
 
@@ -35,18 +42,21 @@ class OrderFormModel{
         this.viewCallbacks.showError(inputElem, isValueCorrect);
     }
 
-    validateDeliveryValue(inputValue: string, inputElem: HTMLElement){
+    validateDeliveryAndNameValue(inputValue: string, inputElem: HTMLElement){
+
+        if(inputElem.classList.contains('delivery')){
+
+        }
         const arrayOfInputValue = inputValue.split(' ');
-        const minWordsLength = 5;
         let isWordsLengthCorrect = true;
         let isValueCorrect = true;
         for(let i = 0; i < arrayOfInputValue.length; i += 1){
-            if(arrayOfInputValue[i].length < minWordsLength){
+            if(arrayOfInputValue[i].length < currentWorldLengthValue){
                 isWordsLengthCorrect = false;
                 break;
             }
         }
-        if((isWordsLengthCorrect && arrayOfInputValue.length < 3) ||
+        if((isWordsLengthCorrect && arrayOfInputValue.length < currentWorldQuantityValue) ||
             !isWordsLengthCorrect
             ){
                 isValueCorrect = false;
