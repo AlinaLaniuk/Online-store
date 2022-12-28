@@ -57,6 +57,14 @@ class OrderFormController{
         })
     }
 
+    setCardNumberInputListener(){
+        const cardNumberInput = document.getElementById('card-number') as HTMLInputElement;
+        cardNumberInput.addEventListener('input', () => {
+            const cardNumberInputValue = cardNumberInput.value;
+            this.orderFormModel.validateCardNumberValue(cardNumberInputValue, cardNumberInput);
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
         this.setOrderFormBgListener();
@@ -64,6 +72,7 @@ class OrderFormController{
         this.setPhoneInputListener();
         this.setDeliverInputListener();
         this.setEmailInputListener();
+        this.setCardNumberInputListener();
     }
 }
 export default OrderFormController

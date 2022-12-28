@@ -1,3 +1,6 @@
+const visaImgPath = '../../../assets/icon/visa.png';
+const masterCardImgPath = '../../../assets/icon/visa.png';
+const americanExpressImgPath = '../../../assets/icon/americanExpress.png';
 class OrderFormView{
     drawOrderForm(){
         const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;

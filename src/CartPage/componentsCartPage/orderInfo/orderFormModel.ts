@@ -9,7 +9,10 @@ const minWordsQuantityForName = 2;
 let currentWorldLengthValue: number;
 let currentWorldQuantityValue: number;
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+const visaFirstNumber = 4;
+const masterCardFirstNumber = 5;
+const americanExpressFirstNumber = 3;
+const spaceIndexes = [4, 9, 14];
 class OrderFormModel{
     viewCallbacks: viewCallbacksI;
     constructor(viewCallbacks: viewCallbacksI){
@@ -69,6 +72,33 @@ class OrderFormModel{
     validateEmailValue(inputValue: string, inputElem: HTMLElement){
         const isEmailCorrect = emailRegexp.test(inputValue);
         this.viewCallbacks.showError(inputElem, isEmailCorrect);
+    }
+
+    validateCardNumberValue(inputValue: string, inputElem: HTMLInputElement){
+        if(Number.isNaN(+inputValue[inputValue.length - 1])){
+            const correctInputValue = inputValue.slice(0, -1);
+            inputElem.value = correctInputValue
+        }
+        let newValue = inputElem.value.replace(/\D/g, "");
+        newValue = newValue.replace(/(.{4})/g, "$1 ");
+        inputElem.value = newValue;
+        const isCardNumberCorrect = inputElem.value.length === 20;
+        // const inputValueArray = inputValue.split('');
+        // const inputValueArrayWithoutSpaces = inputValueArray.filter((elem) => {
+        //     if(elem === ' '){
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // })
+        // const newInputValueArrayWithSpaces = spaceIndexes.map((index) => {
+        //     inputValueArrayWithoutSpaces.splice(index, 0, ' ');
+        // })
+        // const newValue = newInputValueArrayWithSpaces.join('');
+        // inputElem.value = newValue;
+        // const isCardNumberCorrect = inputValueArrayWithoutSpaces.length === 16;
+        // console.log(inputValueArrayWithoutSpaces)
+        this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
     }
 }
 export default OrderFormModel

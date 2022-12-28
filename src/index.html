@@ -76,16 +76,19 @@
           <div class="bank-card">
             <div class="bank-card__top">
               <img class="bank-system-img">
-              <input type="text" class="bank-card-input top" placeholder="Card number">
+              <input type="text" class="bank-card-input top" id="card-number" maxlength="19" placeholder="Card number">
+              <div class="error hide">Error</div>
             </div>
             <div class="bank-card__bottom">
               <div class="bank-card__data">
                 <span class="bank-card__data-title">VALID:</span>
-                <input type="text" class="bank-card__data-input" placeholder="Valid thru">
+                <input type="text" class="bank-card__data-input" id="card-thru" placeholder="Valid thru">
+                <div class="error hide">Error</div>
               </div>
               <div class="bank-card__cvv">
                 <span class="bank-card__cvv-title">CVV:</span>
-                <input type="text" class="bank-card__cvv-input" placeholder="Code">
+                <input type="text" class="bank-card__cvv-input" id="cvv" placeholder="Code">
+                <div class="error hide">Error</div>
               </div>
             </div>
           </div>
