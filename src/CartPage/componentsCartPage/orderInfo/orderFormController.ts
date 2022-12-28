@@ -49,11 +49,20 @@ class OrderFormController{
         })
     }
 
+    setDeliverInputListener(){
+        const deliveryInput = document.getElementById('delivery') as HTMLInputElement;
+        deliveryInput.addEventListener('input', () => {
+            const nameInputValue = deliveryInput.value;
+            this.orderFormModel.validateDeliveryValue(nameInputValue, deliveryInput);
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
         this.setOrderFormBgListener();
         this.setNameInputListener();
         this.setPhoneInputListener();
+        this.setDeliverInputListener();
     }
 }
 export default OrderFormController

@@ -34,5 +34,24 @@ class OrderFormModel{
         } 
         this.viewCallbacks.showError(inputElem, isValueCorrect);
     }
+
+    validateDeliveryValue(inputValue: string, inputElem: HTMLElement){
+        const arrayOfInputValue = inputValue.split(' ');
+        const minWordsLength = 5;
+        let isWordsLengthCorrect = true;
+        let isValueCorrect = true;
+        for(let i = 0; i < arrayOfInputValue.length; i += 1){
+            if(arrayOfInputValue[i].length < minWordsLength){
+                isWordsLengthCorrect = false;
+                break;
+            }
+        }
+        if((isWordsLengthCorrect && arrayOfInputValue.length < 3) ||
+            !isWordsLengthCorrect
+            ){
+                isValueCorrect = false;
+        }
+        this.viewCallbacks.showError(inputElem, isValueCorrect);
+    }
 }
 export default OrderFormModel
