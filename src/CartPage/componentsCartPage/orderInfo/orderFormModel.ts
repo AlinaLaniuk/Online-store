@@ -1,5 +1,6 @@
 interface viewCallbacksI{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
+    setCurrentBankImg: (inputElem: HTMLElement, imgPath: string) => void,
 }
 
 const minWordsLengthForDelivery = 5;
@@ -9,9 +10,12 @@ const minWordsQuantityForName = 2;
 let currentWorldLengthValue: number;
 let currentWorldQuantityValue: number;
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const visaFirstNumber = 4;
-const masterCardFirstNumber = 5;
-const americanExpressFirstNumber = 3;
+const banksFirstNumbers: { [key: string]: string } = {
+    '4': '../../../assets/icon/visa.png',
+    '5': '../../../assets/icon/visa.png',
+    '3': '../../../assets/icon/americanExpress.png'
+}
+const banksFirstNumbersValues = [4, 5, 3];
 const spaceIndexes = [4, 9, 14];
 class OrderFormModel{
     viewCallbacks: viewCallbacksI;
@@ -75,6 +79,13 @@ class OrderFormModel{
     }
 
     validateCardNumberValue(inputValue: string, inputElem: HTMLInputElement){
+        if(!banksFirstNumbersValues.includes(+inputValue[0])){
+            const correctInputValue = inputValue.slice(0, -1);
+            inputElem.value = correctInputValue;
+        } else {
+            const currentImgPath = banksFirstNumbers[inputValue[0]] as string;
+            this.viewCallbacks.setCurrentBankImg(inputElem, currentImgPath)
+        }
         if(Number.isNaN(+inputValue[inputValue.length - 1])){
             const correctInputValue = inputValue.slice(0, -1);
             inputElem.value = correctInputValue
@@ -99,6 +110,14 @@ class OrderFormModel{
         // const isCardNumberCorrect = inputValueArrayWithoutSpaces.length === 16;
         // console.log(inputValueArrayWithoutSpaces)
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
+    }
+
+    setCurrentBankImg(inputValue: string, inputElem: HTMLInputElement){
+        
+    }
+
+    validateThruValue(inputValue: string, inputElem: HTMLInputElement){
+
     }
 }
 export default OrderFormModel

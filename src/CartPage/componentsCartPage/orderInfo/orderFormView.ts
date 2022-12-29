@@ -1,6 +1,3 @@
-const visaImgPath = '../../../assets/icon/visa.png';
-const masterCardImgPath = '../../../assets/icon/visa.png';
-const americanExpressImgPath = '../../../assets/icon/americanExpress.png';
 class OrderFormView{
     drawOrderForm(){
         const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
@@ -17,6 +14,12 @@ class OrderFormView{
         } else {
             errorElem.classList.remove('hide');
         }
+    }
+
+    setCurrentBankImg(inputElem: HTMLElement, imgPath: string){
+        const parentElem = inputElem.parentNode as HTMLElement;
+        const img = parentElem.querySelector('.bank-system-img') as HTMLImageElement;
+        img.src = imgPath;
     }
 }
 export default OrderFormView

@@ -7,7 +7,8 @@ class OrderFormController{
         this.orderFormView = new OrderFormView();
         this.orderFormModel = new OrderFormModel(
             {
-                showError: this.orderFormView.setErrorView
+                showError: this.orderFormView.setErrorView,
+                setCurrentBankImg: this.orderFormView.setCurrentBankImg,
             }
         );
     }
@@ -62,6 +63,14 @@ class OrderFormController{
         cardNumberInput.addEventListener('input', () => {
             const cardNumberInputValue = cardNumberInput.value;
             this.orderFormModel.validateCardNumberValue(cardNumberInputValue, cardNumberInput);
+        })
+    }
+
+    setValidThruInputListener(){
+        const validThruInput = document.getElementById('card-thru') as HTMLInputElement;
+        validThruInput.addEventListener('input', () => {
+            const cardNumberInputValue = validThruInput.value;
+            this.orderFormModel.validateThruValue(cardNumberInputValue, validThruInput);
         })
     }
 
