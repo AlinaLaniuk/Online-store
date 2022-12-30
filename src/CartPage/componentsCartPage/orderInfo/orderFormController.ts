@@ -9,6 +9,7 @@ class OrderFormController{
             {
                 showError: this.orderFormView.setErrorView,
                 setCurrentBankImg: this.orderFormView.setCurrentBankImg,
+                showErrorInCommonErrorBlock: this.orderFormView.showErrorInCommonErrorBlock,
             }
         );
     }
@@ -29,7 +30,7 @@ class OrderFormController{
         nameInput.addEventListener('input', () => {
             this.orderFormModel.setCurrentValuesForValidateNameAndDeliveryInputs('name');
             const nameInputValue = nameInput.value;
-            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, nameInput);
+            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, nameInput, 'name');
         })
     }
 
@@ -46,7 +47,7 @@ class OrderFormController{
         deliveryInput.addEventListener('input', () => {
             this.orderFormModel.setCurrentValuesForValidateNameAndDeliveryInputs('delivery');
             const nameInputValue = deliveryInput.value;
-            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, deliveryInput);
+            this.orderFormModel.validateDeliveryAndNameValue(nameInputValue, deliveryInput, 'delivery');
         })
     }
 
@@ -82,8 +83,17 @@ class OrderFormController{
         })
     }
 
+    setConfirmButtonListener(){
+        const confirmButton = document.querySelector('.confirm-button') as HTMLButtonElement;
+        confirmButton.addEventListener('click', () => {
+            this.orderFormModel.checkValidInputs();
+            this.orderFormModel.showCommonErrorBlock();
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
+        this.orderFormModel.clearOrderFormData();
         this.setOrderFormBgListener();
         this.setNameInputListener();
         this.setPhoneInputListener();
@@ -92,6 +102,7 @@ class OrderFormController{
         this.setCardNumberInputListener();
         this.setValidThruInputListener();
         this.setValidCvvInputListener();
+        this.setConfirmButtonListener();
     }
 }
 export default OrderFormController

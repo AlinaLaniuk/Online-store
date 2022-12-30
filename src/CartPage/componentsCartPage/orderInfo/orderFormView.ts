@@ -21,5 +21,16 @@ class OrderFormView{
         const img = parentElem.querySelector('.bank-system-img') as HTMLImageElement;
         img.src = imgPath;
     }
+
+    showErrorInCommonErrorBlock(inputName: string, isItError: boolean){
+        const errorBlock = document.querySelector('.error-block') as HTMLElement;
+        const currentError = errorBlock.querySelector(`.${inputName}-error`) as HTMLElement;
+        console.log(currentError, isItError)
+        if(isItError){
+            currentError.classList.add('hide');
+        } else {
+            currentError.classList.remove('hide');
+        }
+    }
 }
 export default OrderFormView
