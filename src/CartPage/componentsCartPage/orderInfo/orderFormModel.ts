@@ -112,12 +112,10 @@ class OrderFormModel{
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
     }
 
-    setCurrentBankImg(inputValue: string, inputElem: HTMLInputElement){
-        
-    }
-
     validateThruValue(inputValue: string, inputElem: HTMLInputElement){
+        if(inputValue){
 
+        }
     }
 }
 export default OrderFormModel
