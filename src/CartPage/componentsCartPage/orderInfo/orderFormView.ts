@@ -32,5 +32,6 @@ class OrderFormView{
             currentError.classList.remove('hide');
         }
     }
+
 }
 export default OrderFormView

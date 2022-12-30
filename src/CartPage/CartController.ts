@@ -14,8 +14,8 @@ class CartController{
     summaryController: SummaryController;
     orderFormController: OrderFormController;
     constructor(){
-        this.cartModel = new CartModel();
         this.cartView = new CartView();
+        this.cartModel = new CartModel(this.cartView.drawEmptyCartPage);
         this.cardCartController = new CardCartController();
         this.paginationController = new PaginationController();
         this.summaryController = new SummaryController();
@@ -30,14 +30,18 @@ class CartController{
     }
     
     runCart(){
-        this.cartView.drawProductsInCartBlock();
-        // this.cardCartController.run();
-        paginationServices.subscribe(this.cardCartController.subscribeToPaginationDataChanging);
-        this.paginationController.run();
-        productsInCartInfo.subscribe(this.paginationController.subscribeToAppServicesChanges);
-        this.summaryController.run();
-        productsInCartInfo.subscribe(this.summaryController.subscribeToTotalQuantityChanging);
-        this.setBuyNowButtonListener();
+        if(productsInCartInfo.totalQuantity === 0){
+            this.cartView.drawEmptyCartPage();
+        } else {
+            this.cartView.drawProductsInCartBlock();
+            paginationServices.subscribe(this.cardCartController.subscribeToPaginationDataChanging);
+            this.paginationController.run();
+            productsInCartInfo.subscribe(this.paginationController.subscribeToAppServicesChanges);
+            this.summaryController.run();
+            productsInCartInfo.subscribe(this.summaryController.subscribeToTotalQuantityChanging);
+            productsInCartInfo.subscribe(this.cartView.drawEmptyCartPage);
+            this.setBuyNowButtonListener();
+        }
     }
 }
 export default CartController;

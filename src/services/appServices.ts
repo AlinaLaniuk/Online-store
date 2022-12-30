@@ -12,17 +12,25 @@ export const productsInCartInfo: productsInCartInfoI = {
         '45': 1,
         '67': 4,
     },
-    totalQuantity: 0,
-    totalCost: 0,
+    totalQuantity: 28,
+    totalCost: 23123,
     countTotalQuantity(){
         const quantityObjValues = Object.values(this.quantity);
-        this.totalQuantity = quantityObjValues.reduce((acc, value) => acc + value);
+        if(quantityObjValues.length === 0){
+            this.totalQuantity = 0;
+        } else {
+            this.totalQuantity = quantityObjValues.reduce((acc, value) => acc + value);
+        }
     },
     countTotalCost(){
         const productsInCartIndexes = Object.keys(this.quantity);
-        this.totalCost = productsInCartIndexes.reduce((acc, key) => { 
-            return acc + onlineStoreData[+key].price * this.quantity[+key] 
-        }, 0 )
+        if(productsInCartIndexes.length === 0){
+            this.totalCost = 0;
+        } else {
+            this.totalCost = productsInCartIndexes.reduce((acc, key) => { 
+                return acc + onlineStoreData[+key].price * this.quantity[+key] 
+            }, 0 )
+        }
     },
     countTotalCostWithDiscount(discountSize){
         this.countTotalCost();
@@ -44,8 +52,16 @@ export const productsInCartInfo: productsInCartInfoI = {
         this.subscribers.push(func);
     },
     notify(){
-        this.subscribers.forEach((func) => {
-            func();
+        this.subscribers.forEach((func, index) => {
+            if(index === 2){
+                if(this.totalQuantity === 0){
+                    func();
+                }
+            } else {
+                if(this.totalQuantity !== 0){
+                    func();
+                }
+            }
         })
     }
 
