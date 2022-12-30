@@ -112,10 +112,57 @@ class OrderFormModel{
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
     }
 
-    validateThruValue(inputValue: string, inputElem: HTMLInputElement){
-        if(inputValue){
+    checkIsValueNumber(inputElem: HTMLInputElement){
+        const inputValueArray = inputElem.value.split('');
+        const correctInputValueArray = inputValueArray.filter((elem) => {
+            if(!Number.isNaN(+elem) || elem === '/'){
+                return true;
+            } else {
+                return false;
+            }
+        })
+        inputElem.value = correctInputValueArray.join('');
+    }
 
+    addZeroToMonth(inputElem: HTMLInputElement){
+        if(+inputElem.value[0] >= 2 && +inputElem.value[0] <= 9){
+            const correctInputValue = `0${inputElem.value.slice(0, 1)}`;
+            inputElem.value = correctInputValue
         }
+    }
+
+    checkIsMonthTwoDigitNumber(inputElem: HTMLInputElement){
+        const inputValueArrayWithoutSlash = inputElem.value.split('/');
+        const monthValue = inputValueArrayWithoutSlash[0];
+        if(monthValue.length > 2){
+            const correctMonthValue = monthValue.slice(0, 2);
+            inputValueArrayWithoutSlash[0] = correctMonthValue;
+            inputElem.value = inputValueArrayWithoutSlash.join('/');
+        }
+    }
+
+    checkIsMonthCorrect(inputElem: HTMLInputElement){
+        const inputValueArrayWithoutSlash = inputElem.value.split('/');
+        const monthValue = inputValueArrayWithoutSlash[0];
+        console.log(monthValue)
+        const isMonthValueCorrect = +monthValue <= 12 && +monthValue !== 0;
+        this.viewCallbacks.showError(inputElem, isMonthValueCorrect);
+    }
+
+    addSlash(inputElem: HTMLInputElement){
+        const inputValueArray = inputElem.value.split('/');
+        if(inputValueArray.length === 1 && inputElem.value.length === 2){
+            const inputValueWithSlash = `${inputElem.value}/`;
+            inputElem.value = inputValueWithSlash;
+        }
+    }
+
+    validateThruValue(inputElem: HTMLInputElement){
+        this.checkIsValueNumber(inputElem);
+        this.addZeroToMonth(inputElem);
+        this.checkIsMonthTwoDigitNumber(inputElem);
+        this.checkIsMonthCorrect(inputElem);
+        this.addSlash(inputElem)
     }
 }
 export default OrderFormModel

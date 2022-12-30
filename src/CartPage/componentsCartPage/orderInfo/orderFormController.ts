@@ -70,7 +70,7 @@ class OrderFormController{
         const validThruInput = document.getElementById('card-thru') as HTMLInputElement;
         validThruInput.addEventListener('input', () => {
             const cardNumberInputValue = validThruInput.value;
-            this.orderFormModel.validateThruValue(cardNumberInputValue, validThruInput);
+            this.orderFormModel.validateThruValue(validThruInput);
         })
     }
 
@@ -82,6 +82,7 @@ class OrderFormController{
         this.setDeliverInputListener();
         this.setEmailInputListener();
         this.setCardNumberInputListener();
+        this.setValidThruInputListener();
     }
 }
 export default OrderFormController
