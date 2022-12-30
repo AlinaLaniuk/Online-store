@@ -164,5 +164,12 @@ class OrderFormModel{
         this.checkIsMonthCorrect(inputElem);
         this.addSlash(inputElem)
     }
+
+    validateCvvValue(inputValue: string, inputElem: HTMLInputElement){
+        if(Number.isNaN(+inputValue[inputValue.length - 1])){
+            const correctInputValue = inputValue.slice(0, -1);
+            inputElem.value = correctInputValue
+        }
+    }
 }
 export default OrderFormModel

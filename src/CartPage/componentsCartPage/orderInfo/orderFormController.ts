@@ -74,6 +74,14 @@ class OrderFormController{
         })
     }
 
+    setValidCvvInputListener(){
+        const cvvInput = document.getElementById('cvv') as HTMLInputElement;
+        cvvInput.addEventListener('input', () => {
+            const cvvInputValue = cvvInput.value;
+            this.orderFormModel.validateCvvValue(cvvInputValue, cvvInput);
+        })
+    }
+
     run(){
         this.orderFormView.drawOrderForm();
         this.setOrderFormBgListener();
@@ -83,6 +91,7 @@ class OrderFormController{
         this.setEmailInputListener();
         this.setCardNumberInputListener();
         this.setValidThruInputListener();
+        this.setValidCvvInputListener();
     }
 }
 export default OrderFormController
