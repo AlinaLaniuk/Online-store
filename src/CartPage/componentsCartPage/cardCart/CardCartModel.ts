@@ -4,13 +4,19 @@ import { productsInCartInfo } from "../../../services/appServices";
 class CardCartModel{
     viewCallbacks: viewCallbacksI;
     currentIndexes: number[];
+    currentCardsNumbers: number[];
     constructor(viewCallbacks: viewCallbacksI){
         this.viewCallbacks = viewCallbacks;
         this.currentIndexes = [];
+        this.currentCardsNumbers = [];
     }
 
     setCurrentIndexes(indexes: number[]){
         this.currentIndexes = [...indexes];
+    }
+
+    setCurrentCardsNumbers(cardsNumbers: number[]){
+        this.currentCardsNumbers = [...cardsNumbers];
     }
 
     getCurrentProductsInCartInfo(){
@@ -45,13 +51,12 @@ class CardCartModel{
     }
     
     drawCards(){
-        console.log('hi')
         const productsInCartData = this.getCurrentProductsInCartInfo();
         this.viewCallbacks.deleteCurrentCards();
         productsInCartData.forEach((productData, index) => {
             const productDataIdStr = `${productData.id}`;
             const productQuantity = productsInCartInfo.quantity[productDataIdStr];
-            this.viewCallbacks.drawStartState(productData, index, productQuantity);
+            this.viewCallbacks.drawStartState(productData, this.currentCardsNumbers[index], productQuantity);
             const totalPrice = this.setTotalCostPerProduct(productData.id);
             this.viewCallbacks.drawTotalCostPerProduct(`${productData.id}`, totalPrice);
         })

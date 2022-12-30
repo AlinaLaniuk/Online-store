@@ -6,7 +6,7 @@ class CardCartView{
         productsInCartContent.insertAdjacentHTML(
             'beforeend',
             `<div class="card" data-id="${productInfo.id}">
-            <div class="number">${index + 1}</div>
+            <div class="number">${index}</div>
             <div class="product-info">
               <div class="product-info__img">
                 <img src="${productInfo.thumbnail}">

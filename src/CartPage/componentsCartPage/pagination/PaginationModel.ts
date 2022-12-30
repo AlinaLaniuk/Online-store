@@ -3,9 +3,11 @@ import { productsInCartInfo } from "../../../services/appServices";
 class PaginationModel{
     drawCurrentPageNumber: (pageNumber: number) => void;
     paginatedIndexes: number [][];
+    currentNumbersForCards: number[];
     constructor(drawCurrentPage: (pageNumber: number) => void){
         this.drawCurrentPageNumber = drawCurrentPage;
         this.paginatedIndexes = [];
+        this.currentNumbersForCards = [];
     }
 
     getPaginatedIndexes(){
@@ -24,8 +26,20 @@ class PaginationModel{
         }
         this.paginatedIndexes = [...newPaginatedIndexes];
         paginationServices.pageQuantity = this.paginatedIndexes.length;
+        this.getCurrentCardsNumbers();
     }
-    
+
+    getCurrentCardsNumbers(){
+        const firstCardNumberAtCurrentPage = (paginationServices.pageNumber - 1) * paginationServices.limit + 1;
+        const currentCardsNumbers = [];
+        for(let i = firstCardNumberAtCurrentPage; i < firstCardNumberAtCurrentPage + paginationServices.limit; i += 1){
+            currentCardsNumbers.push(i);
+        }
+        console.log(currentCardsNumbers)
+        this.currentNumbersForCards = [...currentCardsNumbers];
+        paginationServices.setCurrentCardsNumbers(this.currentNumbersForCards);
+    }
+
     getCurrentPageIndexesForDrawing(){
         let indexOfCurrentArrayForDrawing = paginationServices.pageNumber - 1;
         if(this.paginatedIndexes[indexOfCurrentArrayForDrawing]){

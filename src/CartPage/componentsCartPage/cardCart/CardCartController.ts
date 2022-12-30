@@ -32,8 +32,9 @@ class CardCartController{
         })
     }
 
-    subscribeToPaginationDataChanging(indexes: number[]){
+    subscribeToPaginationDataChanging(indexes: number[], cardsNumbers: number[]){
         this.cardCartModel.setCurrentIndexes(indexes);
+        this.cardCartModel.setCurrentCardsNumbers(cardsNumbers);
         this.cardCartModel.drawCards();
         this.setPlusMinusButtonsListener();
     }

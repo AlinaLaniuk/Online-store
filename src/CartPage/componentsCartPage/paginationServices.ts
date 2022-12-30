@@ -3,6 +3,7 @@ const paginationServices: PaginationServicesI = {
    pageQuantity: 0,
    limit: 3,
    currentIndexesForDrawingCards: [],
+   currentCardsNumbers: [],
    subscribers: [],
    increasePageNumber(){
     if(this.pageNumber < this.pageQuantity){
@@ -20,6 +21,9 @@ const paginationServices: PaginationServicesI = {
         this.limit = currentLimitValue;
         this.notify();
     },
+    setCurrentCardsNumbers(newCardsNumbers){
+        this.currentCardsNumbers = newCardsNumbers;
+    },
     setCurrentIndexesForDrawingCards(indexesArray){
         this.currentIndexesForDrawingCards = indexesArray;
         this.notify();
@@ -29,7 +33,7 @@ const paginationServices: PaginationServicesI = {
     },
     notify(){
         this.subscribers.forEach((func) => {
-            func(this.currentIndexesForDrawingCards);
+            func(this.currentIndexesForDrawingCards, this.currentCardsNumbers);
         })
     }
 }
@@ -39,11 +43,13 @@ interface PaginationServicesI {
     pageQuantity: number;
     limit: number;
     currentIndexesForDrawingCards: number[];
+    currentCardsNumbers: number[];
     subscribers: Function[];
     increasePageNumber(): void;
     decreasePageNumber(): void;
     setCurrentLimitValue(currentLimitValue: number): void;
     setCurrentIndexesForDrawingCards(indexesArray: number[]): void;
+    setCurrentCardsNumbers(newCardsNumbers: number[]): void;
     subscribe(func: Function): void;
     notify(): void;
 }
