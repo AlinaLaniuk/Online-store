@@ -1,0 +1,25 @@
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+.summary-container{
+    width: 30%;
+    height: 400px;
+    border: 1px solid black;
+    @include flex(center, column);
+}
+.summary-body{
+    height: 80%;
+    @include flex(space-between, column);
+}
+.promo-code-field{
+    @include flex(space-between, row);
+}
+.hide{
+    display: none;
+}
+.cross-out{
+    text-decoration: line-through;
+}

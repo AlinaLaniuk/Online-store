@@ -1,1 +1,17 @@
-@import 'common/normalize';  
+@import '_normalize';  
+@import './CartPage/cartPage.scss'; 
+@import './CartPage/cardCart.scss';
+@import './CartPage/summary.scss';
+@import './CartPage/orderForm.scss';
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+body{
+    position: relative;
+}
+.main-wrapper{
+    @include flex(space-around, row);
+}
