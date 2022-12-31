@@ -30,17 +30,13 @@ export class DisplayBarView {
     const viewButtons = document.createElement("div");
     viewButtons.className = "display-bar__button-list";
 
-    const viewButtonsTitle = document.createElement("p");
-    viewButtonsTitle.className = "display-bar__button-title";
-    viewButtonsTitle.textContent = "Cards view";
-
     const bigLabel = document.createElement("label");
     bigLabel.className = "display-bar__view-label";
     bigLabel.setAttribute("for", "view-big");
 
     const bigSpan = document.createElement("span");
     bigSpan.className = "display-bar__view-span";
-    bigSpan.textContent = "Big";
+    bigSpan.textContent = "Big cards";
 
     const bigView = document.createElement("input");
     bigView.className = "display-bar__view-button";
@@ -50,11 +46,11 @@ export class DisplayBarView {
 
     const smallLabel = document.createElement("label");
     smallLabel.className = "display-bar__view-label";
-    smallLabel.setAttribute("for", "view-big");
+    smallLabel.setAttribute("for", "view-small");
 
     const smallSpan = document.createElement("span");
     smallSpan.className = "display-bar__view-span";
-    smallSpan.textContent = "Small";
+    smallSpan.textContent = "Small cards";
 
     const smallView = document.createElement("input");
     smallView.className = "display-bar__view-button";
@@ -64,7 +60,7 @@ export class DisplayBarView {
 
     bigLabel.append(bigSpan, bigView);
     smallLabel.append(smallSpan, smallView);
-    viewButtons.append(viewButtonsTitle, bigLabel, smallLabel);
+    viewButtons.append(bigLabel, smallLabel);
     displayBar.append(sortBar, itemsNum, searchBar, viewButtons);
     this.mainWrapper.append(displayBar);
   }

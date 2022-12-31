@@ -17,27 +17,22 @@
   }
 
   .display-bar__button-list {
-    display: grid;
+    display: flex;
     gap: 15px;
 
-    .display-bar__button-title {
-      margin: 0;
-      grid-row-start: 1;
-      grid-row-end: 2;
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-
     .display-bar__view-label {
+      padding: 5px;
       display: flex;
       gap: 5px;
       grid-row-start: 2;
       grid-row-end: 3;
+      border: 1px solid black;
+      border-radius: 10px;
+      cursor: pointer;
       
       .display-bar__view-button {
         width: 20px;
         height: 20px;
-        cursor: pointer;
       }
     }
   }

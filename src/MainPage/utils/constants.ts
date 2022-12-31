@@ -56,15 +56,15 @@ export const sortOptionsList = [
 ];
 
 export const view = {
+  filter: {},
   sort: {
-    key: 'id',
-    direction: 'asc',
+    key: "id",
+    direction: "asc",
   },
   itemsFound: 0,
-  search: '',
+  search: "",
   isBig: true,
-}
-
+};
 
 class Debounce {
   run(fn: Function, ms: number) {

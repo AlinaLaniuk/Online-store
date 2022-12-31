@@ -24,12 +24,12 @@ export class FiltersView {
 
     const resetFiltersBtn = document.createElement("button");
     resetFiltersBtn.setAttribute("type", "button");
-    resetFiltersBtn.className = "filter-section__reset";
+    resetFiltersBtn.className = "filter-section__button filter-section__reset";
     resetFiltersBtn.textContent = "Reset Filters";
 
     const copyLinkBtn = document.createElement("button");
     copyLinkBtn.setAttribute("type", "button");
-    copyLinkBtn.className = "filter-section__copy";
+    copyLinkBtn.className = "filter-section__button filter-section__copy";
     copyLinkBtn.textContent = "Copy Link";
 
     filterButtons.append(resetFiltersBtn, copyLinkBtn);
@@ -44,26 +44,22 @@ export class FiltersView {
 
     const input = document.createElement("input");
     input.className = "checkbox-item__unput";
-    input.name = "category-item";
+    input.name = `${container.getAttribute('id')}-item`;
     input.type = "checkbox";
+    input.setAttribute("id", data.title);
 
     const label = document.createElement("label");
     label.className = "checkbox-item__label";
-    label.setAttribute("for", "category-item");
-
-    const text = document.createElement("p");
-    text.className = "checkbox-item__text";
-    text.textContent = data.title;
+    label.setAttribute("for", data.title);
+    label.textContent = data.title;
 
     const span = document.createElement("span");
     span.className = "checkbox-item__span";
 
     span.textContent = `(${data.items}/${data.items})`;
-    label.append(text, span);
-    input.setAttribute("id", data.title);
-
-    item.append(input, label);
-    label.append(span);
+    
+    label.prepend(input);
+    item.append(label,span);
     container.append(item);
   }
   // get checkbox filter
