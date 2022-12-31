@@ -109,7 +109,7 @@ export class FiltersView {
 
   generateRangeFilter(el: filterOption, data: IrangeData): void {
     const rangeFilter = document.createElement("li");
-    rangeFilter.className = "filter-item filter-item_type_range filter-range";
+    rangeFilter.className = `filter-item filter-item_type_range filter-range-${el.option}`;
 
     const title = document.createElement("h3");
     title.className = "filter-item__title";

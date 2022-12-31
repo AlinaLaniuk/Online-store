@@ -25,17 +25,19 @@ export class FiltersController {
   }
 
   handlePriceChange() {
+    const filter = <HTMLElement>document.querySelector('.filter-range-price');
+
     const minPriceText = <HTMLElement>(
-      document.querySelector(".filter-range__min")
+      filter.querySelector(".filter-range__min")
     );
     const maxPriceText = <HTMLElement>(
-      document.querySelector(".filter-range__max")
+      filter.querySelector(".filter-range__max")
     );
     const minPriceInput = <HTMLInputElement>(
-      document.querySelector(".range-min")
+      filter.querySelector(".range-min")
     );
     const maxPriceInput = <HTMLInputElement>(
-      document.querySelector(".range-max")
+      filter.querySelector(".range-max")
     );
 
     minPriceInput.addEventListener("input", () => {
@@ -50,17 +52,19 @@ export class FiltersController {
   }
 
   handleStockChange() {
+    const filter = <HTMLElement>document.querySelector('.filter-range-stock');
+
     const minPriceText = <HTMLElement>(
-      document.querySelectorAll(".filter-range__min")[1]
+      filter.querySelector(".filter-range__min")
     );
     const maxPriceText = <HTMLElement>(
-      document.querySelectorAll(".filter-range__max")[1]
+      filter.querySelector(".filter-range__max")
     );
     const minPriceInput = <HTMLInputElement>(
-      document.querySelectorAll(".range-min")[1]
+      filter.querySelector(".range-min")
     );
     const maxPriceInput = <HTMLInputElement>(
-      document.querySelectorAll(".range-max")[1]
+      filter.querySelector(".range-max")
     );
 
     minPriceInput.addEventListener("input", () => {

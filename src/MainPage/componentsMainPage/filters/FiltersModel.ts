@@ -1,5 +1,5 @@
 import onlineStoreData from "../../../data/data";
-import { filterOptionsList, view } from "../../utils/constants";
+import { currencySymbol, filterOptionsList, view } from "../../utils/constants";
 import {
   filterCheckboxItem,
   filterOption,
@@ -31,7 +31,7 @@ export class FiltersModel {
     this.rangeData = {
       price: this.getPriceRange(this.data),
       stock: this.getStockRange(this.data),
-    }
+    };
   }
 
   addFilter(item: HTMLInputElement) {
@@ -58,7 +58,6 @@ export class FiltersModel {
         brandArr.splice(brandArr.indexOf(checkboxId), 1);
       }
     }
-    console.log(view.filter)
   }
 
   getNewCategoryList(data: IDataItem[]): void {
@@ -120,6 +119,18 @@ export class FiltersModel {
       }
     });
   }
+
+  // handleInputChange(
+  //   input: HTMLInputElement,
+  //   textElement: HTMLElement,
+  //   type: string,
+  //   isPrice: boolean
+  // ) {
+  //   textElement.textContent = (isPrice ? currencySymbol : "") + input.value;
+  //   view.filter.price[type as keyof typeof view.filter.price] = parseInt(
+  //     input.value
+  //   );
+  // }
 
   // range
   getPriceRange(data: IDataItem[]): IRange {

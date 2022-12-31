@@ -64,8 +64,6 @@ export class CardMainModel {
       });
     }
 
-    console.log(view.filter.price)
-
     this.data = this.data.filter((item) => {
      if(view.filter.price.min <= item.price && view.filter.price.max >= item.price) {
       return item;
@@ -111,8 +109,6 @@ export class CardMainModel {
       productsInCartInfo.quantity[cardId] = 1;
     }
     this.handleAddBtnState(addBtn, !isInCart);
-    // console.log(`item ${cardId} is in the cart: ${!isInCart}`);
-    // console.log(productsInCartInfo.quantity);
   }
 
   public updateCardsList(): void {
@@ -122,7 +118,5 @@ export class CardMainModel {
     this.sortData(view.sort.key, view.sort.direction);
     this.refreshCardList();
     this.getCards();
-
-    console.log(this.data);
   }
 }
