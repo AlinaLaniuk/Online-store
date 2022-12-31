@@ -1,0 +1,30 @@
+.input-wrapper {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+
+  .range-min,
+  .range-max {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 50%;
+    height: 10px;
+    max-width: 400px;
+    background: #dedede;
+    margin: 0;
+    padding: 0;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #0070BF;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}

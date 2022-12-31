@@ -43,8 +43,8 @@ export class FiltersView {
     item.className = "checkbox-item";
 
     const input = document.createElement("input");
-    input.className = "checkbox-item__unput";
-    input.name = `${container.getAttribute('id')}-item`;
+    input.className = "checkbox-item__input";
+    input.name = `${container.getAttribute("id")}-item`;
     input.type = "checkbox";
     input.setAttribute("id", data.title);
 
@@ -56,10 +56,10 @@ export class FiltersView {
     const span = document.createElement("span");
     span.className = "checkbox-item__span";
 
-    span.textContent = `(${data.items}/${data.items})`;
-    
+    span.textContent = `(${data.itemsFiltered}/${data.items})`;
+
     label.prepend(input);
-    item.append(label,span);
+    item.append(label, span);
     container.append(item);
   }
   // get checkbox filter
@@ -75,7 +75,7 @@ export class FiltersView {
     filterList.className = "filter-item__list";
     filterList.setAttribute(
       "id",
-      `${el.option.toLocaleLowerCase()}-${el.type}`
+      `${el.option.toLowerCase()}-${el.type}`
     );
 
     const filterSectionList = <HTMLElement>(
@@ -122,38 +122,58 @@ export class FiltersView {
     span.className = "filter-range__symbol";
     span.textContent = rangeSymbol;
 
-    const min = document.createElement("p");
-    min.className = "filter-range__min";
+    const rangeMinText = document.createElement("p");
+    rangeMinText.className = "filter-range__min";
 
-    const max = document.createElement("p");
-    max.className = "filter-range__max";
+    const rangeMaxText = document.createElement("p");
+    rangeMaxText.className = "filter-range__max";
 
-    const input = document.createElement("input");
-    input.className = "filter-range__range";
-    input.type = "range";
+    const inputWrapper = document.createElement("div");
+    inputWrapper.className = "input-wrapper";
+    inputWrapper.insertAdjacentHTML(
+      "afterbegin",
+      `
+      <input type="range" class="range-min" step="1">
+      <input type="range" class="range-max" step="1">
+  `
+    );
 
-    if (el.option === "Price") {
+    if (el.option === "price") {
       const range = data.price;
+      const isPrice = true;
+      this.setInputAttrubutes(isPrice, range, rangeMinText, rangeMaxText, inputWrapper);
 
-      min.textContent = currencySymbol + range.min.toString();
-      max.textContent = currencySymbol + range.max.toString();
-    } else if (el.option === "Stock") {
+    } else if (el.option === "stock") {
       const range = data.stock;
-
-      min.textContent = range.min.toString();
-      max.textContent = range.max.toString();
+      const isPrice = false;
+      this.setInputAttrubutes(isPrice, range, rangeMinText, rangeMaxText, inputWrapper);
     }
 
     const filterSectionList = <HTMLElement>(
       this.mainWrapper.querySelector(".filter-section__list")
     );
 
-    desc.append(min, span, max);
-    rangeFilter.append(title, desc, input);
+    desc.append(rangeMinText, span, rangeMaxText);
+    rangeFilter.append(title, desc, inputWrapper);
 
     if (filterSectionList) {
       filterSectionList.append(rangeFilter);
     }
+  }
+
+  setInputAttrubutes(isPrice: boolean, range: IRange, minText: HTMLElement, maxText: HTMLElement, inputWrapper: HTMLElement) {
+    minText.textContent = (isPrice ? currencySymbol: '') + range.min.toString();
+    maxText.textContent = (isPrice ? currencySymbol: '') + range.max.toString();
+
+    const rangeMin = <HTMLInputElement>inputWrapper.querySelector(".range-min");
+    rangeMin.min = range.min.toString();
+    rangeMin.value = rangeMin.min;
+    rangeMin.max = Math.floor((range.max - range.min) / 2).toString();
+
+    const rangeMax = <HTMLInputElement>inputWrapper.querySelector(".range-max");
+    rangeMax.min = Math.ceil((range.max - range.min) / 2).toString();
+    rangeMax.max = range.max.toString();
+    rangeMax.value = rangeMax.max;
   }
 
   // content

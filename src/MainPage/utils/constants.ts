@@ -24,24 +24,24 @@ export const rangeSymbol: string = "⟷";
 
 export const filterOptionsList = [
   {
-    option: "Category",
+    option: "category",
     type: "checkbox",
   },
   {
-    option: "Brand",
+    option: "brand",
     type: "checkbox",
   },
   {
-    option: "Price",
+    option: "price",
     type: "range",
-    min: 10,
-    max: 1800,
+    min: 0,
+    max: 0,
   },
   {
-    option: "Stock",
+    option: "stock",
     type: "range",
-    min: 1,
-    max: 100,
+    min: 0,
+    max: 0,
   },
 ];
 
@@ -56,7 +56,18 @@ export const sortOptionsList = [
 ];
 
 export const view = {
-  filter: {},
+  filter: {
+    category: [] as string[],
+    brand: [] as string[],
+    price: {
+      min: 0,
+      max: 0,
+    },
+    stock: {
+      min: 0,
+      max: 0,
+    },
+  },
   sort: {
     key: "id",
     direction: "asc",

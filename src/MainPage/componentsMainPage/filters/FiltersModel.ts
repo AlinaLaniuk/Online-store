@@ -1,5 +1,5 @@
 import onlineStoreData from "../../../data/data";
-import { filterOptionsList } from "../../utils/constants";
+import { filterOptionsList, view } from "../../utils/constants";
 import {
   filterCheckboxItem,
   filterOption,
@@ -34,6 +34,33 @@ export class FiltersModel {
     }
   }
 
+  addFilter(item: HTMLInputElement) {
+    const categoryArr = view.filter.category;
+    const brandArr = view.filter.brand;
+
+    const checkboxName = item.getAttribute("name");
+    const checkboxId = <string>item.getAttribute("id");
+
+    if (item.checked) {
+      item.setAttribute("checked", "checked");
+
+      if (checkboxName?.includes("category")) {
+        categoryArr.push(checkboxId);
+      } else if (checkboxName?.includes("brand")) {
+        brandArr.push(checkboxId);
+      }
+    } else {
+      item.removeAttribute("checked");
+
+      if (checkboxName?.includes("category")) {
+        categoryArr.splice(categoryArr.indexOf(checkboxId), 1);
+      } else if (checkboxName?.includes("brand")) {
+        brandArr.splice(brandArr.indexOf(checkboxId), 1);
+      }
+    }
+    console.log(view.filter)
+  }
+
   getNewCategoryList(data: IDataItem[]): void {
     this.categoryList.sort((a: string, b: string) => (a > b ? 1 : -1));
 
@@ -42,6 +69,7 @@ export class FiltersModel {
         return {
           title: el,
           items: data.filter((item) => item.category === el).length,
+          itemsFiltered: data.filter((item) => item.category === el).length,
         };
       }
     );
@@ -55,6 +83,7 @@ export class FiltersModel {
         return {
           title: el,
           items: data.filter((item) => item.brand === el).length,
+          itemsFiltered: data.filter((item) => item.brand === el).length,
         };
       }
     );
@@ -99,6 +128,9 @@ export class FiltersModel {
     const min = data[0].price;
     const max = data[data.length - 1].price;
 
+    view.filter.price.min = min;
+    view.filter.price.max = max;
+
     return { min: min, max: max };
   }
 
@@ -108,10 +140,10 @@ export class FiltersModel {
     const min = data[0].stock;
     const max = data[data.length - 1].stock;
 
+    view.filter.stock.min = min;
+    view.filter.stock.max = max;
     return { min: min, max: max };
   }
-
-  
 
   getFilterSection(): void {
     this.generateFilterSection(this.rangeData, this.options);

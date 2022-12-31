@@ -11,6 +11,7 @@ export class MainController {
   filterController: FiltersController;
   displayBarController: DisplayBarController;
   displayBarObserver: MutationObserver;
+  filterSectionObserver: MutationObserver;
 
   constructor() {
     this.view = new MainView();
@@ -19,6 +20,9 @@ export class MainController {
     this.filterController = new FiltersController();
     this.displayBarController = new DisplayBarController();
     this.displayBarObserver = new MutationObserver(() => {
+      this.update();
+    });
+    this.filterSectionObserver = new MutationObserver(() => {
       this.update();
     });
   }
@@ -37,6 +41,14 @@ export class MainController {
 
     const displayBar = <Node>document.querySelector(".display-bar");
     this.displayBarObserver.observe(displayBar, {
+      childList: true,
+      subtree: true,
+      characterDataOldValue: true,
+      attributes: true,
+    });
+
+    const filterSection = <Node>document.querySelector(".filter-section");
+    this.filterSectionObserver.observe(filterSection, {
       childList: true,
       subtree: true,
       characterDataOldValue: true,

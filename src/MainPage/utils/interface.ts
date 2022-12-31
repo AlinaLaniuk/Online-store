@@ -22,6 +22,7 @@ export interface filterOption {
 export interface filterCheckboxItem {
   title: string;
   items: number;
+  itemsFiltered: number;
 }
 
 export interface IRange {

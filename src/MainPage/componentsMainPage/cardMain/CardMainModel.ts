@@ -48,6 +48,36 @@ export class CardMainModel {
         .includes(view.search.toLocaleLowerCase());
     });
 
+    if (view.filter.category.length) {
+      this.data = this.data.filter((item) => {
+        if (view.filter.category.includes(item.category)) {
+          return item;
+        }
+      });
+    }
+
+    if (view.filter.brand.length) {
+      this.data = this.data.filter((item) => {
+        if (view.filter.brand.includes(item.brand)) {
+          return item;
+        }
+      });
+    }
+
+    console.log(view.filter.price)
+
+    this.data = this.data.filter((item) => {
+     if(view.filter.price.min <= item.price && view.filter.price.max >= item.price) {
+      return item;
+     }
+    });
+
+    this.data = this.data.filter((item) => {
+     if(view.filter.stock.min <= item.stock && view.filter.stock.max >= item.stock) {
+      return item;
+     }
+    });
+
     view.itemsFound = this.data.length;
   }
 
@@ -92,5 +122,7 @@ export class CardMainModel {
     this.sortData(view.sort.key, view.sort.direction);
     this.refreshCardList();
     this.getCards();
+
+    console.log(this.data);
   }
 }
