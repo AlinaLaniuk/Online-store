@@ -53,24 +53,11 @@ class PaginationModel{
     }
 
     passLimitValue(limitInputValue: number){
-        let nextProductsQuantity = 0;
-        if(typeof limitInputValue === "number"){
+        if(limitInputValue > 0){
             paginationServices.setCurrentLimitValue(limitInputValue);
             this.getPaginatedIndexes();
             this.getCurrentPageIndexesForDrawing();
-            // for(let i = (paginationServices.pageNumber - 1); i < this.paginatedIndexes.length; i += 1){
-            //     console.log(paginationServices.pageNumber)
-            //     nextProductsQuantity += this.paginatedIndexes[paginationServices.pageNumber - 1].length;
-            // }
-            // console.log(nextProductsQuantity)
-            // if(nextProductsQuantity >= limitInputValue){
-            //     paginationServices.setCurrentLimitValue(limitInputValue);
-            //     this.getPaginatedIndexes();
-            //     this.getCurrentPageIndexesForDrawing();
-            // } else {
-            //     paginationServices.setCurrentLimitValue(productsInCartInfo.quantity.length);
-            // }
-        } 
+        }
     }
 
     setStartLimitValue(){
