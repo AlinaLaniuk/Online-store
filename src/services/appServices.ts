@@ -63,9 +63,18 @@ export const productsInCartInfo: productsInCartInfoI = {
                 }
             }
         })
-    }
-
-
+        this.setLocalStorageInfo();
+    },
+    getLocalStorageInfo(){
+        const localStorageInfo = localStorage.getItem('online-store-info') as string;
+        if(localStorageInfo){
+            this.quantity = JSON.parse(localStorageInfo) ;
+        }
+        console.log(JSON.parse(localStorageInfo))
+    },
+    setLocalStorageInfo(){
+        localStorage.setItem('online-store-info', JSON.stringify(this.quantity));
+    },
 }
 interface productsInCartInfoI {
     quantity: { [key: string]: number };
@@ -78,4 +87,6 @@ interface productsInCartInfoI {
     subscribe: (func: Function) => void;
     notify: () => void;
     countTotalCostWithDiscount: (discountSize: number) => void;
+    setLocalStorageInfo: () => void;
+    getLocalStorageInfo: () => void;
 }

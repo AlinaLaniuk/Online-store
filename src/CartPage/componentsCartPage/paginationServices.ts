@@ -35,6 +35,14 @@ const paginationServices: PaginationServicesI = {
         this.subscribers.forEach((func) => {
             func(this.currentIndexesForDrawingCards, this.currentCardsNumbers);
         })
+    },
+    setValuesFromQueryParams(limit, page){
+        if(limit){
+            this.limit = +limit;
+        }
+        if(page){
+            this.pageNumber = +page;
+        }
     }
 }
 export default paginationServices;
@@ -52,4 +60,5 @@ interface PaginationServicesI {
     setCurrentCardsNumbers(newCardsNumbers: number[]): void;
     subscribe(func: Function): void;
     notify(): void;
+    setValuesFromQueryParams(limit: string, page: string): void;
 }

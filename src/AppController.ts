@@ -2,6 +2,7 @@ import CartController from "./CartPage/CartController";
 import MainController from "./MainPage/MainController";
 import { PageIds } from "./constants";
 import { productsInCartInfo } from "../src/services/appServices";
+import paginationServices from "./CartPage/componentsCartPage/paginationServices";
 class AppController{
     cartPageController: CartController;
     mainController: MainController;
@@ -30,6 +31,7 @@ class AppController{
               break;
       
             case 'cart':
+              this.getCartParamsFromURL();
               this.mainWrapper.innerHTML = '';
               this.cartPageController.runCart();
               break;
@@ -44,6 +46,16 @@ class AppController{
         this.totalCostContainer.innerHTML = `Cart total: ${productsInCartInfo.totalCost}`;
     }
 
+    getCartParamsFromURL(){
+        const params = window.location.search;
+        if(params){
+            const paramsObj = new URLSearchParams(params);
+            const limitParam = paramsObj.get('limit') as string;
+            const pageParam = paramsObj.get('page') as string;
+            paginationServices.setValuesFromQueryParams(limitParam, pageParam)          
+        }
+    }
+
     private enableRouteChange() {
         window.addEventListener('hashchange', () => {
           const hash = window.location.hash.slice(1) as PageIds;
@@ -53,6 +65,7 @@ class AppController{
 
     run(){
         const currentHash = window.location.hash;
+        productsInCartInfo.getLocalStorageInfo();
         if(currentHash){
             this.mainWrapper.innerHTML = '';
             const hash = window.location.hash.slice(1) as PageIds;
@@ -63,7 +76,7 @@ class AppController{
         }
         this.enableRouteChange();
         productsInCartInfo.subscribe(this.changeCartTotalQuantity);
-        productsInCartInfo.subscribe(this.changeTotalCost)
+        productsInCartInfo.subscribe(this.changeTotalCost);
     }
 }
 export default AppController;
