@@ -1,11 +1,13 @@
 import CartController from "./CartPage/CartController";
 import MainController from "./MainPage/MainController";
+import ProductPageController from "./productPage/productPageController";
 import { PageIds } from "./constants";
 import { productsInCartInfo } from "../src/services/appServices";
 import paginationServices from "./CartPage/componentsCartPage/paginationServices";
 class AppController{
     cartPageController: CartController;
     mainController: MainController;
+    productPageController: ProductPageController;
     mainWrapper: HTMLElement;
     cartQuantityContainer: HTMLElement;
     totalCostContainer: HTMLElement;
@@ -13,7 +15,8 @@ class AppController{
     private currentPage = '';
     currentPath: string;
     constructor(){
-        this.cartPageController = new CartController();
+        this.productPageController = new ProductPageController();
+        this.cartPageController = new CartController(this.productPageController.run);
         this.mainController = new MainController();
         this.mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
         this.currentPath = '';
@@ -25,17 +28,28 @@ class AppController{
 
     renderPage(pathName: string){
         switch (pathName) {
-            case 'main':
+            case '/':
               this.mainWrapper.innerHTML = '';
               this.mainController.run();
               break;
       
-            case 'cart':
-              this.getCartParamsFromURL();
+            case '/cart':
+            //   this.getCartParamsFromURL();
               this.mainWrapper.innerHTML = '';
               this.cartPageController.runCart();
               break;
+
+            case '/product-details':
+              this.getCartParamsFromURL();
+              this.mainWrapper.innerHTML = '';
+              this.productPageController.run(10);
+              break;
           }
+    }
+
+    goTo = (path: string) => {
+        window.history.pushState({path}, path, path)
+        this.renderPage(path)
     }
 
     changeCartTotalQuantity(){
@@ -56,25 +70,24 @@ class AppController{
         }
     }
 
-    private enableRouteChange() {
-        window.addEventListener('hashchange', () => {
-          const hash = window.location.hash.slice(1) as PageIds;
-          this.renderPage(hash);
+    private initRouter () {
+        window.addEventListener('popstate', () => {
+            this.renderPage( new URL(window.location.href).pathname)
         });
+        document.querySelectorAll('[href^="/"]').forEach(el => {
+            el.addEventListener('click', (event) => {
+                event.preventDefault()
+                const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href)
+                this.goTo(path)
+            })
+        })
+        console.log(window.location.pathname)
+        this.renderPage(window.location.pathname)
       }
 
     run(){
-        const currentHash = window.location.hash;
         productsInCartInfo.getLocalStorageInfo();
-        if(currentHash){
-            this.mainWrapper.innerHTML = '';
-            const hash = window.location.hash.slice(1) as PageIds;
-            this.renderPage(hash);
-        } else {
-            window.location.hash = PageIds.MainPage;
-            this.renderPage(PageIds.MainPage);
-        }
-        this.enableRouteChange();
+        this.initRouter();
         productsInCartInfo.subscribe(this.changeCartTotalQuantity);
         productsInCartInfo.subscribe(this.changeTotalCost);
     }
