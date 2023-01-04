@@ -40,7 +40,7 @@ class AppController{
               this.cartPageController.runCart();
               break;
 
-            case `/product-details/10`:
+            case `/product-details/${[1-100]}`:
               this.mainWrapper.innerHTML = '';
               this.productPageController.run(10);
               break;

@@ -7,7 +7,7 @@ class CardCartView{
             'beforeend',
             `<div class="card" data-id="${productInfo.id}">
             <div class="number">${index}</div>
-            <a class="product-info" href="/product-details/10">
+            <a class="product-info" href="/product-details">
               <div class="product-info__img">
                 <img src="${productInfo.thumbnail}">
               </div>

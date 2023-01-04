@@ -11,6 +11,11 @@ class CardCartModel{
         this.currentCardsNumbers = [];
     }
 
+    setProductPageUrl(id: number){
+        const url = new URL(`/product/${id}`, window.location.href);
+
+    }
+
     setCurrentIndexes(indexes: number[]){
         this.currentIndexes = [...indexes];
     }
