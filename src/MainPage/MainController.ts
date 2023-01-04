@@ -5,7 +5,7 @@ import { MainModel } from "./MainModel";
 import { MainView } from "./MainView";
 import { view } from "./utils/constants";
 
-export class MainController {
+class MainController {
   view: MainView;
   model: MainModel;
   cardMainController: CardMainController;
@@ -128,3 +128,5 @@ export class MainController {
     });
   }
 }
+
+export default MainController;

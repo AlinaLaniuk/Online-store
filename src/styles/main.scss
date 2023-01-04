@@ -1,3 +1,43 @@
-@import 'common/normalize';  
+@import '_normalize';  
 @import './MainPage/mainPage.scss';  
-@import './MainPage/range-slider';  
+@import './CartPage/cartPage.scss'; 
+@import './CartPage/cardCart.scss';
+@import './CartPage/summary.scss';
+@import './CartPage/orderForm.scss';
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+body{
+    position: relative;
+}
+header{
+    width: 100%;
+    @include flex(center, row);
+    img{
+        width: 100px;
+    }
+    margin-bottom: 20px;
+}
+.header-wrapper{
+    width: 90%;
+    height: 70px;
+    @include flex(space-between, row);
+}
+.cart-container{
+    @include flex(space-around, row);
+}
+.cart-in-header-container{
+    position: relative;
+}
+.cart-quantity{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: aquamarine;
+}

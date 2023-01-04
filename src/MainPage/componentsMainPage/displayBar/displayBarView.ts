@@ -1,17 +1,19 @@
 export class DisplayBarView {
-  mainWrapper: HTMLElement;
+  mainWrapper: HTMLElement | null;
   cardsViewButtons: NodeListOf<Element> | null;
   searchBar: HTMLInputElement | null;
   sortBar: HTMLSelectElement | null;
 
   constructor() {
-    this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
+    this.mainWrapper = null;
     this.cardsViewButtons = null;
     this.searchBar = null;
     this.sortBar = null;
   }
 
   generateDisplayTemplate(items: number): void {
+    this.mainWrapper = <HTMLElement>document.querySelector(".main-container");
+
     const displayBar = document.createElement("section");
     displayBar.className = "display-bar";
 
@@ -67,7 +69,7 @@ export class DisplayBarView {
 
   generateSortOptions(optionList: string[]): void {
     const sortBar = <HTMLElement>(
-      this.mainWrapper.querySelector(".display-bar__sort-bar")
+      this.mainWrapper!.querySelector(".display-bar__sort-bar")
     );
 
     optionList.forEach((item): void => {
@@ -90,7 +92,7 @@ export class DisplayBarView {
 
   setViewInitial() {
     this.cardsViewButtons = <NodeListOf<Element>>(
-      this.mainWrapper.querySelectorAll(".display-bar__view-button")
+      this.mainWrapper!.querySelectorAll(".display-bar__view-button")
     );
     this.cardsViewButtons[0].setAttribute("disabled", "");
     this.cardsViewButtons[0].setAttribute("checked", "");

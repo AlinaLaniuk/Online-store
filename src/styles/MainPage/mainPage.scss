@@ -1,8 +1,9 @@
 @import './_filter-section';
+@import './range-slider';  
 @import './_display-bar';
 @import './_card-list';
 
-.main-wrapper {
+.main-container {
   width: 100%;
   padding: 20px 30px;
   display: grid;

@@ -8,14 +8,16 @@ import {
 import { currencySymbol, rangeSymbol } from "../../utils/constants";
 
 export class FiltersView {
-  mainWrapper: HTMLElement;
+  mainWrapper: HTMLElement | null;
 
   constructor() {
-    this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
+    this.mainWrapper = null;
   }
 
   // filter list
   generateSectionTemplate(): void {
+    this.mainWrapper = <HTMLElement>document.querySelector(".main-container");
+
     const filterSection = document.createElement("aside");
     filterSection.className = "filter-section";
 
@@ -76,7 +78,7 @@ export class FiltersView {
     filterList.setAttribute("id", `${el.option.toLowerCase()}-${el.type}`);
 
     const filterSectionList = <HTMLElement>(
-      this.mainWrapper.querySelector(".filter-section__list")
+      this.mainWrapper!.querySelector(".filter-section__list")
     );
 
     checkboxFilter.append(title, filterList);
@@ -163,7 +165,7 @@ export class FiltersView {
     }
 
     const filterSectionList = <HTMLElement>(
-      this.mainWrapper.querySelector(".filter-section__list")
+      this.mainWrapper!.querySelector(".filter-section__list")
     );
 
     desc.append(rangeMinText, span, rangeMaxText);

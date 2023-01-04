@@ -1,13 +1,15 @@
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
-  mainWrapper: HTMLElement;
+  mainWrapper: HTMLElement | null;
 
   constructor() {
-    this.mainWrapper = <HTMLElement>document.querySelector(".main-wrapper");
+    this.mainWrapper = null;
   }
 
   public getCardListTemplate() {
+    this.mainWrapper = <HTMLElement>document.querySelector(".main-container");
+
     const cardsSection = document.createElement("section");
     cardsSection.className = "card-section";
 
