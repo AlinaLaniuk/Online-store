@@ -191,7 +191,7 @@ export class FiltersModel {
     view.filter.brand = [];
   }
 
-  getPresetCheckboxe(type: string) {
+  getPresetCheckbox(type: string) {
     const filterType = <string[]>view.filter[type as keyof typeof view.filter];
 
     if (filterType.length) {
@@ -242,8 +242,8 @@ export class FiltersModel {
     this.generateFilterSection(this.rangeData, this.options);
     this.getCategoryList(this.data);
     this.getItems(this.data);
-    this.getPresetCheckboxe("category");
-    this.getPresetCheckboxe("brand");
+    this.getPresetCheckbox("category");
+    this.getPresetCheckbox("brand");
     this.getPresetRange("price");
     this.getPresetRange("stock");
   }

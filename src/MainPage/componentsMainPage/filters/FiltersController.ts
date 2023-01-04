@@ -26,7 +26,7 @@ export class FiltersController {
   }
 
   resetRangeFilter(isPrice: boolean) {
-    const rangeType = isPrice ? 'price' : 'stock';
+    const rangeType = isPrice ? "price" : "stock";
     const filter = <HTMLElement>(
       document.querySelector(`.filter-range-${rangeType}`)
     );
@@ -52,16 +52,31 @@ export class FiltersController {
       this.resetRangeFilter(true);
       this.resetRangeFilter(false);
       view.default = true;
-      view.search = '';
-      view.sort.key = 'id';
-      view.sort.direction = 'asc';
+      view.search = "";
+      const searchBar = <HTMLInputElement>(
+        document.querySelector(".display-bar__search-bar")
+      );
+      searchBar!.value = "";
+
+      const sortBar = <HTMLSelectElement>(
+        document.querySelector(".display-bar__sort-bar")
+      );
+
+      view.sort.key = "id";
+      view.sort.direction = "asc";
+
+      sortBar!.removeAttribute("value");
+      sortBar!.selectedIndex = 0;
+
       view.isBig = true;
     });
   }
 
   handleRangeChange(isPrice: boolean) {
-    const rangeType = isPrice ? 'price' : 'stock';
-    const filter = <HTMLElement>document.querySelector(`.filter-range-${rangeType}`);
+    const rangeType = isPrice ? "price" : "stock";
+    const filter = <HTMLElement>(
+      document.querySelector(`.filter-range-${rangeType}`)
+    );
     const rangeInput = <NodeListOf<HTMLInputElement>>(
       filter.querySelectorAll(".range-input input")
     );
@@ -77,8 +92,8 @@ export class FiltersController {
   run(): void {
     this.model.getFilterSection();
     this.setCheckboxListener();
-    this.handleRangeChange(true)
-    this.handleRangeChange(false)
+    this.handleRangeChange(true);
+    this.handleRangeChange(false);
     this.resetFilters();
   }
 }
