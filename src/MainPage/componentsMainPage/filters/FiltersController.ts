@@ -6,6 +6,7 @@ import { FiltersView } from "./FiltersView";
 export class FiltersController {
   view: FiltersView;
   model: FiltersModel;
+  data: { id: number; title: string; description: string; price: number; discountPercentage: number; rating: number; stock: number; brand: string; category: string; thumbnail: string; images: string[]; }[];
 
   constructor() {
     this.view = new FiltersView();
@@ -13,6 +14,7 @@ export class FiltersController {
       this.view.generateFilterSection.bind(this.view),
       this.view.generateCheckboxItem.bind(this.view)
     );
+    this.data = [...onlineStoreData]
   }
 
   setCheckboxListener() {
@@ -46,8 +48,8 @@ export class FiltersController {
     );
     resetFiltersBtn.addEventListener("click", () => {
       this.model.resetFilters();
-      this.model.getPriceRange(onlineStoreData);
-      this.model.getStockRange(onlineStoreData);
+      this.model.getPriceRange(this.data);
+      this.model.getStockRange(this.data);
 
       this.resetRangeFilter(true);
       this.resetRangeFilter(false);

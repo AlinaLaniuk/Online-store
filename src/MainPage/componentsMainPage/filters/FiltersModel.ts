@@ -27,7 +27,7 @@ export class FiltersModel {
     this.generateFilterSection = generateFilterSection;
     this.generateCheckboxItem = generateCheckboxItem;
 
-    this.data = onlineStoreData;
+    this.data = [...onlineStoreData];
     this.options = filterOptionsList;
     this.rangeData = {
       price: this.getPriceRange(this.data),
@@ -214,8 +214,6 @@ export class FiltersModel {
   getPresetRange(type: string) {
     const filterType = <IRange>view.filter[type as keyof typeof view.filter];
     const isPrice = type === "price";
-
-    console.log(filterType.max.toString());
 
     const rangeItem = <HTMLElement>(
       document.querySelector(`.filter-range-${type}`)
