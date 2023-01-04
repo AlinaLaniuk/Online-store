@@ -6,6 +6,7 @@ import { FiltersView } from "./FiltersView";
 export class FiltersController {
   view: FiltersView;
   model: FiltersModel;
+  data: { id: number; title: string; description: string; price: number; discountPercentage: number; rating: number; stock: number; brand: string; category: string; thumbnail: string; images: string[]; }[];
 
   constructor() {
     this.view = new FiltersView();
@@ -13,6 +14,7 @@ export class FiltersController {
       this.view.generateFilterSection.bind(this.view),
       this.view.generateCheckboxItem.bind(this.view)
     );
+    this.data = [...onlineStoreData]
   }
 
   setCheckboxListener() {

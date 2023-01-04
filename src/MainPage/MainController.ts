@@ -1,3 +1,4 @@
+import onlineStoreData from "../data/data";
 import { CardMainController } from "./componentsMainPage/cardMain/CardMainController";
 import { DisplayBarController } from "./componentsMainPage/displayBar/displayBarController";
 import { FiltersController } from "./componentsMainPage/filters/FiltersController";

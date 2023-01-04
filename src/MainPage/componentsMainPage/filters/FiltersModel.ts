@@ -215,8 +215,6 @@ export class FiltersModel {
     const filterType = <IRange>view.filter[type as keyof typeof view.filter];
     const isPrice = type === "price";
 
-    console.log(filterType.max.toString());
-
     const rangeItem = <HTMLElement>(
       document.querySelector(`.filter-range-${type}`)
     );
