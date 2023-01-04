@@ -26,7 +26,7 @@ export class FiltersModel {
     this.generateFilterSection = generateFilterSection;
     this.generateCheckboxItem = generateCheckboxItem;
 
-    this.data = onlineStoreData;
+    this.data = [...onlineStoreData];
     this.options = filterOptionsList;
     this.rangeData = {
       price: this.getPriceRange(this.data),

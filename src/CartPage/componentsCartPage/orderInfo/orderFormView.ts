@@ -25,7 +25,6 @@ class OrderFormView{
     showErrorInCommonErrorBlock(inputName: string, isItError: boolean){
         const errorBlock = document.querySelector('.error-block') as HTMLElement;
         const currentError = errorBlock.querySelector(`.${inputName}-error`) as HTMLElement;
-        console.log(currentError, isItError)
         if(isItError){
             currentError.classList.add('hide');
         } else {

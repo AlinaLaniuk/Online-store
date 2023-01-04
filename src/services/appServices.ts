@@ -1,16 +1,7 @@
 import onlineStoreData from "../data/data";
 export const productsInCartInfo: productsInCartInfoI = {
     quantity: {
-        '0': 3,
-        '3': 4,
-        '5': 2,
-        '6': 1,
-        '7': 4,
-        '8': 3,
-        '9': 4,
-        '15': 2,
-        '45': 1,
-        '67': 4,
+
     },
     totalQuantity: 0,
     totalCost: 0,
@@ -42,7 +33,6 @@ export const productsInCartInfo: productsInCartInfoI = {
         } else {
             this.quantity[productId] = quantity;
         }
-
         this.countTotalQuantity();
         this.countTotalCost();
         this.notify();
@@ -70,7 +60,6 @@ export const productsInCartInfo: productsInCartInfoI = {
         if(localStorageInfo){
             this.quantity = JSON.parse(localStorageInfo) ;
         }
-        console.log(JSON.parse(localStorageInfo))
     },
     setLocalStorageInfo(){
         localStorage.setItem('online-store-info', JSON.stringify(this.quantity));

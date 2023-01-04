@@ -1,7 +1,6 @@
 import CartController from "./CartPage/CartController";
 import MainController from "./MainPage/MainController";
-import ProductPageController from "./productPage/productPageController";
-import { PageIds } from "./constants";
+import ProductPageController from "../src/productPage/productPageController";
 import { productsInCartInfo } from "../src/services/appServices";
 import paginationServices from "./CartPage/componentsCartPage/paginationServices";
 class AppController{
@@ -32,6 +31,10 @@ class AppController{
             case '/':
               this.mainWrapper.innerHTML = '';
               this.mainController.run();
+              productsInCartInfo.subscribers.length = 0;
+              paginationServices.subscribers.length = 0;
+              productsInCartInfo.subscribe(this.changeCartTotalQuantity);
+              productsInCartInfo.subscribe(this.changeTotalCost);
               break;
       
             case '/cart':
@@ -61,7 +64,6 @@ class AppController{
     }
 
     getCartParamsFromURL(){
-        // вот эта функция нужна для разбора query строки.
         const params = window.location.search;
         if(params){
             const paramsObj = new URLSearchParams(params);
@@ -72,11 +74,9 @@ class AppController{
     }
 
     private initRouter () {
-        // вешается обработчик события на окно на изменение урла
         window.addEventListener('popstate', () => {
             this.renderPage( new URL(window.location.href).pathname);
         });
-        // вешаются обработчики клика на элементы, где есть href (это лого, картинка корзины и в корзине сами карточки (обернуты в <a>, пока с ними разбираюсь))
         document.querySelectorAll('[href^="/"]').forEach(el => {
             el.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -84,26 +84,16 @@ class AppController{
                 this.goTo(path);
             })
         })
-        // рендер страницы в зависимости от pathname
         this.renderPage(window.location.pathname);
       }
 
     run(){
-        // достает инфу об айдишках товаров из local storage и помещает в appServices
         productsInCartInfo.getLocalStorageInfo(); 
-        // считает сумму
         productsInCartInfo.countTotalCost();
-        // считает количество товаров в корзине
         productsInCartInfo.countTotalQuantity();
-        // меняет в хэдере количество
         this.changeCartTotalQuantity();
-        // меняет в хэдере сумму
         this.changeTotalCost();
-        // инициализация роутера (смотри что происходит в самой функции)
         this.initRouter();
-        // методы, подписывающие сумму и кол-во в хэдере на изменения
-        productsInCartInfo.subscribe(this.changeCartTotalQuantity);
-        productsInCartInfo.subscribe(this.changeTotalCost);
     }
 }
 export default AppController;

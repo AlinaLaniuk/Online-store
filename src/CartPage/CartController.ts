@@ -34,7 +34,6 @@ class CartController{
             
             this.cartView.drawEmptyCartPage();
         } else {
-            console.log(productsInCartInfo.totalQuantity)
             this.cartView.drawProductsInCartBlock();
             paginationServices.subscribe(this.cardCartController.subscribeToPaginationDataChanging);
             this.paginationController.run();

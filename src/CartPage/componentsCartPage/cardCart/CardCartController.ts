@@ -1,6 +1,5 @@
 import CardCartModel from "./CardCartModel";
 import CardCartView from "./CardCartView";
-
 class CardCartController{
     cardCartModel: CardCartModel;
     cardCartView: CardCartView;
