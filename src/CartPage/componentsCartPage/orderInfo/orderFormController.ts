@@ -19,8 +19,8 @@ class OrderFormController{
         orderFormBg.addEventListener('click', (event) => {
             const eventTarget = event.target;
             if(eventTarget === orderFormBg){
-                const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
-                mainWrapper.removeChild(orderFormBg);
+                const cartContainer = document.querySelector('.cart-container') as HTMLElement;
+                cartContainer.removeChild(orderFormBg);
             }
         })
     }

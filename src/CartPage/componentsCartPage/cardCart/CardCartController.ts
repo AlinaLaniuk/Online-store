@@ -4,8 +4,9 @@ import CardCartView from "./CardCartView";
 class CardCartController{
     cardCartModel: CardCartModel;
     cardCartView: CardCartView;
-
-    constructor(){
+    productPageRun: (id: number) => void;
+    constructor(productPageRun: (id: number) => void){
+        this.productPageRun = productPageRun
         this.cardCartView = new CardCartView();
         this.cardCartModel = new CardCartModel(
             {drawStartState: this.cardCartView.drawStartState,
@@ -32,10 +33,24 @@ class CardCartController{
         })
     }
 
+    setOpenProductPageListener(){
+        const cards = document.querySelectorAll('.product-info');
+        cards.forEach((card) => {
+            card.addEventListener('click', () => {
+                const cardParent = card.parentNode as HTMLElement;
+                const cardID = cardParent.dataset.id as string;
+                // this.productPageRun(+cardID)
+                // window.location.hash = 'product-details';
+                // window.location.pathname = '10';
+            })
+        })
+    }
+
     subscribeToPaginationDataChanging(indexes: number[], cardsNumbers: number[]){
         this.cardCartModel.setCurrentIndexes(indexes);
         this.cardCartModel.setCurrentCardsNumbers(cardsNumbers);
         this.cardCartModel.drawCards();
+        this.setOpenProductPageListener();
         this.setPlusMinusButtonsListener();
     }
 

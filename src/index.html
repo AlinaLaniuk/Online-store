@@ -10,6 +10,19 @@
 </head>
 
 <body class="page">
+  <header>
+    <div class="header-wrapper">
+      <a class="logo-container" href="/">
+        <img src="./assets/images/logo.png" alt="online-store">
+        <span class="logo-title">Online Store</span>
+      </a>
+      <div class="cart-total">Cart total: <div class="cart-total-value"></div></div>
+      <a class="cart-in-header-container" href="/cart">
+        <img src="./assets/images/cart.png" alt="cart">
+        <div class="cart-quantity"></div>
+      </a>
+    </div>
+  </header>
   <main>
     <section class="main-wrapper">
     </section>
@@ -20,7 +33,7 @@
         <div class="products-in-cart__title">Products In Cart</div>
         <div class="products-in-cart__limit">
           <div class="products-in-cart__limit__title">Items:</div>
-          <input type="text" class="products-in-cart__limit__value">
+          <input type="number" min="1" class="products-in-cart__limit__value">
         </div>
         <div class="products-in-cart__pagination">
           <div class="products-in-cart__pagination__title">Page:</div>
@@ -105,6 +118,61 @@
         <button class="confirm-button">CONFIRM</button>
       </div>
     </div>  
+  </template>
+  <template id="product-page">
+    <div class="bread-crumps-container">
+      <span>Store</span>
+      <span>>></span>
+      <span class="bread-crumps__category"></span>
+      <span>>></span>
+      <span class="bread-crumps__brand"></span>
+      <span>>></span>
+      <span class="bread-crumps__model"></span>
+    </div>
+    <div class="product-container">
+      <div class="product-title"></div>
+      <div class="product-content">
+        <div class="product-small-img-container">
+
+        </div>
+        <img class="product-main-img">
+        <div class="product-info-container">
+          <div class="product-info-block description">
+            <div class="title">Description</div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block discount">
+            <div class="title">Discount </div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block description">
+            <div class="title">Description Percentage</div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block rating">
+            <div class="title">Rating</div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block stock">
+            <div class="title">Stock</div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block brand">
+            <div class="title">Brand</div>
+            <div class="content"></div>
+          </div>
+          <div class="product-info-block category">
+            <div class="title">Category</div>
+            <div class="content"></div>
+          </div>
+        </div>
+        <div class="order-container">
+          <div class="product-cost"></div>
+          <button class="add-button">ADD TO CART</button>
+          <button class="buy-button">BUY NOW</button>
+        </div>
+      </div>
+    </div>
   </template>
 </body>
 

@@ -12,8 +12,8 @@ export const productsInCartInfo: productsInCartInfoI = {
         '45': 1,
         '67': 4,
     },
-    totalQuantity: 28,
-    totalCost: 23123,
+    totalQuantity: 0,
+    totalCost: 0,
     countTotalQuantity(){
         const quantityObjValues = Object.values(this.quantity);
         if(quantityObjValues.length === 0){
@@ -63,9 +63,18 @@ export const productsInCartInfo: productsInCartInfoI = {
                 }
             }
         })
-    }
-
-
+        this.setLocalStorageInfo();
+    },
+    getLocalStorageInfo(){
+        const localStorageInfo = localStorage.getItem('online-store-info') as string;
+        if(localStorageInfo){
+            this.quantity = JSON.parse(localStorageInfo) ;
+        }
+        console.log(JSON.parse(localStorageInfo))
+    },
+    setLocalStorageInfo(){
+        localStorage.setItem('online-store-info', JSON.stringify(this.quantity));
+    },
 }
 interface productsInCartInfoI {
     quantity: { [key: string]: number };
@@ -78,4 +87,6 @@ interface productsInCartInfoI {
     subscribe: (func: Function) => void;
     notify: () => void;
     countTotalCostWithDiscount: (discountSize: number) => void;
+    setLocalStorageInfo: () => void;
+    getLocalStorageInfo: () => void;
 }

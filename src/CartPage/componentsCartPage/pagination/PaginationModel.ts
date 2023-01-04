@@ -52,25 +52,25 @@ class PaginationModel{
         }
     }
 
+    addLimitsToQueryString(){
+        const url = new URL(window.location.href);
+        url.searchParams.set('limit', `${paginationServices.limit}`)
+        history.pushState(null, '', url);
+    }
+
+    addPageToQueryString(){
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', `${paginationServices.pageNumber}`)
+        history.pushState(null, '', url);
+    }
+
     passLimitValue(limitInputValue: number){
-        let nextProductsQuantity = 0;
-        if(typeof limitInputValue === "number"){
+        if(limitInputValue > 0){
             paginationServices.setCurrentLimitValue(limitInputValue);
             this.getPaginatedIndexes();
             this.getCurrentPageIndexesForDrawing();
-            // for(let i = (paginationServices.pageNumber - 1); i < this.paginatedIndexes.length; i += 1){
-            //     console.log(paginationServices.pageNumber)
-            //     nextProductsQuantity += this.paginatedIndexes[paginationServices.pageNumber - 1].length;
-            // }
-            // console.log(nextProductsQuantity)
-            // if(nextProductsQuantity >= limitInputValue){
-            //     paginationServices.setCurrentLimitValue(limitInputValue);
-            //     this.getPaginatedIndexes();
-            //     this.getCurrentPageIndexesForDrawing();
-            // } else {
-            //     paginationServices.setCurrentLimitValue(productsInCartInfo.quantity.length);
-            // }
-        } 
+            this.addLimitsToQueryString();
+        }
     }
 
     setStartLimitValue(){
@@ -87,6 +87,7 @@ class PaginationModel{
         this.drawCurrentPageNumber(paginationServices.pageNumber);
         this.getPaginatedIndexes();
         this.getCurrentPageIndexesForDrawing();
+        this.addPageToQueryString();
     }
 
     goToPrevPage(){
@@ -94,6 +95,7 @@ class PaginationModel{
         this.drawCurrentPageNumber(paginationServices.pageNumber);
         this.getPaginatedIndexes();
         this.getCurrentPageIndexesForDrawing();
+        this.addPageToQueryString();
     }
 }
 export default PaginationModel;
