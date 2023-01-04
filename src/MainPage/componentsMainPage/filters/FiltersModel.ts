@@ -120,18 +120,6 @@ export class FiltersModel {
     });
   }
 
-  // handleInputChange(
-  //   input: HTMLInputElement,
-  //   textElement: HTMLElement,
-  //   type: string,
-  //   isPrice: boolean
-  // ) {
-  //   textElement.textContent = (isPrice ? currencySymbol : "") + input.value;
-  //   view.filter.price[type as keyof typeof view.filter.price] = parseInt(
-  //     input.value
-  //   );
-  // }
-
   // range
   getPriceRange(data: IDataItem[]): IRange {
     data.sort((a: IDataItem, b: IDataItem) => a.price - b.price);

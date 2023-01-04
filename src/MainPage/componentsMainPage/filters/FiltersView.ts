@@ -73,10 +73,7 @@ export class FiltersView {
 
     const filterList = document.createElement("ul");
     filterList.className = "filter-item__list";
-    filterList.setAttribute(
-      "id",
-      `${el.option.toLowerCase()}-${el.type}`
-    );
+    filterList.setAttribute("id", `${el.option.toLowerCase()}-${el.type}`);
 
     const filterSectionList = <HTMLElement>(
       this.mainWrapper.querySelector(".filter-section__list")
@@ -133,20 +130,36 @@ export class FiltersView {
     inputWrapper.insertAdjacentHTML(
       "afterbegin",
       `
-      <input type="range" class="range-min" step="1">
-      <input type="range" class="range-max" step="1">
+      <div class="slider">
+        <div class="progress"></div>
+      </div>
+      <div class="range-input">
+        <input type="range" class="range-min" step="1">
+        <input type="range" class="range-max" step="1">
+      </div>
   `
     );
 
     if (el.option === "price") {
       const range = data.price;
       const isPrice = true;
-      this.setInputAttrubutes(isPrice, range, rangeMinText, rangeMaxText, inputWrapper);
-
+      this.setInputAttrubutes(
+        isPrice,
+        range,
+        rangeMinText,
+        rangeMaxText,
+        inputWrapper
+      );
     } else if (el.option === "stock") {
       const range = data.stock;
       const isPrice = false;
-      this.setInputAttrubutes(isPrice, range, rangeMinText, rangeMaxText, inputWrapper);
+      this.setInputAttrubutes(
+        isPrice,
+        range,
+        rangeMinText,
+        rangeMaxText,
+        inputWrapper
+      );
     }
 
     const filterSectionList = <HTMLElement>(
@@ -161,17 +174,25 @@ export class FiltersView {
     }
   }
 
-  setInputAttrubutes(isPrice: boolean, range: IRange, minText: HTMLElement, maxText: HTMLElement, inputWrapper: HTMLElement) {
-    minText.textContent = (isPrice ? currencySymbol: '') + range.min.toString();
-    maxText.textContent = (isPrice ? currencySymbol: '') + range.max.toString();
+  setInputAttrubutes(
+    isPrice: boolean,
+    range: IRange,
+    minText: HTMLElement,
+    maxText: HTMLElement,
+    inputWrapper: HTMLElement
+  ) {
+    minText.textContent =
+      (isPrice ? currencySymbol : "") + range.min.toString();
+    maxText.textContent =
+      (isPrice ? currencySymbol : "") + range.max.toString();
 
     const rangeMin = <HTMLInputElement>inputWrapper.querySelector(".range-min");
     rangeMin.min = range.min.toString();
+    rangeMin.max = range.max.toString();
     rangeMin.value = rangeMin.min;
-    rangeMin.max = Math.floor((range.max - range.min) / 2).toString();
 
     const rangeMax = <HTMLInputElement>inputWrapper.querySelector(".range-max");
-    rangeMax.min = Math.ceil((range.max - range.min) / 2).toString();
+    rangeMax.min = range.min.toString();
     rangeMax.max = range.max.toString();
     rangeMax.value = rangeMax.max;
   }
