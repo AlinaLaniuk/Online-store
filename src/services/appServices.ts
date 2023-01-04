@@ -12,8 +12,8 @@ export const productsInCartInfo: productsInCartInfoI = {
         '45': 1,
         '67': 4,
     },
-    totalQuantity: 28,
-    totalCost: 23123,
+    totalQuantity: 0,
+    totalCost: 0,
     countTotalQuantity(){
         const quantityObjValues = Object.values(this.quantity);
         if(quantityObjValues.length === 0){

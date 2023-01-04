@@ -27,6 +27,7 @@ class AppController{
     }
 
     renderPage(pathName: string){
+        // здесь странички рендеряться в зависимости от того, какой путь указан в поисковой строке
         switch (pathName) {
             case '/':
               this.mainWrapper.innerHTML = '';
@@ -34,13 +35,12 @@ class AppController{
               break;
       
             case '/cart':
-            //   this.getCartParamsFromURL();
+              this.getCartParamsFromURL();
               this.mainWrapper.innerHTML = '';
               this.cartPageController.runCart();
               break;
 
-            case '/product-details':
-              this.getCartParamsFromURL();
+            case `/product-details/10`:
               this.mainWrapper.innerHTML = '';
               this.productPageController.run(10);
               break;
@@ -57,37 +57,51 @@ class AppController{
     }
 
     changeTotalCost(){
-        this.totalCostContainer.innerHTML = `Cart total: ${productsInCartInfo.totalCost}`;
+        this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
     }
 
     getCartParamsFromURL(){
+        // вот эта функция нужна для разбора query строки.
         const params = window.location.search;
         if(params){
             const paramsObj = new URLSearchParams(params);
             const limitParam = paramsObj.get('limit') as string;
             const pageParam = paramsObj.get('page') as string;
-            paginationServices.setValuesFromQueryParams(limitParam, pageParam)          
+            paginationServices.setValuesFromQueryParams(limitParam, pageParam);          
         }
     }
 
     private initRouter () {
+        // вешается обработчик события на окно на изменение урла
         window.addEventListener('popstate', () => {
-            this.renderPage( new URL(window.location.href).pathname)
+            this.renderPage( new URL(window.location.href).pathname);
         });
+        // вешаются обработчики клика на элементы, где есть href (это лого, картинка корзины и в корзине сами карточки (обернуты в <a>, пока с ними разбираюсь))
         document.querySelectorAll('[href^="/"]').forEach(el => {
             el.addEventListener('click', (event) => {
-                event.preventDefault()
-                const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href)
-                this.goTo(path)
+                event.preventDefault();
+                const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
+                this.goTo(path);
             })
         })
-        console.log(window.location.pathname)
-        this.renderPage(window.location.pathname)
+        // рендер страницы в зависимости от pathname
+        this.renderPage(window.location.pathname);
       }
 
     run(){
-        productsInCartInfo.getLocalStorageInfo();
+        // достает инфу об айдишках товаров из local storage и помещает в appServices
+        productsInCartInfo.getLocalStorageInfo(); 
+        // считает сумму
+        productsInCartInfo.countTotalCost();
+        // считает количество товаров в корзине
+        productsInCartInfo.countTotalQuantity();
+        // меняет в хэдере количество
+        this.changeCartTotalQuantity();
+        // меняет в хэдере сумму
+        this.changeTotalCost();
+        // инициализация роутера (смотри что происходит в самой функции)
         this.initRouter();
+        // методы, подписывающие сумму и кол-во в хэдере на изменения
         productsInCartInfo.subscribe(this.changeCartTotalQuantity);
         productsInCartInfo.subscribe(this.changeTotalCost);
     }

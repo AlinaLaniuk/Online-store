@@ -40,8 +40,8 @@ class CardCartController{
                 const cardParent = card.parentNode as HTMLElement;
                 const cardID = cardParent.dataset.id as string;
                 // this.productPageRun(+cardID)
-                window.location.hash = 'product-details';
-                window.location.pathname = '10';
+                // window.location.hash = 'product-details';
+                // window.location.pathname = '10';
             })
         })
     }

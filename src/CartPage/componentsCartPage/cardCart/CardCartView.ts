@@ -7,7 +7,7 @@ class CardCartView{
             'beforeend',
             `<div class="card" data-id="${productInfo.id}">
             <div class="number">${index}</div>
-            <div class="product-info">
+            <a class="product-info" href="/product-details/10">
               <div class="product-info__img">
                 <img src="${productInfo.thumbnail}">
               </div>
@@ -20,7 +20,7 @@ class CardCartView{
                   <p class="product-info__discount">Discount: ${productInfo.discountPercentage}%</p>
                 </div>
               </div>
-            </div>
+            </a>
             <div class="quantity-info" data-id="${productInfo.id}">
               <p class="quantity-info__stock">Stock: ${productInfo.stock}</p>
               <div class="quantity-info__quantity-for-order">
