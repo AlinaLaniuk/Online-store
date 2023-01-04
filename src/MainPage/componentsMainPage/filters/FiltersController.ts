@@ -72,6 +72,12 @@ export class FiltersController {
     });
   }
 
+  copyUrlToClipboard() {
+    this.view.copyLinkBtn?.addEventListener("click", () =>
+    window.navigator.clipboard.writeText(window.location.href)
+    );
+  }
+
   handleRangeChange(isPrice: boolean) {
     const rangeType = isPrice ? "price" : "stock";
     const filter = <HTMLElement>(
@@ -95,5 +101,6 @@ export class FiltersController {
     this.handleRangeChange(true);
     this.handleRangeChange(false);
     this.resetFilters();
+    this.copyUrlToClipboard();
   }
 }

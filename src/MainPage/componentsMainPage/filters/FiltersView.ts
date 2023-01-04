@@ -9,9 +9,11 @@ import { currencySymbol, rangeSymbol } from "../../utils/constants";
 
 export class FiltersView {
   mainWrapper: HTMLElement | null;
+  copyLinkBtn: HTMLButtonElement | null;
 
   constructor() {
     this.mainWrapper = null;
+    this.copyLinkBtn = null;
   }
 
   // filter list
@@ -24,17 +26,18 @@ export class FiltersView {
     const filterButtons = document.createElement("div");
     filterButtons.className = "filter-section__buttons";
 
-    const resetFiltersBtn = document.createElement("button");
-    resetFiltersBtn.setAttribute("type", "button");
-    resetFiltersBtn.className = "filter-section__button filter-section__reset";
-    resetFiltersBtn.textContent = "Reset Filters";
+    const resetBtn = document.createElement("button");
+    resetBtn.setAttribute("type", "button");
+    resetBtn.className = "filter-section__button filter-section__reset";
+    resetBtn.textContent = "Reset Filters";
 
-    const copyLinkBtn = document.createElement("button");
-    copyLinkBtn.setAttribute("type", "button");
-    copyLinkBtn.className = "filter-section__button filter-section__copy";
-    copyLinkBtn.textContent = "Copy Link";
+    const copyBtn = document.createElement("button");
+    copyBtn.setAttribute("type", "button");
+    copyBtn.className = "filter-section__button filter-section__copy";
+    copyBtn.textContent = "Copy Link";
+    this.copyLinkBtn = copyBtn;
 
-    filterButtons.append(resetFiltersBtn, copyLinkBtn);
+    filterButtons.append(resetBtn, copyBtn);
     filterSection.append(filterButtons);
 
     this.mainWrapper.append(filterSection);
