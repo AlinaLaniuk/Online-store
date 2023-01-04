@@ -21,6 +21,7 @@ export const cardsSectionContent = "cards-section";
 
 export const currencySymbol: string = "€";
 export const rangeSymbol: string = "⟷";
+export const separateSymbol: string = "↕";
 
 export const filterOptionsList = [
   {
@@ -93,3 +94,52 @@ class Debounce {
 }
 
 export const debounce = new Debounce();
+
+export function setMainValuesFromQueryParams(
+  categoryParam: string,
+  brandParam: string,
+  priceParam: string,
+  stockParam: string,
+  sortParam: string,
+  searchParam: string,
+  bigParam: string
+) {
+  view.default = false;
+  if (categoryParam) {
+    categoryParam.split(separateSymbol).forEach((item) => {
+      view.filter.category.push(item);
+    });
+  }
+
+  if (brandParam) {
+    brandParam.split(separateSymbol).forEach((item) => {
+      view.filter.brand.push(item);
+    });
+  }
+
+  if (priceParam) {
+    const priceRange = priceParam.split(separateSymbol);
+    view.filter.price.min = parseInt(priceRange[0]);
+    view.filter.price.max = parseInt(priceRange[1]);
+  }
+
+  if (stockParam) {
+    const stockRange = stockParam.split(separateSymbol);
+    view.filter.stock.min = parseInt(stockRange[0]);
+    view.filter.stock.max = parseInt(stockRange[1]);
+  }
+
+  if (sortParam) {
+    const sortOption = sortParam.split("-");
+    view.sort.key = sortOption[0];
+    view.sort.direction = sortOption[1].toLowerCase();
+  }
+
+  if (searchParam) {
+    view.search = searchParam;
+  }
+
+  if (bigParam) {
+    view.isBig = Boolean(bigParam);
+  }
+}

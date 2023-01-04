@@ -61,6 +61,11 @@
 
   .range-input {
     position: relative;
+
+    .range-min,
+    .range-max {
+      cursor: pointer;
+    }
   }
 
   .range-input input {

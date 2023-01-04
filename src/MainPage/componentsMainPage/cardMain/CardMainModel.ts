@@ -43,9 +43,29 @@ export class CardMainModel {
 
   filterData(): void {
     this.data = onlineStoreData.filter((item) => {
-      return item.title
-        .toLocaleLowerCase()
-        .includes(view.search.toLocaleLowerCase());
+      const conditionList = [
+        item.title
+          .toLocaleLowerCase()
+          .includes(view.search.toLocaleLowerCase()),
+        item.category
+          .toLocaleLowerCase()
+          .includes(view.search.toLocaleLowerCase()),
+        item.brand
+          .toLocaleLowerCase()
+          .includes(view.search.toLocaleLowerCase()),
+        item.description
+          .toLocaleLowerCase()
+          .includes(view.search.toLocaleLowerCase()),
+        item.price.toString().includes(view.search),
+        item.discountPercentage.toString().includes(view.search),
+        item.rating.toString().includes(view.search),
+        item.stock.toString().includes(view.search),
+      ];
+      return conditionList.some((el) => {
+        if (el) {
+          return item;
+        }
+      });
     });
 
     if (view.filter.category.length) {
@@ -65,15 +85,21 @@ export class CardMainModel {
     }
 
     this.data = this.data.filter((item) => {
-     if(view.filter.price.min <= item.price && view.filter.price.max >= item.price) {
-      return item;
-     }
+      if (
+        view.filter.price.min <= item.price &&
+        view.filter.price.max >= item.price
+      ) {
+        return item;
+      }
     });
 
     this.data = this.data.filter((item) => {
-     if(view.filter.stock.min <= item.stock && view.filter.stock.max >= item.stock) {
-      return item;
-     }
+      if (
+        view.filter.stock.min <= item.stock &&
+        view.filter.stock.max >= item.stock
+      ) {
+        return item;
+      }
     });
 
     view.itemsFound = this.data.length;
