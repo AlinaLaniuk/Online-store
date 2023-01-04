@@ -1,3 +1,4 @@
+import onlineStoreData from "../../../data/data";
 import { currencySymbol, view } from "../../utils/constants";
 import { FiltersModel } from "./FiltersModel";
 import { FiltersView } from "./FiltersView";
@@ -24,92 +25,83 @@ export class FiltersController {
     });
   }
 
-  handlePriceChange() {
-    const filter = <HTMLElement>document.querySelector(".filter-range-price");
+  resetRangeFilter(isPrice: boolean) {
+    const rangeType = isPrice ? 'price' : 'stock';
+    const filter = <HTMLElement>(
+      document.querySelector(`.filter-range-${rangeType}`)
+    );
     const rangeInput = <NodeListOf<HTMLInputElement>>(
       filter.querySelectorAll(".range-input input")
     );
-    const rangeInputMin = <HTMLInputElement>filter.querySelector(".range-min");
-    const rangeInputMax = <HTMLInputElement>filter.querySelector(".range-max");
-    const range = <HTMLElement>filter.querySelector(".slider .progress");
-    let priceGap = 10;
-
-    const minPriceText = <HTMLElement>(
-      filter.querySelector(".filter-range__min")
-    );
-    const maxPriceText = <HTMLElement>(
-      filter.querySelector(".filter-range__max")
-    );
-
-    rangeInput.forEach((input) => {
-      input.addEventListener("input", (e) => {
-        const target = <HTMLElement>e.target;
-        let minVal = parseInt(rangeInputMin.value),
-          maxVal = parseInt(rangeInputMax.value);
-
-        if (maxVal - minVal < priceGap) {
-          if (target.className === "range-min") {
-            rangeInputMin.value = (maxVal - priceGap).toString();
-            view.filter.price.min = Number(rangeInputMin.value);
-          } else {
-            rangeInputMax.value = (minVal + priceGap).toString();
-            view.filter.price.max = Number(rangeInputMax.value);
-          }
-        } else {
-          minPriceText.textContent = `${minVal}${currencySymbol}`;
-          maxPriceText.textContent = `${maxVal}${currencySymbol}`;
-          range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
-          range.style.right =
-            100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";
-
-          view.filter.price.min = minVal;
-          view.filter.price.max = maxVal;
-        }
-      });
+    rangeInput[0].value = view.filter[rangeType].min.toString();
+    rangeInput[1].value = view.filter[rangeType].max.toString();
+    rangeInput.forEach((item) => {
+      this.updateInputRange(item, filter, isPrice);
     });
   }
 
-  handleStockChange() {
-    const filter = <HTMLElement>document.querySelector(".filter-range-stock");
-    const rangeInput = <NodeListOf<HTMLInputElement>>(
-      filter.querySelectorAll(".range-input input")
+  resetFilters() {
+    const resetFiltersBtn = <HTMLButtonElement>(
+      document.querySelector(".filter-section__reset")
     );
+    resetFiltersBtn.addEventListener("click", () => {
+      this.model.resetFilters();
+      this.model.getPriceRange(onlineStoreData);
+      this.model.getStockRange(onlineStoreData);
+
+      this.resetRangeFilter(true);
+      this.resetRangeFilter(false);
+    });
+  }
+
+  updateInputRange(target: HTMLElement, filter: HTMLElement, isPrice: boolean) {
     const rangeInputMin = <HTMLInputElement>filter.querySelector(".range-min");
     const rangeInputMax = <HTMLInputElement>filter.querySelector(".range-max");
     const range = <HTMLElement>filter.querySelector(".slider .progress");
-    let priceGap = 10;
+    const inputType = isPrice ? 'price' : 'stock';
+    let rangeGap = 10;
 
-    const minPriceText = <HTMLElement>(
+    const minText = <HTMLElement>(
       filter.querySelector(".filter-range__min")
     );
-    const maxPriceText = <HTMLElement>(
+    const maxText = <HTMLElement>(
       filter.querySelector(".filter-range__max")
     );
 
+    let minVal = parseInt(rangeInputMin.value),
+      maxVal = parseInt(rangeInputMax.value);
+
+    if (maxVal - minVal < rangeGap) {
+      if (target.className === "range-min") {
+        rangeInputMin.value = (maxVal - rangeGap).toString();
+        view.filter[inputType].min = Number(rangeInputMin.value);
+      } else {
+        rangeInputMax.value = (minVal + rangeGap).toString();
+        view.filter[inputType].max = Number(rangeInputMax.value);
+      }
+    } else {
+      minText.textContent = `${minVal}${isPrice ? currencySymbol: ''}`;
+      maxText.textContent = `${maxVal}${isPrice ? currencySymbol: ''}`;
+      range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
+      range.style.right =
+        100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";
+
+      view.filter[inputType].min = minVal;
+      view.filter[inputType].max = maxVal;
+    }
+  }
+
+  handleRangeChange(isPrice: boolean) {
+    const rangeType = isPrice ? 'price' : 'stock';
+    const filter = <HTMLElement>document.querySelector(`.filter-range-${rangeType}`);
+    const rangeInput = <NodeListOf<HTMLInputElement>>(
+      filter.querySelectorAll(".range-input input")
+    );
+
     rangeInput.forEach((input) => {
-      input.addEventListener("input", (e) => {
-        const target = <HTMLElement>e.target;
-        let minVal = parseInt(rangeInputMin.value),
-          maxVal = parseInt(rangeInputMax.value);
-
-        if (maxVal - minVal < priceGap) {
-          if (target.className === "range-min") {
-            rangeInputMin.value = (maxVal - priceGap).toString();
-            view.filter.price.min = Number(rangeInputMin.value);
-          } else {
-            rangeInputMax.value = (minVal + priceGap).toString();
-            view.filter.price.max = Number(rangeInputMax.value);
-          }
-        } else {
-          minPriceText.textContent = minVal.toString();
-          maxPriceText.textContent = maxVal.toString();
-          range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
-          range.style.right =
-            100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";
-
-          view.filter.stock.min = minVal;
-          view.filter.stock.max = maxVal;
-        }
+      input.addEventListener("input", (event) => {
+        const target = <HTMLElement>event.target;
+        this.updateInputRange(target, filter, isPrice);
       });
     });
   }
@@ -117,7 +109,8 @@ export class FiltersController {
   run(): void {
     this.model.getFilterSection();
     this.setCheckboxListener();
-    this.handlePriceChange();
-    this.handleStockChange();
+    this.handleRangeChange(true)
+    this.handleRangeChange(false)
+    this.resetFilters();
   }
 }

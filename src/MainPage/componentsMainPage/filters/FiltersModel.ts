@@ -1,5 +1,5 @@
 import onlineStoreData from "../../../data/data";
-import { currencySymbol, filterOptionsList, view } from "../../utils/constants";
+import { filterOptionsList, view } from "../../utils/constants";
 import {
   filterCheckboxItem,
   filterOption,
@@ -142,6 +142,22 @@ export class FiltersModel {
     view.filter.stock.min = min;
     view.filter.stock.max = max;
     return { min: min, max: max };
+  }
+
+  resetFilters() {
+    console.log(`filters reset`);
+
+    const checkboxList = <NodeListOf<HTMLInputElement>>document.querySelectorAll('.checkbox-item__input');
+
+    checkboxList.forEach((item) => {
+      item.removeAttribute('checked');
+      item.checked = false;
+    })
+    view.filter.category = [];
+    view.filter.brand = [];
+
+    // this.getPriceRange(onlineStoreData);
+    // this.getStockRange(onlineStoreData);
   }
 
   getFilterSection(): void {
