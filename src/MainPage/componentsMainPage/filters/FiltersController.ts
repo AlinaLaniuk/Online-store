@@ -46,8 +46,8 @@ export class FiltersController {
     );
     resetFiltersBtn.addEventListener("click", () => {
       this.model.resetFilters();
-      this.model.getPriceRange(onlineStoreData);
-      this.model.getStockRange(onlineStoreData);
+      this.model.getPriceRange(onlineStoreData.slice());
+      this.model.getStockRange(onlineStoreData.slice());
 
       this.resetRangeFilter(true);
       this.resetRangeFilter(false);

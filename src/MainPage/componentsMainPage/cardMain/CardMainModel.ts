@@ -23,7 +23,7 @@ export class CardMainModel {
     this.updateCardsView = updateCardsView;
     this.refreshCardList = refreshCardList;
     this.handleAddBtnState = handleAddBtnState;
-    this.data = onlineStoreData;
+    this.data = onlineStoreData.slice();
   }
 
   public getCardList(): void {
@@ -42,7 +42,7 @@ export class CardMainModel {
   }
 
   filterData(): void {
-    this.data = onlineStoreData.filter((item) => {
+    this.data = onlineStoreData.slice().filter((item) => {
       const conditionList = [
         item.title
           .toLocaleLowerCase()
