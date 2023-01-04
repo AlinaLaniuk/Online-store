@@ -55,12 +55,21 @@ export class DisplayBarController {
 
   update() {
     this.model.updateItemsNum();
+
+    if (view.sort.key === "id") {
+      this.view.sortBar!.removeAttribute("value");
+      this.view.sortBar!.selectedIndex = 0;
+    }
+
+    if(view.search === '') {
+      this.view.searchBar!.value = '';
+    }
   }
   // run component
   run(): void {
     this.model.getDisplayBar();
     this.setViewBar();
-    this.updateSearchBar();
     this.setSortBar();
+    this.updateSearchBar();
   }
 }

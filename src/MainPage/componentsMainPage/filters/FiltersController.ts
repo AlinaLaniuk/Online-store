@@ -51,6 +51,11 @@ export class FiltersController {
 
       this.resetRangeFilter(true);
       this.resetRangeFilter(false);
+      view.default = true;
+      view.search = '';
+      view.sort.key = 'id';
+      view.sort.direction = 'asc';
+      view.isBig = true;
     });
   }
 
@@ -80,8 +85,8 @@ export class FiltersController {
         view.filter[inputType].max = Number(rangeInputMax.value);
       }
     } else {
-      minText.textContent = `${minVal}${isPrice ? currencySymbol: ''}`;
-      maxText.textContent = `${maxVal}${isPrice ? currencySymbol: ''}`;
+      minText.textContent = `${isPrice ? currencySymbol: ''}${minVal}`;
+      maxText.textContent = `${isPrice ? currencySymbol: ''}${maxVal}`;
       range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
       range.style.right =
         100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";

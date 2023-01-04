@@ -145,8 +145,6 @@ export class FiltersModel {
   }
 
   resetFilters() {
-    console.log(`filters reset`);
-
     const checkboxList = <NodeListOf<HTMLInputElement>>document.querySelectorAll('.checkbox-item__input');
 
     checkboxList.forEach((item) => {
@@ -155,9 +153,6 @@ export class FiltersModel {
     })
     view.filter.category = [];
     view.filter.brand = [];
-
-    // this.getPriceRange(onlineStoreData);
-    // this.getStockRange(onlineStoreData);
   }
 
   getFilterSection(): void {

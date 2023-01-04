@@ -75,6 +75,7 @@ export const view = {
   itemsFound: 0,
   search: "",
   isBig: true,
+  default: true,
 };
 
 class Debounce {
