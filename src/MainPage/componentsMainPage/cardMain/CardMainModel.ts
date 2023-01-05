@@ -10,7 +10,7 @@ export class CardMainModel {
   refreshCardList: Function;
   handleAddBtnState: Function;
   data: IDataItem[];
-  changeQuantity: (productId: string, quantity: number) => void;
+  // changeQuantity: (productId: string, quantity: number) => void;
 
   constructor(
     getCardTemplate: Function,
@@ -25,7 +25,7 @@ export class CardMainModel {
     this.refreshCardList = refreshCardList;
     this.handleAddBtnState = handleAddBtnState;
     this.data = [...onlineStoreData];
-    this.changeQuantity = productsInCartInfo.changeQuantity.bind(productsInCartInfo);
+    // this.changeQuantity = productsInCartInfo.changeQuantity.bind(productsInCartInfo);
   }
 
   public getCardList(): void {
@@ -105,9 +105,11 @@ export class CardMainModel {
     )!;
     const isInCart = productsInCartInfo.quantity[cardId];
     if (isInCart) {
-      this.changeQuantity(`${cardId}`, 0);
+      // this.changeQuantity(`${cardId}`, 0);
+      productsInCartInfo.changeQuantity(`${cardId}`, 0);
     } else {
-      this.changeQuantity(`${cardId}`, 1);
+      // this.changeQuantity(`${cardId}`, 1);
+      productsInCartInfo.changeQuantity(`${cardId}`, 1);
     }
     this.handleAddBtnState(addBtn, !isInCart);
   }

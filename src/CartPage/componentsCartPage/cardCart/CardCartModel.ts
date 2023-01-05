@@ -11,10 +11,10 @@ class CardCartModel{
         this.currentCardsNumbers = [];
     }
 
-    setProductPageUrl(id: number){
-        const url = new URL(`/product/${id}`, window.location.href);
-
-    }
+    // setProductPageUrl(id: string){
+    //     const url = new URL(`/product-details/${id}`, window.location.href);
+    //     history.pushState(null, '', url);
+    // }
 
     setCurrentIndexes(indexes: number[]){
         this.currentIndexes = [...indexes];

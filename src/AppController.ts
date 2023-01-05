@@ -3,6 +3,7 @@ import MainController from "./MainPage/MainController";
 import ProductPageController from "../src/productPage/productPageController";
 import { productsInCartInfo } from "../src/services/appServices";
 import paginationServices from "./CartPage/componentsCartPage/paginationServices";
+
 class AppController{
     cartPageController: CartController;
     mainController: MainController;
@@ -26,28 +27,23 @@ class AppController{
     }
 
     renderPage(pathName: string){
-        // здесь странички рендеряться в зависимости от того, какой путь указан в поисковой строке
-        switch (pathName) {
-            case '/':
-              this.mainWrapper.innerHTML = '';
-              this.mainController.run();
-              productsInCartInfo.subscribers.length = 0;
-              paginationServices.subscribers.length = 0;
-              productsInCartInfo.subscribe(this.changeCartTotalQuantity);
-              productsInCartInfo.subscribe(this.changeTotalCost);
-              break;
-      
-            case '/cart':
-              this.getCartParamsFromURL();
-              this.mainWrapper.innerHTML = '';
-              this.cartPageController.runCart();
-              break;
-
-            case `/product-details/${[1-100]}`:
-              this.mainWrapper.innerHTML = '';
-              this.productPageController.run(10);
-              break;
-          }
+        if(pathName === '/'){
+            this.mainWrapper.innerHTML = '';
+            this.mainController.run();
+            productsInCartInfo.subscribers.length = 0;
+            paginationServices.subscribers.length = 0;
+            productsInCartInfo.subscribe(this.changeCartTotalQuantity);
+            productsInCartInfo.subscribe(this.changeTotalCost);
+        } else if(pathName === '/cart'){
+            this.getCartParamsFromURL();
+            this.mainWrapper.innerHTML = '';
+            this.cartPageController.runCart();
+            this.addElementsWithHrefListener();
+        } else if(pathName.startsWith('/product-details/')){
+            const productId = pathName.slice(17);
+            this.mainWrapper.innerHTML = '';
+            this.productPageController.run(+productId);
+        }            
     }
 
     goTo = (path: string) => {
@@ -62,7 +58,7 @@ class AppController{
     changeTotalCost(){
         this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
     }
-
+    
     getCartParamsFromURL(){
         const params = window.location.search;
         if(params){
@@ -77,6 +73,11 @@ class AppController{
         window.addEventListener('popstate', () => {
             this.renderPage( new URL(window.location.href).pathname);
         });
+        this.addElementsWithHrefListener();
+        this.renderPage(window.location.pathname);
+      }
+
+    addElementsWithHrefListener(){
         document.querySelectorAll('[href^="/"]').forEach(el => {
             el.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -84,8 +85,7 @@ class AppController{
                 this.goTo(path);
             })
         })
-        this.renderPage(window.location.pathname);
-      }
+    }
 
     run(){
         productsInCartInfo.getLocalStorageInfo(); 
