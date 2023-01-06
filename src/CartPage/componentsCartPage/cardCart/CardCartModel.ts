@@ -1,6 +1,7 @@
 import viewCallbacksI from "./cardCartTypes";
 import onlineStoreData from "../../../data/data";
 import { productsInCartInfo } from "../../../services/appServices";
+import paginationServices from "../paginationServices";
 class CardCartModel{
     viewCallbacks: viewCallbacksI;
     currentIndexes: number[];
@@ -16,12 +17,12 @@ class CardCartModel{
     //     history.pushState(null, '', url);
     // }
 
-    setCurrentIndexes(indexes: number[]){
-        this.currentIndexes = [...indexes];
+    setCurrentIndexes(){
+        this.currentIndexes = [...paginationServices.currentIndexesForDrawingCards];
     }
 
-    setCurrentCardsNumbers(cardsNumbers: number[]){
-        this.currentCardsNumbers = [...cardsNumbers];
+    setCurrentCardsNumbers(){
+        this.currentCardsNumbers = [...paginationServices.currentCardsNumbers];
     }
 
     getCurrentProductsInCartInfo(){

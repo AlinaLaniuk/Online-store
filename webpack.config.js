@@ -82,6 +82,7 @@ module.exports = {
     extensions: [".js", ".ts", ".json"],
     alias: {
       images: path.resolve(__dirname, "src/assets/images/"),
+      fonts: path.resolve(__dirname, "src/assets/fonts/"),
       audio: path.resolve(__dirname, "src/assets/audio/"),
     },
   },

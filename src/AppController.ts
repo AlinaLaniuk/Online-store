@@ -35,11 +35,16 @@ class AppController{
             productsInCartInfo.subscribe(this.changeCartTotalQuantity);
             productsInCartInfo.subscribe(this.changeTotalCost);
         } else if(pathName === '/cart'){
+            productsInCartInfo.subscribers.length = 0;
+            paginationServices.subscribers.length = 0;
+            productsInCartInfo.subscribe(this.changeCartTotalQuantity);
+            productsInCartInfo.subscribe(this.changeTotalCost);
             this.getCartParamsFromURL();
             this.mainWrapper.innerHTML = '';
             this.cartPageController.runCart();
-            this.addElementsWithHrefListener();
-        } else if(pathName.startsWith('/product-details/')){
+            const cartCardsContainer = document.querySelector('.products-in-cart__content') as HTMLElement;
+            this.addElementsWithHrefListener(cartCardsContainer);
+        } else if(pathName.startsWith('/product-details-')){
             const productId = pathName.slice(17);
             this.mainWrapper.innerHTML = '';
             this.productPageController.run(+productId);
@@ -72,13 +77,11 @@ class AppController{
     private initRouter () {
         window.addEventListener('popstate', () => {
             this.renderPage( new URL(window.location.href).pathname);
-        });
-        this.addElementsWithHrefListener();
-        this.renderPage(window.location.pathname);
+        });        
       }
 
-    addElementsWithHrefListener(){
-        document.querySelectorAll('[href^="/"]').forEach(el => {
+    addElementsWithHrefListener(container: HTMLElement){
+        container.querySelectorAll('[href^="/"]').forEach(el => {
             el.addEventListener('click', (event) => {
                 event.preventDefault();
                 const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
@@ -91,9 +94,14 @@ class AppController{
         productsInCartInfo.getLocalStorageInfo(); 
         productsInCartInfo.countTotalCost();
         productsInCartInfo.countTotalQuantity();
+        productsInCartInfo.subscribe(this.changeCartTotalQuantity);
+        productsInCartInfo.subscribe(this.changeTotalCost);
         this.changeCartTotalQuantity();
         this.changeTotalCost();
         this.initRouter();
+        this.renderPage(window.location.pathname);
+        const header = document.querySelector('.header-wrapper') as HTMLElement;
+        this.addElementsWithHrefListener(header);
     }
 }
 export default AppController;

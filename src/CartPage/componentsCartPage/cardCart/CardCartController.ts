@@ -14,7 +14,7 @@ class CardCartController{
             drawTotalCostPerProduct: this.cardCartView.drawTotalCostPerProduct,
             deleteCurrentCards: this.cardCartView.deleteCurrentCards,
         });  
-        this.subscribeToPaginationDataChanging = this.subscribeToPaginationDataChanging.bind(this);
+        this.updateCards = this.updateCards.bind(this);
     }
 
     setPlusMinusButtonsListener(){
@@ -46,11 +46,10 @@ class CardCartController{
     //     })
     // }
 
-    subscribeToPaginationDataChanging(indexes: number[], cardsNumbers: number[]){
-        this.cardCartModel.setCurrentIndexes(indexes);
-        this.cardCartModel.setCurrentCardsNumbers(cardsNumbers);
+    updateCards(){
+        this.cardCartModel.setCurrentIndexes();
+        this.cardCartModel.setCurrentCardsNumbers();
         this.cardCartModel.drawCards();
-        // this.setOpenProductPageListener();
         this.setPlusMinusButtonsListener();
     }
 

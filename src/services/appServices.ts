@@ -43,15 +43,7 @@ export const productsInCartInfo: productsInCartInfoI = {
     },
     notify(){
         this.subscribers.forEach((func, index) => {
-            if(index === 2){
-                if(this.totalQuantity === 0){
-                    func();
-                }
-            } else {
-                if(this.totalQuantity !== 0){
-                    func();
-                }
-            }
+           func();
         })
         this.setLocalStorageInfo();
     },
@@ -60,6 +52,7 @@ export const productsInCartInfo: productsInCartInfoI = {
         if(localStorageInfo){
             this.quantity = JSON.parse(localStorageInfo) ;
         }
+        
     },
     setLocalStorageInfo(){
         localStorage.setItem('online-store-info', JSON.stringify(this.quantity));

@@ -5,25 +5,25 @@
 @import './CartPage/summary.scss';
 @import './CartPage/orderForm.scss';
 
-@font-face {
-    font-family: "XanhMono";
-    src: url("../src/assets/fonts/XanhMono-Regular.woff");
-}
-@font-face {
-    font-family: "BonaNova";
-    src: url("../src/assets/fonts/BonaNova-Regular.woff");
-    font-weight: 400;
-}
-@font-face {
-    font-family: "Amatic";
-    src: url("../src/assets/fonts/AmaticSC-Regular.woff");
-    font-weight: 400;
-}
-@font-face {
-    font-family: "PTSansNarrow-Regular";
-    src: url("../src/assets/fonts/PTSansNarrow-Regular.woff");
-    font-weight: 400;
-}
+// @font-face {
+//     font-family: "XanhMono";
+//     src: url("../src/assets/fonts/XanhMono-Regular.woff");
+// }
+// @font-face {
+//     font-family: "BonaNova";
+//     src: url("../src/assets/fonts/BonaNova-Regular.woff");
+//     font-weight: 400;
+// }
+// @font-face {
+//     font-family: "Amatic";
+//     src: url("../src/assets/fonts/AmaticSC-Regular.woff");
+//     font-weight: 400;
+// }
+// @font-face {
+//     font-family: "PTSansNarrow-Regular";
+//     src: url("../src/assets/fonts/PTSansNarrow-Regular.woff");
+//     font-weight: 400;
+// }
 
 @mixin flex($justifyContent, $flexDirection) {
     display: flex;
@@ -36,6 +36,7 @@ a{
     color: black;
 }
 body{
+    font-family: 'Amatic';
     position: relative;
 }
 header{
