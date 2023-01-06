@@ -57,6 +57,18 @@ export const sortOptionsList = [
 ];
 
 export const view = {
+  filterList: {
+    category: {} as { [key: string]: number },
+    brand: {} as { [key: string]: number },
+    price: {
+      min: 0 as number | undefined,
+      max: 0 as number | undefined,
+    },
+    stock: {
+      min: 0 as number | undefined,
+      max: 0 as number | undefined,
+    },
+  },
   filter: {
     category: [] as string[],
     brand: [] as string[],

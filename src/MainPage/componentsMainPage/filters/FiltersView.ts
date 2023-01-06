@@ -5,7 +5,7 @@ import {
   IRange,
   IrangeData,
 } from "../../utils/interface";
-import { currencySymbol, rangeSymbol } from "../../utils/constants";
+import { currencySymbol, rangeSymbol, view } from "../../utils/constants";
 
 export class FiltersView {
   mainWrapper: HTMLElement | null;
@@ -42,8 +42,10 @@ export class FiltersView {
 
     this.mainWrapper.append(filterSection);
   }
+  
   // checkbox template
   generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
+    const containerId = <string>container.getAttribute("id");
     const item = document.createElement("li");
     item.className = "checkbox-item";
 
@@ -58,13 +60,24 @@ export class FiltersView {
     label.setAttribute("for", data.title);
     label.textContent = data.title;
 
-    const span = document.createElement("span");
-    span.className = "checkbox-item__span";
+    const spanBox = document.createElement("div");
+    spanBox.className = "checkbox-item__span-box";
 
-    span.textContent = `(${data.itemsFiltered}/${data.items})`;
+    const query = containerId === 'category' ? 'category' : 'brand';
+    const filterItemsFound = view.filterList[query][data.title] !== undefined ? view.filterList[query][data.title] : data.items;
+
+    const spanFound = document.createElement("span");
+    spanFound.className = "checkbox-item__span";
+    spanFound.textContent = `(${filterItemsFound}/`;
+
+    const spanTotal = document.createElement("span");
+    spanTotal.className = "checkbox-item__span";
+    spanTotal.textContent = `${data.items})`;
+
+    spanBox.append(spanFound, spanTotal)
 
     label.prepend(input);
-    item.append(label, span);
+    item.append(label, spanBox);
     container.append(item);
   }
   // get checkbox filter

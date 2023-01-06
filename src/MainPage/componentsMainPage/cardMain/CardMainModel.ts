@@ -26,6 +26,58 @@ export class CardMainModel {
     this.data = onlineStoreData.slice();
   }
 
+  updateViewFilterList() {
+    const category = view.filterList.category;
+    const brand = view.filterList.brand;
+    let minPrice: number | undefined;
+    let maxPrice: number | undefined;
+    let minStock: number | undefined;
+    let maxStock: number | undefined;
+
+    this.data.forEach((item) => {
+      // set category items filtered
+      if (category[item.category as keyof typeof category] === undefined) {
+        category[item.category as keyof typeof category] = 1;
+      } else {
+        category[item.category as keyof typeof category] += 1;
+      }
+      // set brand items filtered
+      if (brand[item.brand as keyof typeof brand] === undefined) {
+        brand[item.brand as keyof typeof brand] = 1;
+      } else {
+        brand[item.brand as keyof typeof brand] += 1;
+      }
+      // set min price filtered
+      if (minPrice === undefined) {
+        minPrice = item.price;
+      } else if (item.price < minPrice) {
+        minPrice = item.price;
+      }
+      // set max price filtered
+      if (maxPrice === undefined) {
+        maxPrice = item.price;
+      } else if (item.price > maxPrice) {
+        maxPrice = item.price;
+      }
+      // set min stock filtered
+      if (minStock === undefined) {
+        minStock = item.stock;
+      } else if (item.stock < minStock) {
+        minStock = item.stock;
+      }
+      // set max stock filtered
+      if (maxStock === undefined) {
+        maxStock = item.stock;
+      } else if (item.stock > maxStock) {
+        maxStock = item.stock;
+      }
+    });
+    view.filterList.price.min = minPrice;
+    view.filterList.price.max = maxPrice;
+    view.filterList.stock.min = minStock;
+    view.filterList.stock.max = maxStock;
+  }
+
   public getCardList(): void {
     this.getCardListTemplate();
     this.filterData();
@@ -103,6 +155,17 @@ export class CardMainModel {
     });
 
     view.itemsFound = this.data.length;
+
+    view.filterList.category = {};
+    view.filterList.brand = {};
+    view.filterList.price = {min: 0, max: 0};
+    view.filterList.stock = {min: 0, max: 0};
+
+    this.updateViewFilterList();
+    console.table(view.filterList.category);
+    console.table(view.filterList.brand);
+    console.table(view.filterList.price);
+    console.table(view.filterList.stock);
   }
 
   sortData(key: string, direction: string): void {

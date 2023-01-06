@@ -118,6 +118,7 @@ class MainController {
   private update(): void {
     this.cardMainController.update();
     this.displayBarController.update();
+    this.filterController.update();
 
     this.generateQueryString();
   }
@@ -128,6 +129,9 @@ class MainController {
     this.filterController.run();
     this.displayBarController.run();
     this.cardMainController.run();
+    this.filterController.updateFilterList(true);
+    this.filterController.updateFilterList(false);
+    this.displayBarController.update();
 
     const displayBar = <Node>document.querySelector(".display-bar");
     this.displayBarObserver.observe(displayBar, {

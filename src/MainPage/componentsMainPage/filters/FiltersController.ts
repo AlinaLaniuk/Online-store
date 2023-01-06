@@ -6,7 +6,19 @@ import { FiltersView } from "./FiltersView";
 export class FiltersController {
   view: FiltersView;
   model: FiltersModel;
-  data: { id: number; title: string; description: string; price: number; discountPercentage: number; rating: number; stock: number; brand: string; category: string; thumbnail: string; images: string[]; }[];
+  data: {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+  }[];
 
   constructor() {
     this.view = new FiltersView();
@@ -14,7 +26,7 @@ export class FiltersController {
       this.view.generateFilterSection.bind(this.view),
       this.view.generateCheckboxItem.bind(this.view)
     );
-    this.data = [...onlineStoreData]
+    this.data = [...onlineStoreData];
   }
 
   setCheckboxListener() {
@@ -76,7 +88,7 @@ export class FiltersController {
 
   copyUrlToClipboard() {
     this.view.copyLinkBtn?.addEventListener("click", () =>
-    window.navigator.clipboard.writeText(window.location.href)
+      window.navigator.clipboard.writeText(window.location.href)
     );
   }
 
@@ -94,6 +106,32 @@ export class FiltersController {
         const target = <HTMLElement>event.target;
         this.model.updateInputRange(target, filter, isPrice);
       });
+    });
+  }
+
+  update() {
+    console.log("update filters");
+    this.updateFilterList(true);
+    this.updateFilterList(false);
+  }
+
+  updateFilterList(isCategory: boolean) {
+    const query = isCategory ? "category" : 'brand';
+    const container = <HTMLElement>document.querySelector(`#${query}-checkbox`);
+    const items = <NodeListOf<HTMLElement>>(
+      container.querySelectorAll(".checkbox-item")
+    );
+    items.forEach((item) => {
+      const label = <HTMLLabelElement>(
+        item.querySelector(".checkbox-item__label")
+      );
+      const spanList = <NodeListOf<HTMLSpanElement>>item.querySelectorAll(".checkbox-item__span");
+      const filterItemsFound = view.filterList[query][<string>label.textContent];
+      if (filterItemsFound) {
+        spanList[0].textContent = `(${filterItemsFound}/`;
+      } else {
+        spanList[0].textContent = '(0/';
+      }
     });
   }
 
