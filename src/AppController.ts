@@ -51,7 +51,9 @@ class AppController{
             const productId = pathName.slice(17);
             this.mainWrapper.innerHTML = '';
             this.productPageController.run(+productId);
-        }            
+        } else {
+            this.show404Page();
+        }         
     }
 
     redirectToMain(isAllInputsValid: boolean){
@@ -81,6 +83,16 @@ class AppController{
             'beforeend',
             `<div class="redirect">
                 Thanks for your order. Redirect to the store after <span class="timer">3</span> sec.
+            </div>`
+        )
+    }
+
+    show404Page(){
+        this.mainWrapper.innerHTML = '';
+        this.mainWrapper.insertAdjacentHTML(
+            'beforeend',
+            `<div class="not-found-page">
+                PAGE NOT FOUND (404)
             </div>`
         )
     }
@@ -120,13 +132,15 @@ class AppController{
       }
 
     addElementsWithHrefListener(container: HTMLElement){
-        container.querySelectorAll('[href^="/"]').forEach(el => {
-            el.addEventListener('click', (event) => {
-                event.preventDefault();
-                const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
-                this.goTo(path);
+        if(container){
+            container.querySelectorAll('[href^="/"]').forEach(el => {
+                el.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
+                    this.goTo(path);
+                })
             })
-        })
+        }
     }
 
     run(){
