@@ -13,13 +13,13 @@ class CartController{
     paginationController: PaginationController;
     summaryController: SummaryController;
     orderFormController: OrderFormController;
-    constructor(productPageRun: (id: number) => void){
+    constructor(productPageRun: (id: number) => void, redirectToMain: (isAllInputsValid: boolean) => void){
         this.cartView = new CartView();
         this.cartModel = new CartModel(this.cartView.drawEmptyCartPage);
         this.cardCartController = new CardCartController(productPageRun);
         this.paginationController = new PaginationController();
         this.summaryController = new SummaryController();
-        this.orderFormController = new OrderFormController();
+        this.orderFormController = new OrderFormController(redirectToMain);
         this.updateCartState = this.updateCartState.bind(this);
         this.updatePaginationState = this.updatePaginationState.bind(this);
     }

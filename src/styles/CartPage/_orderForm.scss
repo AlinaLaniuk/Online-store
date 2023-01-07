@@ -57,11 +57,12 @@
     color: white;
     font-weight: 700;
     font-size: 20px;
+    margin-top: 10px;
 }
 .bank-card__bottom{
     @include flex(center, row);
     input{
-        width: 40%;
+        width: 50%;
         height: 25px;
         border: none;
         border-radius: 20px;
@@ -69,12 +70,13 @@
         align-items: center;
         background-color: #e9e9e9;
     }
+    input:focus{
+        outline: none;
+        background-color: white;
+    }
 }
 .bank-card__data{
     @include flex(center, row);
-    input{
-        width: 30%;
-    }
 }
 .bank-card__top{
     @include flex(center, row);

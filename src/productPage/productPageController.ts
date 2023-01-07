@@ -8,6 +8,11 @@ class ProductPageController{
         this.productPageModel = new ProductPageModel(this.productPageView.drawProductPage);
         this.run = this.run.bind(this);
     }
+
+    setBuyNowButtonListener(){
+        const buyNowButton = document.querySelector('.buy-button');
+    }
+
     run(id: number){
         this.productPageModel.drawCurrentProductPage(id);
     }

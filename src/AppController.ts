@@ -15,15 +15,17 @@ class AppController{
     private currentPage = '';
     currentPath: string;
     constructor(){
+        this.changeTotalCost = this.changeTotalCost.bind(this);
+        this.redirectToMain = this.redirectToMain.bind(this);
+        this.showRedirectPage = this.showRedirectPage.bind(this);
         this.productPageController = new ProductPageController();
-        this.cartPageController = new CartController(this.productPageController.run);
+        this.cartPageController = new CartController(this.productPageController.run, this.redirectToMain);
         this.mainController = new MainController();
         this.mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
         this.currentPath = '';
         this.cartQuantityContainer = document.querySelector('.cart-quantity') as HTMLElement;
         this.totalCostContainer = document.querySelector('.cart-total') as HTMLElement;
         this.changeCartTotalQuantity = this.changeCartTotalQuantity.bind(this);
-        this.changeTotalCost = this.changeTotalCost.bind(this);
     }
 
     renderPage(pathName: string){
@@ -51,7 +53,35 @@ class AppController{
         }            
     }
 
-    goTo = (path: string) => {
+    redirectToMain(isAllInputsValid: boolean){
+        if(isAllInputsValid){
+            this.showRedirectPage(); 
+        }
+        const timerContainer = document.querySelector('.timer') as HTMLElement;
+        let seconds = +timerContainer.innerHTML;
+        const timer = setInterval(() => {
+            if (seconds === 0) {
+                clearInterval(timer);
+                this.goTo('/');
+            } else { 
+                timerContainer.innerHTML = `${seconds}`;
+                seconds -= 1;
+            }
+        }, 1000)
+    }
+
+    
+    showRedirectPage(){
+        this.mainWrapper.innerHTML = '';
+        this.mainWrapper.insertAdjacentHTML(
+            'beforeend',
+            `<div class="redirect">
+                Thanks for your order. Redirect to the store after <span class="timer">3</span> sec.
+            </div>`
+        )
+    }
+
+    goTo (path: string) {
         window.history.pushState({path}, path, path)
         this.renderPage(path)
     }

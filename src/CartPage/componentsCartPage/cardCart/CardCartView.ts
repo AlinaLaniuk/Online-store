@@ -5,7 +5,7 @@ class CardCartView{
         const productsInCartContent = document.querySelector('.products-in-cart__content') as HTMLElement;
         productsInCartContent.insertAdjacentHTML(
             'beforeend',
-            `<div class="card" data-id="${productInfo.id}">
+            `<div class="cart-card" data-id="${productInfo.id}">
             <div class="number">${index}</div>
             <a class="product-info" href="/product-details-${productInfo.id}">
               <div class="product-info__img">

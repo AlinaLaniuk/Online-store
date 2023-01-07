@@ -1,4 +1,8 @@
 class OrderFormView{
+    mainWrapper: HTMLElement;
+    constructor(){
+        this.mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
+    }
     drawOrderForm(){
         const cartContainer = document.querySelector('.cart-container') as HTMLElement;
         const orderFormTemplate = document.querySelector('#order') as HTMLTemplateElement;
@@ -31,6 +35,5 @@ class OrderFormView{
             currentError.classList.remove('hide');
         }
     }
-
 }
 export default OrderFormView

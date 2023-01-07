@@ -1,7 +1,7 @@
 @import '_normalize';  
 @import './MainPage/mainPage.scss';  
 @import './CartPage/cartPage.scss'; 
-
+@import './ProductPage/productPage.scss'; 
 
 // @font-face {
 //     font-family: "XanhMono";
@@ -34,9 +34,10 @@ a{
     color: black;
 }
 body{
+    height: 100vh;
     position: relative;
     background-color: rgb(243, 243, 243);
-    @include flex(center, column);
+    @include flex(space-between, column);
 }
 header{
     width: 100%;

@@ -138,21 +138,6 @@ class OrderFormModel{
         newValue = newValue.replace(/(.{4})/g, "$1 ");
         inputElem.value = newValue;
         const isCardNumberCorrect = inputElem.value.length === 20;
-        // const inputValueArray = inputValue.split('');
-        // const inputValueArrayWithoutSpaces = inputValueArray.filter((elem) => {
-        //     if(elem === ' '){
-        //         return false;
-        //     } else {
-        //         return true;
-        //     }
-        // })
-        // const newInputValueArrayWithSpaces = spaceIndexes.map((index) => {
-        //     inputValueArrayWithoutSpaces.splice(index, 0, ' ');
-        // })
-        // const newValue = newInputValueArrayWithSpaces.join('');
-        // inputElem.value = newValue;
-        // const isCardNumberCorrect = inputValueArrayWithoutSpaces.length === 16;
-        // console.log(inputValueArrayWithoutSpaces)
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
         this.validInputs.cardNumber = isCardNumberCorrect;
         if(this.isCommonBlockOpen){
