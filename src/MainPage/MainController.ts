@@ -130,6 +130,9 @@ class MainController {
     this.cardMainController.run();
     this.filterController.updateFilterList(true);
     this.filterController.updateFilterList(false);
+    this.filterController.updateRangeList(true);
+    this.filterController.updateRangeList(false);
+    
     this.displayBarController.update();
 
     const displayBar = <Node>document.querySelector(".display-bar");
@@ -147,7 +150,7 @@ class MainController {
       subtree: true,
       characterDataOldValue: true,
       attributes: true,
-      attributeFilter: ['checked'],
+      attributeFilter: ['checked', 'value', 'style'],
     });
   }
 }

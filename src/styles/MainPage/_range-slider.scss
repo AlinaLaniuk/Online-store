@@ -48,15 +48,19 @@
     position: relative;
     background: #ddd;
     border-radius: 5px;
-  }
 
-  .slider .progress {
-    height: 100%;
-    left: 4%;
-    right: 4%;
-    position: absolute;
-    border-radius: 5px;
-    background: #17a2b8;
+    .progress {
+      height: 100%;
+      left: 4%;
+      right: 4%;
+      position: absolute;
+      border-radius: 5px;
+      // background: #17a2b8;
+    }
+
+    // .progress__disabled {
+    //   background: lightgray;
+    // }
   }
 
   .range-input {
