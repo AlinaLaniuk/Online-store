@@ -90,6 +90,24 @@
 
         .card__add-button__active {
           background: rgb(255, 161, 151);
+
+          &:hover {
+            background: rgb(187, 101, 92);
+            color: white;
+          }
+        }
+
+        .card__details-button {
+          padding: 7.5px 10px;
+          border: 2px solid black;
+          background: rgb(240, 240, 240);
+          color: black;
+          text-decoration: none;
+
+          &:hover {
+            background: rgb(100, 100, 100);
+            color: white;
+          }
         }
       }
     }
@@ -132,5 +150,15 @@
         }
       }
     }
+  }
+
+  .card-list_empty {
+    margin: 0 auto;
+    width: 50%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }

@@ -17,6 +17,16 @@
 
     .filter-section__button {
       cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    .filter-section__copy_active {
+      background: #54c7c7;
+
+      &:hover {
+        background: #549c9c;
+        color: white;
+      }
     }
   }
 

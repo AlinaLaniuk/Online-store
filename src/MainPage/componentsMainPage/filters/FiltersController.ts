@@ -87,8 +87,10 @@ export class FiltersController {
   }
 
   copyUrlToClipboard() {
-    this.view.copyLinkBtn?.addEventListener("click", () =>
-      window.navigator.clipboard.writeText(window.location.href)
+    this.view.copyLinkBtn!.addEventListener("click", () => {
+      window.navigator.clipboard.writeText(window.location.href);
+      this.view.copyLinkBtn!.classList.add('filter-section__copy_active');
+    }
     );
   }
 
@@ -110,7 +112,7 @@ export class FiltersController {
   }
 
   update() {
-    console.log("update filters");
+    this.view.copyLinkBtn!.classList.remove('filter-section__copy_active');
     this.updateFilterList(true);
     this.updateFilterList(false);
   }

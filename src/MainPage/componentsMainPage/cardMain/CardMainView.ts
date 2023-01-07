@@ -84,9 +84,14 @@ export class CardMainView {
 
     this.handleAddBtnState(addBtn, isInCart);
 
-    const detailsBtn = document.createElement("button");
+    // const detailsBtn = document.createElement("button");
+    // detailsBtn.className = "card__button card__details-button";
+    // detailsBtn.textContent = "Details";
+
+    const detailsBtn = document.createElement("a");
     detailsBtn.className = "card__button card__details-button";
     detailsBtn.textContent = "Details";
+    detailsBtn.setAttribute('href', '/product-details-' + data.id)
 
     cardButtons.append(addBtn, detailsBtn);
     card.append(cardImage, cardContent, cardButtons);

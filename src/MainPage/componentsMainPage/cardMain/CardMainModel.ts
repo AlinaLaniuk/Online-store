@@ -87,10 +87,19 @@ export class CardMainModel {
   }
 
   private getCards(): void {
-    this.data.forEach((item: IDataItem): void => {
-      const isInCart = productsInCartInfo.quantity[item.id];
-      this.getCardTemplate(item, currencySymbol, isInCart);
-    });
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+
+    if (this.data.length === 0) {
+      cardList.classList.add("card-list_empty");
+      cardList.textContent =
+        "Sorry, we can't find any items that match your filters :( Try changing your filters to find more items.";
+    } else {
+      cardList.classList.remove("card-list_empty");
+      this.data.forEach((item: IDataItem): void => {
+        const isInCart = productsInCartInfo.quantity[item.id];
+        this.getCardTemplate(item, currencySymbol, isInCart);
+      });
+    }
   }
 
   filterData(): void {
@@ -158,8 +167,8 @@ export class CardMainModel {
 
     view.filterList.category = {};
     view.filterList.brand = {};
-    view.filterList.price = {min: 0, max: 0};
-    view.filterList.stock = {min: 0, max: 0};
+    view.filterList.price = { min: 0, max: 0 };
+    view.filterList.stock = { min: 0, max: 0 };
 
     this.updateViewFilterList();
     console.table(view.filterList.category);
@@ -187,18 +196,32 @@ export class CardMainModel {
   }
 
   public handleAddBtn(addBtn: HTMLElement): void {
-    const cardId = (<HTMLElement>addBtn.closest(".card")).getAttribute(
-      "data-product-id"
-    )!;
-    const isInCart = productsInCartInfo.quantity[cardId];
+    if (addBtn.classList.contains("card__add-button")) {
+      const cardId = (<HTMLElement>addBtn.closest(".card")).getAttribute(
+        "data-product-id"
+      )!;
+      const isInCart = productsInCartInfo.quantity[cardId];
 
-    if (isInCart) {
-      productsInCartInfo.quantity[cardId] = 0;
-    } else {
-      productsInCartInfo.quantity[cardId] = 1;
+      if (isInCart) {
+        // productsInCartInfo.quantity[cardId] = 0;
+        delete productsInCartInfo.quantity[cardId];
+      } else {
+        productsInCartInfo.quantity[cardId] = 1;
+      }
+      this.handleAddBtnState(addBtn, !isInCart);
     }
-    this.handleAddBtnState(addBtn, !isInCart);
   }
+
+  // public handleDetailsBtn(detailsBtn: HTMLElement): void {
+  //   if (detailsBtn.classList.contains("card__details-button")) {
+  //     const cardId = <string>(
+  //       (<HTMLElement>detailsBtn.closest(".card")).getAttribute(
+  //         "data-product-id"
+  //       )
+  //     );
+  //     history.pushState(null, "", "/product-details-" + cardId);
+  //   }
+  // }
 
   public updateCardsList(): void {
     this.updateCardsView(view.isBig);
