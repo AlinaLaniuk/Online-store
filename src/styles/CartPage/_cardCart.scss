@@ -7,7 +7,11 @@
 .card{
     width: 100%;
     @include flex(space-between, row);
-    border: 1px solid black
+    border: 1px solid black;
+    background: white;
+}
+.products-in-cart__top{
+    height: 40px;
 }
 .number{
     width: 5%;
