@@ -49,3 +49,6 @@
 .number{
     @include flex(center, row);
 }
+.empty-card{
+    font-size: 30px;
+}
