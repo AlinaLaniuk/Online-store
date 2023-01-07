@@ -91,8 +91,11 @@ export class CardMainModel {
 
     if (this.data.length === 0) {
       cardList.classList.add("card-list_empty");
-      cardList.textContent =
-        "Sorry, we can't find any items that match your filters :( Try changing your filters to find more items.";
+      cardList.textContent = `
+      Sorry, we can't find any items that match your filters 😞
+      \n\r
+      Try changing your filters to find more items.
+      `;
     } else {
       cardList.classList.remove("card-list_empty");
       this.data.forEach((item: IDataItem): void => {

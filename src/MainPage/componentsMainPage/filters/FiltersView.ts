@@ -158,6 +158,10 @@ export class FiltersView {
   `
     );
 
+    const warning = document.createElement('div');
+    warning.className = 'filter-range__warning';
+    warning.textContent = 'not found';
+
     if (el.option === "price") {
       const range = data.price;
       const isPrice = true;
@@ -185,7 +189,7 @@ export class FiltersView {
     );
 
     desc.append(rangeMinText, span, rangeMaxText);
-    rangeFilter.append(title, desc, inputWrapper);
+    rangeFilter.append(title, desc, inputWrapper, warning);
 
     if (filterSectionList) {
       filterSectionList.append(rangeFilter);

@@ -90,7 +90,7 @@
           }
         }
 
-        .checkbox-item__disabled {
+        .checkbox-item_disabled {
           color: lightgray;
         }
       }
@@ -112,6 +112,27 @@
           margin: 0;
         }
       }
+
+      .filter-range__warning {
+        margin: 0;
+        height: 93px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .filter-range__desc_disabled,
+      .input-wrapper_disabled {
+        display: none;
+      }
+
+      .filter-range__warning_disabled {
+        display: flex;
+      }
+
 
       .filter-range__range {
         width: 90%;

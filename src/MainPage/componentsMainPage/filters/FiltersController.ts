@@ -136,10 +136,10 @@ export class FiltersController {
       const filterItemsFound =
         view.filterList[query][<string>label.textContent];
       if (filterItemsFound) {
-        item.classList.remove('checkbox-item__disabled');
+        item.classList.remove("checkbox-item_disabled");
         spanList[0].textContent = `(${filterItemsFound}/`;
       } else {
-        item.classList.add('checkbox-item__disabled');
+        item.classList.add("checkbox-item_disabled");
         spanList[0].textContent = "(0/";
       }
     });
@@ -167,14 +167,21 @@ export class FiltersController {
     const minRange = view.filterList[query].min;
     const maxRange = view.filterList[query].max;
 
-    const progress = <HTMLElement>container.querySelector(".progress");
+    const desc = <HTMLElement>container.querySelector(".filter-range__desc");
+    const wrapper = <HTMLElement>container.querySelector(".input-wrapper");
+    const warning = <HTMLElement>(
+      container.querySelector(".filter-range__warning")
+    );
 
-    // if (view.itemsFound) {
-    //   progress.classList.remove("progress__disabled");
-
-    // } else {
-    //   progress.classList.add("progress__disabled");
-    // }
+    if (view.itemsFound) {
+      desc.classList.remove("filter-range__desc_disabled");
+      wrapper.classList.remove("input-wrapper_disabled");
+      warning.classList.remove("filter-range__warning_disabled");
+    } else {
+      desc.classList.add("filter-range__desc_disabled");
+      wrapper.classList.add("input-wrapper_disabled");
+      warning.classList.add("filter-range__warning_disabled");
+    }
 
     if (minRange) {
       rangeMinText.textContent = `${isPrice ? currencySymbol : ""}${minRange}`;
