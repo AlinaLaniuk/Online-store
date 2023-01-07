@@ -19,7 +19,8 @@ class AppController{
         this.changeTotalCost = this.changeTotalCost.bind(this);
         this.redirectToMain = this.redirectToMain.bind(this);
         this.showRedirectPage = this.showRedirectPage.bind(this);
-        this.productPageController = new ProductPageController();
+        this.goToOrderForm = this.goToOrderForm.bind(this);
+        this.productPageController = new ProductPageController(this.goToOrderForm);
         this.cartPageController = new CartController(this.productPageController.run, this.redirectToMain);
         this.mainController = new MainController();
         this.mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
@@ -95,6 +96,11 @@ class AppController{
 
     changeTotalCost(){
         this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
+    }
+
+    goToOrderForm(){
+        this.goTo('/cart');
+        this.cartPageController.orderFormController.run();
     }
     
     getCartParamsFromURL(){
