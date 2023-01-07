@@ -37,6 +37,11 @@ export const productsInCartInfo: productsInCartInfoI = {
         this.countTotalCost();
         this.notify();
     },
+    cleanCart(){
+        Object.keys(productsInCartInfo.quantity).forEach(key => delete productsInCartInfo.quantity[key]);
+        this.countTotalQuantity();
+        this.countTotalCost();
+    },
     subscribers: [],
     subscribe(func){
         this.subscribers.push(func);
@@ -71,4 +76,5 @@ interface productsInCartInfoI {
     countTotalCostWithDiscount: (discountSize: number) => void;
     setLocalStorageInfo: () => void;
     getLocalStorageInfo: () => void;
+    cleanCart: () => void;
 }

@@ -15,6 +15,7 @@ class AppController{
     private currentPage = '';
     currentPath: string;
     constructor(){
+        this.changeCartTotalQuantity = this.changeCartTotalQuantity.bind(this);
         this.changeTotalCost = this.changeTotalCost.bind(this);
         this.redirectToMain = this.redirectToMain.bind(this);
         this.showRedirectPage = this.showRedirectPage.bind(this);
@@ -25,7 +26,6 @@ class AppController{
         this.currentPath = '';
         this.cartQuantityContainer = document.querySelector('.cart-quantity') as HTMLElement;
         this.totalCostContainer = document.querySelector('.cart-total') as HTMLElement;
-        this.changeCartTotalQuantity = this.changeCartTotalQuantity.bind(this);
     }
 
     renderPage(pathName: string){
@@ -56,6 +56,10 @@ class AppController{
     redirectToMain(isAllInputsValid: boolean){
         if(isAllInputsValid){
             this.showRedirectPage(); 
+            productsInCartInfo.cleanCart();
+            localStorage.clear();
+            this.changeCartTotalQuantity();
+            this.changeTotalCost();
         }
         const timerContainer = document.querySelector('.timer') as HTMLElement;
         let seconds = +timerContainer.innerHTML;
@@ -69,7 +73,6 @@ class AppController{
             }
         }, 1000)
     }
-
     
     showRedirectPage(){
         this.mainWrapper.innerHTML = '';
