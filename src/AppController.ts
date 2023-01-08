@@ -37,6 +37,8 @@ class AppController{
             paginationServices.subscribers.length = 0;
             productsInCartInfo.subscribe(this.changeCartTotalQuantity);
             productsInCartInfo.subscribe(this.changeTotalCost);
+            const mainCardsContainer = document.querySelector('.card-list') as HTMLElement;
+            this.addElementsWithHrefListener(mainCardsContainer);
         } else if(pathName === '/cart'){
             productsInCartInfo.subscribers.length = 0;
             paginationServices.subscribers.length = 0;

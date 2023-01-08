@@ -84,7 +84,8 @@ export class CardMainView {
 
     this.handleAddBtnState(addBtn, isInCart);
 
-    const detailsBtn = document.createElement("button");
+    const detailsBtn = document.createElement("a") as HTMLAnchorElement;
+    detailsBtn.href = `/product-details-${data.id}`
     detailsBtn.className = "card__button card__details-button";
     detailsBtn.textContent = "Details";
 
