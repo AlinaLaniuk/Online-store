@@ -1,5 +1,6 @@
 import onlineStoreData from "../../../data/data";
 import { filterOptionsList, view } from "../../utils/constants";
+import { currencySymbol } from "../../utils/constants";
 import {
   filterCheckboxItem,
   filterOption,
@@ -26,7 +27,7 @@ export class FiltersModel {
     this.generateFilterSection = generateFilterSection;
     this.generateCheckboxItem = generateCheckboxItem;
 
-    this.data = [...onlineStoreData];
+    this.data = onlineStoreData.slice();
     this.options = filterOptionsList;
     this.rangeData = {
       price: this.getPriceRange(this.data),
@@ -144,20 +145,104 @@ export class FiltersModel {
     return { min: min, max: max };
   }
 
+  updateInputRange(target: HTMLElement, filter: HTMLElement, isPrice: boolean) {
+    const rangeInputMin = <HTMLInputElement>filter.querySelector(".range-min");
+    const rangeInputMax = <HTMLInputElement>filter.querySelector(".range-max");
+    const range = <HTMLElement>filter.querySelector(".slider .progress");
+    const inputType = isPrice ? "price" : "stock";
+    let rangeGap = 10;
+
+    const minText = <HTMLElement>filter.querySelector(".filter-range__min");
+    const maxText = <HTMLElement>filter.querySelector(".filter-range__max");
+
+    let minVal = parseInt(rangeInputMin.value),
+      maxVal = parseInt(rangeInputMax.value);
+
+    if (maxVal - minVal < rangeGap) {
+      if (target.className === "range-min") {
+        rangeInputMin.value = (maxVal - rangeGap).toString();
+        view.filter[inputType].min = Number(rangeInputMin.value);
+      } else {
+        rangeInputMax.value = (minVal + rangeGap).toString();
+        view.filter[inputType].max = Number(rangeInputMax.value);
+      }
+    } else {
+      minText.textContent = `${isPrice ? currencySymbol : ""}${minVal}`;
+      maxText.textContent = `${isPrice ? currencySymbol : ""}${maxVal}`;
+      range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
+      range.style.right =
+        100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";
+
+      view.filter[inputType].min = minVal;
+      view.filter[inputType].max = maxVal;
+    }
+  }
+
   resetFilters() {
-    const checkboxList = <NodeListOf<HTMLInputElement>>document.querySelectorAll('.checkbox-item__input');
+    const checkboxList = <NodeListOf<HTMLInputElement>>(
+      document.querySelectorAll(".checkbox-item__input")
+    );
 
     checkboxList.forEach((item) => {
-      item.removeAttribute('checked');
+      item.removeAttribute("checked");
       item.checked = false;
-    })
+    });
     view.filter.category = [];
     view.filter.brand = [];
+  }
+
+  getPresetCheckbox(type: string) {
+    const filterType = <string[]>view.filter[type as keyof typeof view.filter];
+
+    if (filterType.length) {
+      const checkboxList = <HTMLElement>(
+        document.querySelector(`#${type}-checkbox`)
+      );
+      const filterArr = <NodeListOf<HTMLInputElement>>(
+        checkboxList.querySelectorAll(".checkbox-item__input")
+      );
+
+      filterArr.forEach((item) => {
+        const itemId = <string>item.getAttribute("id");
+        if (filterType.includes(itemId)) {
+          item.setAttribute("checked", "");
+        }
+      });
+    }
+  }
+
+  getPresetRange(type: string) {
+    const filterType = <IRange>view.filter[type as keyof typeof view.filter];
+    const isPrice = type === "price";
+
+    const rangeItem = <HTMLElement>(
+      document.querySelector(`.filter-range-${type}`)
+    );
+
+    const minText = <HTMLElement>rangeItem.querySelector(".filter-range__min");
+    minText.textContent = `${
+      isPrice ? currencySymbol : ""
+    }${filterType.min.toString()}`;
+
+    const maxText = <HTMLElement>rangeItem.querySelector(".filter-range__max");
+    maxText.textContent = `${
+      isPrice ? currencySymbol : ""
+    }${filterType.max.toString()}`;
+
+    const minRange = <HTMLInputElement>rangeItem.querySelector(".range-min");
+    minRange.value = filterType.min.toString();
+
+    const maxRange = <HTMLInputElement>rangeItem.querySelector(".range-max");
+    maxRange.value = filterType.max.toString();
   }
 
   getFilterSection(): void {
     this.generateFilterSection(this.rangeData, this.options);
     this.getCategoryList(this.data);
     this.getItems(this.data);
+    this.getPresetCheckbox("category");
+    this.getPresetCheckbox("brand");
+    this.getPresetRange("price");
+    this.getPresetRange("stock");
   }
 }

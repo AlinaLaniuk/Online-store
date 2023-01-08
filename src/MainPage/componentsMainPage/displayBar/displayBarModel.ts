@@ -12,7 +12,7 @@ export class DisplayBardModel {
     generateSection: Function,
     handleViewBig: Function,
     handleViewSmall: Function,
-    updateFoundItemsNum: Function,
+    updateFoundItemsNum: Function
   ) {
     this.generateSection = generateSection;
     this.handleViewBig = handleViewBig;
@@ -20,27 +20,22 @@ export class DisplayBardModel {
     this.updateFoundItemsNum = updateFoundItemsNum;
   }
 
-  handleCardViewChange(event?: Event): void {
+  handleCardViewChange(event: Event): void {
     let button, buttonId: string;
-
-    if(event) {
-      button = <HTMLButtonElement>event!.target;
-      buttonId = <string>button.getAttribute("id");
-    } else {
-      button = <HTMLButtonElement>document.querySelector('#view-big');
-      buttonId = "view-big"
-    }
+    button = <HTMLButtonElement>event!.target;
+    buttonId = <string>button.getAttribute("id");
 
     if (buttonId === "view-small") {
       this.handleViewSmall();
+      view.isBig = false;
     } else {
       this.handleViewBig();
+      true;
     }
 
     button.setAttribute("disabled", "");
     button.setAttribute("checked", "");
 
-    view.isBig = !view.isBig;
     view.default = false;
   }
 

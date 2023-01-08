@@ -17,13 +17,10 @@ export class CardMainController {
   }
 
   addToCart(): void {
-    const addButtonList = document.querySelectorAll(".card__add-button");
-
-    addButtonList.forEach((item) => {
-      item.addEventListener("click", (event: Event) => {
-        const target = <HTMLElement>event.target;
-        this.model.handleAddBtn(target);
-      });
+    const cardList = <HTMLElement>document.querySelector(".card-list");
+    cardList.addEventListener("click", (event: Event) => {
+      const target = <HTMLElement>event.target;
+      this.model.handleAddBtn(target);
     });
   }
 
@@ -34,6 +31,6 @@ export class CardMainController {
 
   update(): void {
     this.model.updateCardsList();
-    this.addToCart();
+    this.view.updateCardsView();
   }
 }

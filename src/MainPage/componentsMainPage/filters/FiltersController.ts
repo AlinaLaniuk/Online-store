@@ -6,6 +6,19 @@ import { FiltersView } from "./FiltersView";
 export class FiltersController {
   view: FiltersView;
   model: FiltersModel;
+  data: {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+  }[];
 
   constructor() {
     this.view = new FiltersView();
@@ -13,6 +26,7 @@ export class FiltersController {
       this.view.generateFilterSection.bind(this.view),
       this.view.generateCheckboxItem.bind(this.view)
     );
+    this.data = [...onlineStoreData];
   }
 
   setCheckboxListener() {
@@ -26,7 +40,7 @@ export class FiltersController {
   }
 
   resetRangeFilter(isPrice: boolean) {
-    const rangeType = isPrice ? 'price' : 'stock';
+    const rangeType = isPrice ? "price" : "stock";
     const filter = <HTMLElement>(
       document.querySelector(`.filter-range-${rangeType}`)
     );
@@ -36,7 +50,7 @@ export class FiltersController {
     rangeInput[0].value = view.filter[rangeType].min.toString();
     rangeInput[1].value = view.filter[rangeType].max.toString();
     rangeInput.forEach((item) => {
-      this.updateInputRange(item, filter, isPrice);
+      this.model.updateInputRange(item, filter, isPrice);
     });
   }
 
@@ -46,59 +60,44 @@ export class FiltersController {
     );
     resetFiltersBtn.addEventListener("click", () => {
       this.model.resetFilters();
-      this.model.getPriceRange(onlineStoreData);
-      this.model.getStockRange(onlineStoreData);
+      this.model.getPriceRange(onlineStoreData.slice());
+      this.model.getStockRange(onlineStoreData.slice());
 
       this.resetRangeFilter(true);
       this.resetRangeFilter(false);
       view.default = true;
-      view.search = '';
-      view.sort.key = 'id';
-      view.sort.direction = 'asc';
-      view.isBig = true;
+      view.search = "";
+      const searchBar = <HTMLInputElement>(
+        document.querySelector(".display-bar__search-bar")
+      );
+      searchBar!.value = "";
+
+      const sortBar = <HTMLSelectElement>(
+        document.querySelector(".display-bar__sort-bar")
+      );
+
+      view.sort.key = "id";
+      view.sort.direction = "asc";
+
+      sortBar!.removeAttribute("value");
+      sortBar!.selectedIndex = 0;
+
+      // view.isBig = true;
     });
   }
 
-  updateInputRange(target: HTMLElement, filter: HTMLElement, isPrice: boolean) {
-    const rangeInputMin = <HTMLInputElement>filter.querySelector(".range-min");
-    const rangeInputMax = <HTMLInputElement>filter.querySelector(".range-max");
-    const range = <HTMLElement>filter.querySelector(".slider .progress");
-    const inputType = isPrice ? 'price' : 'stock';
-    let rangeGap = 10;
-
-    const minText = <HTMLElement>(
-      filter.querySelector(".filter-range__min")
-    );
-    const maxText = <HTMLElement>(
-      filter.querySelector(".filter-range__max")
-    );
-
-    let minVal = parseInt(rangeInputMin.value),
-      maxVal = parseInt(rangeInputMax.value);
-
-    if (maxVal - minVal < rangeGap) {
-      if (target.className === "range-min") {
-        rangeInputMin.value = (maxVal - rangeGap).toString();
-        view.filter[inputType].min = Number(rangeInputMin.value);
-      } else {
-        rangeInputMax.value = (minVal + rangeGap).toString();
-        view.filter[inputType].max = Number(rangeInputMax.value);
-      }
-    } else {
-      minText.textContent = `${isPrice ? currencySymbol: ''}${minVal}`;
-      maxText.textContent = `${isPrice ? currencySymbol: ''}${maxVal}`;
-      range.style.left = (minVal / parseInt(rangeInputMin.max)) * 100 + "%";
-      range.style.right =
-        100 - (maxVal / parseInt(rangeInputMax.max)) * 100 + "%";
-
-      view.filter[inputType].min = minVal;
-      view.filter[inputType].max = maxVal;
-    }
+  copyUrlToClipboard() {
+    this.view.copyLinkBtn!.addEventListener("click", () => {
+      window.navigator.clipboard.writeText(window.location.href);
+      this.view.copyLinkBtn!.classList.add("filter-section__copy_active");
+    });
   }
 
   handleRangeChange(isPrice: boolean) {
-    const rangeType = isPrice ? 'price' : 'stock';
-    const filter = <HTMLElement>document.querySelector(`.filter-range-${rangeType}`);
+    const rangeType = isPrice ? "price" : "stock";
+    const filter = <HTMLElement>(
+      document.querySelector(`.filter-range-${rangeType}`)
+    );
     const rangeInput = <NodeListOf<HTMLInputElement>>(
       filter.querySelectorAll(".range-input input")
     );
@@ -106,16 +105,100 @@ export class FiltersController {
     rangeInput.forEach((input) => {
       input.addEventListener("input", (event) => {
         const target = <HTMLElement>event.target;
-        this.updateInputRange(target, filter, isPrice);
+        this.model.updateInputRange(target, filter, isPrice);
       });
     });
+  }
+
+  update() {
+    this.view.copyLinkBtn!.classList.remove("filter-section__copy_active");
+
+    this.updateFilterList(true);
+    this.updateFilterList(false);
+
+    this.updateRangeList(true);
+    this.updateRangeList(false);
+  }
+
+  updateFilterList(isCategory: boolean) {
+    const query = isCategory ? "category" : "brand";
+    const container = <HTMLElement>document.querySelector(`#${query}-checkbox`);
+    const items = <NodeListOf<HTMLElement>>(
+      container.querySelectorAll(".checkbox-item")
+    );
+    items.forEach((item) => {
+      const label = <HTMLLabelElement>(
+        item.querySelector(".checkbox-item__label")
+      );
+      const spanList = <NodeListOf<HTMLSpanElement>>(
+        item.querySelectorAll(".checkbox-item__span")
+      );
+      const filterItemsFound =
+        view.filterList[query][<string>label.textContent];
+      if (filterItemsFound) {
+        item.classList.remove("checkbox-item_disabled");
+        spanList[0].textContent = `(${filterItemsFound}/`;
+      } else {
+        item.classList.add("checkbox-item_disabled");
+        spanList[0].textContent = "(0/";
+      }
+    });
+  }
+
+  updateRangeList(isPrice: boolean) {
+    const query = isPrice ? "price" : "stock";
+    const container = <HTMLElement>(
+      document.querySelector(`.filter-range-${query}`)
+    );
+    const rangeMinText = <HTMLElement>(
+      container.querySelector(".filter-range__min")
+    );
+    const rangeMaxText = <HTMLElement>(
+      container.querySelector(".filter-range__max")
+    );
+
+    const rangeMinInput = <HTMLInputElement>(
+      container.querySelector(".range-min")
+    );
+    const rangeMaxInput = <HTMLInputElement>(
+      container.querySelector(".range-max")
+    );
+
+    const minRange = view.filterList[query].min;
+    const maxRange = view.filterList[query].max;
+
+    const desc = <HTMLElement>container.querySelector(".filter-range__desc");
+    const wrapper = <HTMLElement>container.querySelector(".input-wrapper");
+    const warning = <HTMLElement>(
+      container.querySelector(".filter-range__warning")
+    );
+
+    if (view.itemsFound) {
+      desc.classList.remove("filter-range__desc_disabled");
+      wrapper.classList.remove("input-wrapper_disabled");
+      warning.classList.remove("filter-range__warning_disabled");
+    } else {
+      desc.classList.add("filter-range__desc_disabled");
+      wrapper.classList.add("input-wrapper_disabled");
+      warning.classList.add("filter-range__warning_disabled");
+    }
+
+    if (minRange) {
+      rangeMinText.textContent = `${isPrice ? currencySymbol : ""}${minRange}`;
+      rangeMinInput.value = minRange!.toString();
+    }
+    if (maxRange) {
+      rangeMaxText.textContent = `${isPrice ? currencySymbol : ""}${maxRange}`;
+      rangeMaxInput.value = maxRange!.toString();
+    }
   }
 
   run(): void {
     this.model.getFilterSection();
     this.setCheckboxListener();
-    this.handleRangeChange(true)
-    this.handleRangeChange(false)
+    this.handleRangeChange(true);
+    this.handleRangeChange(false);
     this.resetFilters();
+    this.copyUrlToClipboard();
   }
 }

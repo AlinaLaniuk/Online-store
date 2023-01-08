@@ -1,3 +1,4 @@
+import { view } from "../../utils/constants";
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
@@ -84,10 +85,10 @@ export class CardMainView {
 
     this.handleAddBtnState(addBtn, isInCart);
 
-    const detailsBtn = document.createElement("a") as HTMLAnchorElement;
-    detailsBtn.href = `/product-details-${data.id}`
+    const detailsBtn = document.createElement("a");
     detailsBtn.className = "card__button card__details-button";
     detailsBtn.textContent = "Details";
+    detailsBtn.setAttribute('href', '/product-details-' + data.id)
 
     cardButtons.append(addBtn, detailsBtn);
     card.append(cardImage, cardContent, cardButtons);
@@ -107,17 +108,17 @@ export class CardMainView {
   handleAddBtnState(button: HTMLElement, isInCart: boolean): void {
     if (isInCart) {
       button.textContent = "Drop from card";
-      button.classList.add("card__add-button__active");
+      button.classList.add("card__add-button_active");
     } else {
       button.textContent = "Add to card";
-      button.classList.remove("card__add-button__active");
+      button.classList.remove("card__add-button_active");
     }
   }
 
-  updateCardsView(view: boolean): void {
+  updateCardsView(): void {
     const cardList = <HTMLElement>document.querySelector(".card-list");
 
-    if (view === true) {
+    if (view.isBig === true) {
       cardList.classList.remove("card-list_type_small");
     } else {
       cardList.classList.add("card-list_type_small");

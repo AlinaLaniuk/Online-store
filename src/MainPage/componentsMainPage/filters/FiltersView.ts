@@ -5,13 +5,15 @@ import {
   IRange,
   IrangeData,
 } from "../../utils/interface";
-import { currencySymbol, rangeSymbol } from "../../utils/constants";
+import { currencySymbol, rangeSymbol, view } from "../../utils/constants";
 
 export class FiltersView {
   mainWrapper: HTMLElement | null;
+  copyLinkBtn: HTMLButtonElement | null;
 
   constructor() {
     this.mainWrapper = null;
+    this.copyLinkBtn = null;
   }
 
   // filter list
@@ -24,23 +26,26 @@ export class FiltersView {
     const filterButtons = document.createElement("div");
     filterButtons.className = "filter-section__buttons";
 
-    const resetFiltersBtn = document.createElement("button");
-    resetFiltersBtn.setAttribute("type", "button");
-    resetFiltersBtn.className = "filter-section__button filter-section__reset";
-    resetFiltersBtn.textContent = "Reset Filters";
+    const resetBtn = document.createElement("button");
+    resetBtn.setAttribute("type", "button");
+    resetBtn.className = "filter-section__button filter-section__reset";
+    resetBtn.textContent = "Reset Filters";
 
-    const copyLinkBtn = document.createElement("button");
-    copyLinkBtn.setAttribute("type", "button");
-    copyLinkBtn.className = "filter-section__button filter-section__copy";
-    copyLinkBtn.textContent = "Copy Link";
+    const copyBtn = document.createElement("button");
+    copyBtn.setAttribute("type", "button");
+    copyBtn.className = "filter-section__button filter-section__copy";
+    copyBtn.textContent = "Copy Link";
+    this.copyLinkBtn = copyBtn;
 
-    filterButtons.append(resetFiltersBtn, copyLinkBtn);
+    filterButtons.append(resetBtn, copyBtn);
     filterSection.append(filterButtons);
 
     this.mainWrapper.append(filterSection);
   }
+  
   // checkbox template
   generateCheckboxItem(container: HTMLElement, data: filterCheckboxItem): void {
+    const containerId = <string>container.getAttribute("id");
     const item = document.createElement("li");
     item.className = "checkbox-item";
 
@@ -55,13 +60,24 @@ export class FiltersView {
     label.setAttribute("for", data.title);
     label.textContent = data.title;
 
-    const span = document.createElement("span");
-    span.className = "checkbox-item__span";
+    const spanBox = document.createElement("div");
+    spanBox.className = "checkbox-item__span-box";
 
-    span.textContent = `(${data.itemsFiltered}/${data.items})`;
+    const query = containerId === 'category' ? 'category' : 'brand';
+    const filterItemsFound = view.filterList[query][data.title] !== undefined ? view.filterList[query][data.title] : data.items;
+
+    const spanFound = document.createElement("span");
+    spanFound.className = "checkbox-item__span";
+    spanFound.textContent = `(${filterItemsFound}/`;
+
+    const spanTotal = document.createElement("span");
+    spanTotal.className = "checkbox-item__span";
+    spanTotal.textContent = `${data.items})`;
+
+    spanBox.append(spanFound, spanTotal)
 
     label.prepend(input);
-    item.append(label, span);
+    item.append(label, spanBox);
     container.append(item);
   }
   // get checkbox filter
@@ -142,6 +158,10 @@ export class FiltersView {
   `
     );
 
+    const warning = document.createElement('div');
+    warning.className = 'filter-range__warning';
+    warning.textContent = 'not found';
+
     if (el.option === "price") {
       const range = data.price;
       const isPrice = true;
@@ -169,7 +189,7 @@ export class FiltersView {
     );
 
     desc.append(rangeMinText, span, rangeMaxText);
-    rangeFilter.append(title, desc, inputWrapper);
+    rangeFilter.append(title, desc, inputWrapper, warning);
 
     if (filterSectionList) {
       filterSectionList.append(rangeFilter);

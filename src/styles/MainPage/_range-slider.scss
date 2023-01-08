@@ -56,11 +56,16 @@
     right: 4%;
     position: absolute;
     border-radius: 5px;
-    background: #ffb805;
+    // background: #ffb805;
   }
 
   .range-input {
     position: relative;
+
+    .range-min,
+    .range-max {
+      cursor: pointer;
+    }
   }
 
   .range-input input {

@@ -3,6 +3,7 @@ import MainController from "./MainPage/MainController";
 import ProductPageController from "../src/productPage/productPageController";
 import { productsInCartInfo } from "../src/services/appServices";
 import paginationServices from "./CartPage/componentsCartPage/paginationServices";
+import { setMainValuesFromQueryParams } from "./MainPage/utils/constants";
 
 class AppController{
     cartPageController: CartController;
@@ -29,8 +30,13 @@ class AppController{
         this.totalCostContainer = document.querySelector('.cart-total') as HTMLElement;
     }
 
+  changeCartTotalQuantity() {
+    this.cartQuantityContainer.innerHTML = `${productsInCartInfo.totalQuantity}`;
+  }
+
     renderPage(pathName: string){
         if(pathName === '/'){
+            this.getMainParamsFromURL();
             this.mainWrapper.innerHTML = '';
             this.mainController.run();
             productsInCartInfo.subscribers.length = 0;
@@ -57,6 +63,34 @@ class AppController{
             this.show404Page();
         }         
     }
+  getMainParamsFromURL() {
+    // вот эта функция нужна для разбора query строки.
+    const params = window.location.search;
+    if (params) {
+      const paramsObj = new URLSearchParams(params);
+      const categoryParam = <string>paramsObj.get("category");
+      const brandParam = <string>paramsObj.get("brand");
+      const priceParam = <string>paramsObj.get("price");
+      const stockParam = <string>paramsObj.get("stock");
+      const sortParam = <string>paramsObj.get("sort");
+      const searchParam = <string>paramsObj.get("search");
+      const bigParam = <string>paramsObj.get("big");
+
+      setMainValuesFromQueryParams(
+        categoryParam,
+        brandParam,
+        priceParam,
+        stockParam,
+        sortParam,
+        searchParam,
+        bigParam
+      );
+    }}
+
+    goTo (path: string) {
+      window.history.pushState({path}, path, path)
+      this.renderPage(path)
+  }
 
     redirectToMain(isAllInputsValid: boolean){
         if(isAllInputsValid){
@@ -98,16 +132,6 @@ class AppController{
             </div>`
         )
     }
-
-    goTo (path: string) {
-        window.history.pushState({path}, path, path)
-        this.renderPage(path)
-    }
-
-    changeCartTotalQuantity(){
-        this.cartQuantityContainer.innerHTML = `${productsInCartInfo.totalQuantity}`;
-    }
-
     changeTotalCost(){
         this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
     }

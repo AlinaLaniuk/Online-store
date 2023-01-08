@@ -27,17 +27,22 @@ class MainController {
       this.update();
     });
   }
-  
-  private update(): void {
-    this.cardMainController.update();
-    this.displayBarController.update();
-    
-    let qyeryString = '';
 
-    const priceFilter = <HTMLElement>document.querySelector('.filter-range-price');
-    const stockFilter = <HTMLElement>document.querySelector('.filter-range-stock');
-    const rangePrice = <HTMLInputElement>priceFilter.querySelector('.range-min');
-    const rangeStock = <HTMLInputElement>stockFilter.querySelector('.range-min');
+  generateQueryString() {
+    let qyeryString = "";
+
+    const priceFilter = <HTMLElement>(
+      document.querySelector(".filter-range-price")
+    );
+    const stockFilter = <HTMLElement>(
+      document.querySelector(".filter-range-stock")
+    );
+    const rangePrice = <HTMLInputElement>(
+      priceFilter.querySelector(".range-min")
+    );
+    const rangeStock = <HTMLInputElement>(
+      stockFilter.querySelector(".range-min")
+    );
 
     const arr = [
       view.search,
@@ -49,60 +54,73 @@ class MainController {
       view.filter.price.max !== parseInt(rangePrice.max),
       view.filter.stock.min !== parseInt(rangeStock.min),
       view.filter.stock.max !== parseInt(rangeStock.max),
-    ]
-    arr.filter((item) => item).length && (qyeryString += '?')
+    ];
+    arr.filter((item) => item).length && (qyeryString += "?");
 
-    if(view.filter.category.length) {
-      qyeryString += 'category='
+    if (view.filter.category.length) {
+      qyeryString += "category=";
       view.filter.category.forEach((item) => {
-        qyeryString += `${item}↕`
-      })
-      qyeryString = qyeryString.slice(0, -1)
-    }
-    
-    if(view.filter.brand.length) {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'brand=';
-      view.filter.brand.forEach((item) => {
-        qyeryString += `${item}↕`
-      })
-      qyeryString = qyeryString.slice(0, -1)
+        qyeryString += `${item}↕`;
+      });
+      qyeryString = qyeryString.slice(0, -1);
     }
 
-    if(view.filter.price.min !== parseInt(rangePrice.min) || view.filter.price.max !== parseInt(rangePrice.max)) {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'price=';
+    if (view.filter.brand.length) {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "brand=";
+      view.filter.brand.forEach((item) => {
+        qyeryString += `${item}↕`;
+      });
+      qyeryString = qyeryString.slice(0, -1);
+    }
+
+    if (
+      view.filter.price.min !== parseInt(rangePrice.min) ||
+      view.filter.price.max !== parseInt(rangePrice.max)
+    ) {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "price=";
       qyeryString += `${view.filter.price.min}↕${view.filter.price.max}`;
     }
-    
-    if(view.filter.stock.min !== parseInt(rangeStock.min) || view.filter.stock.max !== parseInt(rangeStock.max)) {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'stock=';
+
+    if (
+      view.filter.stock.min !== parseInt(rangeStock.min) ||
+      view.filter.stock.max !== parseInt(rangeStock.max)
+    ) {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "stock=";
       qyeryString += `${view.filter.stock.min}↕${view.filter.stock.max}`;
     }
 
-    if(view.sort.key !== 'id') {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'sort=';
+    if (view.sort.key !== "id") {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "sort=";
       qyeryString += `${view.sort.key}-${view.sort.direction.toUpperCase()}`;
     }
 
-    if(view.search) {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'search=';
+    if (view.search) {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "search=";
       qyeryString += `${view.search}`;
     }
-    
-    if(!view.default) {
-      qyeryString !== '?' && (qyeryString += '&');
-      qyeryString += 'big=';
-      qyeryString += view.isBig ? 'true' : 'false';
+
+    if (!view.default) {
+      qyeryString !== "?" && (qyeryString += "&");
+      qyeryString += "big=";
+      qyeryString += view.isBig ? "true" : "false";
     }
 
-    qyeryString === '?' && (qyeryString = '');
+    qyeryString === "?" && (qyeryString = "");
     history.pushState(null, "", "/" + qyeryString);
   }
-  
+
+  private update(): void {
+    this.cardMainController.update();
+    this.displayBarController.update();
+    this.filterController.update();
+
+    this.generateQueryString();
+  }
 
   public run(): void {
     this.model.getMain();
@@ -110,6 +128,12 @@ class MainController {
     this.filterController.run();
     this.displayBarController.run();
     this.cardMainController.run();
+    this.filterController.updateFilterList(true);
+    this.filterController.updateFilterList(false);
+    this.filterController.updateRangeList(true);
+    this.filterController.updateRangeList(false);
+    
+    this.displayBarController.update();
 
     const displayBar = <Node>document.querySelector(".display-bar");
     this.displayBarObserver.observe(displayBar, {
@@ -117,6 +141,7 @@ class MainController {
       subtree: true,
       characterDataOldValue: true,
       attributes: true,
+      attributeFilter: ['value','checked'],
     });
 
     const filterSection = <Node>document.querySelector(".filter-section");
@@ -125,6 +150,7 @@ class MainController {
       subtree: true,
       characterDataOldValue: true,
       attributes: true,
+      attributeFilter: ['checked', 'value', 'style'],
     });
   }
 }
