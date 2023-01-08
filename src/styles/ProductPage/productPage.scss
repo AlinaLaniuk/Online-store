@@ -7,7 +7,8 @@
 
 .product-page-container {
     @include flex(space-between, column);
-    margin-top: 0;
+    margin: 0 auto;
+    width: 90%;
 }
 
 .bread-crumps-container {
@@ -18,6 +19,7 @@
 }
 
 .product-container {
+    width: 100%;
     @include flex(space-between, column);
     border: 1px solid black;
     background-color: white
@@ -32,11 +34,34 @@
 }
 
 .product-content {
-    @include flex(space-between, row);
+    // @include flex(space-between, row);
+    padding: 0 15px;
+    width: 100%;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 2.5fr 5fr 3fr 2fr;
+    box-sizing: border-box;
+
+    .product__image-container {
+        margin: 0;
+        padding: 0;
+        height: 600px;
+        overflow: hidden;
+        overflow-y: auto;
+        list-style-type: none;
+        .product__image-item {
+            .product__image-small {
+                width: 200px;
+                height: 200px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+        }
+    }
 }
 
 .product-info-container {
-    width: 40%;
+    // width: 40%;
     border: 1px solid black;
 
     .title {

@@ -8,7 +8,8 @@ class ProductPageController {
   constructor(goToOrderForm: () => void) {
     this.productPageView = new ProductPageView();
     this.productPageModel = new ProductPageModel(
-      this.productPageView.drawProductPage
+      this.productPageView.drawProductPage,
+      this.productPageView.getSmallImagesList
     );
     this.run = this.run.bind(this);
     this.goToOrderForm = goToOrderForm;
@@ -31,10 +32,10 @@ class ProductPageController {
 
       if (isInCart) {
         productsInCartInfo.changeQuantity(`${cardId}`, 0);
-        console.log('drop')
+        console.log("drop");
       } else {
         productsInCartInfo.changeQuantity(`${cardId}`, 1);
-        console.log('add')
+        console.log("add");
       }
       this.handleAddBtnState(buyNowButton, !isInCart);
     });
@@ -50,10 +51,30 @@ class ProductPageController {
     }
   }
 
+  setGalleryListener(): void {
+    const imageList = document.querySelector(".product__image-container");
+    imageList?.addEventListener("click", (event: Event): void => {
+      const target = <HTMLElement>event.target;
+      this.handlmageChange(target);
+    });
+  }
+
+  handlmageChange(item: HTMLElement): void {
+    if (item.className.includes("product__image-small")) {
+      const mainPicture = <HTMLImageElement>(
+        document.querySelector(".product-main-img")
+      );
+      const mainPictureSrc = <string>item.getAttribute("src");
+
+      mainPicture.src = mainPictureSrc;
+    }
+  }
+
   run(id: number) {
     this.productPageModel.drawCurrentProductPage(id);
     this.setBuyNowButtonListener();
     this.setAAddBtnListener();
+    this.setGalleryListener();
   }
 }
 export default ProductPageController;

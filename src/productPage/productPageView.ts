@@ -1,17 +1,32 @@
-import { productInfoType } from "../CartPage/types"
-class ProductPageView{
-    drawProductPage(data: productInfoType){
-        const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
-        mainWrapper.innerHTML = '';
-        const productPageContainer = document.createElement('div');
-        productPageContainer.classList.add('product-page-container');
-        mainWrapper.append(productPageContainer);
-        // const productPage = document.querySelector('#product-page') as HTMLTemplateElement;
-        // const cloneProductPageTemplate = productPage.content.cloneNode(true);
-        // productPageContainer.append(cloneProductPageTemplate);
-        productPageContainer.insertAdjacentHTML(
-            'beforeend',
-            `<div class="bread-crumps-container">
+import { productInfoType } from "../CartPage/types";
+class ProductPageView {
+  getSmallImagesList(data: productInfoType) {
+    const container = document.querySelector(".product__image-container");
+
+    data.images.forEach((item) => {
+      const listItem = document.createElement("li");
+      listItem.className = "product__image-item";
+
+      const image = document.createElement("img");
+      image.className = "product__image-small";
+      image.src = item;
+
+      listItem.append(image);
+      container?.append(listItem);
+    });
+  }
+  drawProductPage(data: productInfoType) {
+    const mainWrapper = document.querySelector(".main-wrapper") as HTMLElement;
+    mainWrapper.innerHTML = "";
+    const productPageContainer = document.createElement("div");
+    productPageContainer.classList.add("product-page-container");
+    mainWrapper.append(productPageContainer);
+    // const productPage = document.querySelector('#product-page') as HTMLTemplateElement;
+    // const cloneProductPageTemplate = productPage.content.cloneNode(true);
+    // productPageContainer.append(cloneProductPageTemplate);
+    productPageContainer.insertAdjacentHTML(
+      "beforeend",
+      `<div class="bread-crumps-container">
             <span>Store</span>
             <span>>></span>
             <span class="bread-crumps__category">${data.category}</span>
@@ -23,9 +38,8 @@ class ProductPageView{
           <div class="product-container" data-product-id="${data.id}">
             <div class="product-title">${data.title}</div>
             <div class="product-content">
-              <div class="product-small-img-container">
-                
-              </div>
+              <ul class="product__image-container">
+              </ul>
               <img class="product-main-img" src=${data.thumbnail}>
               <div class="product-info-container">
                 <div class="product-info-block description">
@@ -60,8 +74,7 @@ class ProductPageView{
               </div>
             </div>
           </div>`
-        )
-
-    }
+    );
+  }
 }
 export default ProductPageView;
