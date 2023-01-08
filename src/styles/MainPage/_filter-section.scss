@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid black;
+  // border: 1px solid black;
 
   .filter-section__buttons {
     padding: 0 20px;
@@ -16,6 +16,10 @@
     box-sizing: border-box;
 
     .filter-section__button {
+      height: 40px;
+      border: none;
+      border-radius: 20px;
+      background-color: rgb(255, 230, 189);
       cursor: pointer;
       transition: all 0.5s ease;
     }
@@ -28,15 +32,19 @@
         color: white;
       }
     }
+    .filter-section__button:hover{
+      background-color: rgb(255, 162, 11);
+    }
   }
+  
 
   .filter-section__list {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
     list-style-type: none;
+    background-color: white;
 
     .filter-item {
       display: flex;

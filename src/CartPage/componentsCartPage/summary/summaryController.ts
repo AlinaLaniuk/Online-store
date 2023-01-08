@@ -17,12 +17,12 @@ class SummaryController{
             drawPromoCodeInfoBlock: this.summaryView.drawPromoCodeInfoBlock,
             drawStateNoCodeInUse: this.summaryView.drawStateNoCodeInUse,
         });
-        this.subscribeToTotalQuantityChanging = this.subscribeToTotalQuantityChanging.bind(this);
+        this.updateSummaryInfo = this.updateSummaryInfo.bind(this);
         this.setAddButtonListener = this.setAddButtonListener.bind(this);
         this.setDropButtonListener = this.setDropButtonListener.bind(this);
     }
 
-    subscribeToTotalQuantityChanging(){
+    updateSummaryInfo(){
         this.summaryModel.drawNewProductsQuantity();
         this.summaryModel.drawNewTotalCostInCart();
     }

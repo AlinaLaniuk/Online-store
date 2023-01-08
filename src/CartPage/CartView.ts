@@ -16,7 +16,7 @@ class CartView{
         mainWrapper.innerHTML = '';
         mainWrapper.insertAdjacentHTML(
             'beforeend',
-            `<div>Cart is Empty</div`
+            `<div class="empty-card">Cart is Empty</div`
         )
     }
 }

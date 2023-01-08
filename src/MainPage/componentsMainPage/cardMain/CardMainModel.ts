@@ -10,6 +10,7 @@ export class CardMainModel {
   refreshCardList: Function;
   handleAddBtnState: Function;
   data: IDataItem[];
+  // changeQuantity: (productId: string, quantity: number) => void;
 
   constructor(
     getCardTemplate: Function,

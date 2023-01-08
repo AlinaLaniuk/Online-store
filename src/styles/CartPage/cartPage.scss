@@ -1,3 +1,6 @@
+@import './_cardCart.scss';
+@import './_summary.scss';
+@import './_orderForm.scss';
 @mixin flex($justifyContent, $flexDirection) {
     display: flex;
     justify-content: $justifyContent;
@@ -6,7 +9,10 @@
 }
 .products-in-cart-wrapper{
     width: 60%;
-    border: 1px solid black;
+    margin-top: 0;
+}
+.products-in-cart__title{
+    margin-left: 10px;
 }
 .products-in-cart__top{
     @include flex(space-between, row);
@@ -25,7 +31,13 @@
         .products-in-cart__pagination__button{
             width: 10%;
             height: 20px;
-            background-color: aqua;
+            border-radius: 10px;
+            background-color: rgb(255, 230, 189);
+            @include flex(center, row);
+        }
+        .products-in-cart__pagination__button:hover{
+            background-color: rgb(255, 162, 11);
+            cursor: pointer;
         }
         .products-in-cart__pagination__value{
             width: 20%;
@@ -33,4 +45,10 @@
             border: 1px solid black;
         }
     }
+}
+.number{
+    @include flex(center, row);
+}
+.empty-card{
+    font-size: 30px;
 }
