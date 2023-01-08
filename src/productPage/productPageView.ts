@@ -22,10 +22,10 @@ class ProductPageView {
 
     if (isInCart) {
       addButton.textContent = "Drop from card";
-      addButton.classList.add("card_add-button_active");
+      addButton.classList.add("add-button_active");
     } else {
       addButton.textContent = "Add to card";
-      addButton.classList.remove("card_add-button_active");
+      addButton.classList.remove("add-button_active");
     }
   }
   // this.handleAddBtnState(isInCart);
