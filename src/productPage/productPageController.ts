@@ -9,7 +9,8 @@ class ProductPageController {
     this.productPageView = new ProductPageView();
     this.productPageModel = new ProductPageModel(
       this.productPageView.drawProductPage,
-      this.productPageView.getSmallImagesList
+      this.productPageView.getSmallImagesList,
+      this.productPageView.handleAddBtnState,
     );
     this.run = this.run.bind(this);
     this.goToOrderForm = goToOrderForm;

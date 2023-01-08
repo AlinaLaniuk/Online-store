@@ -1,4 +1,5 @@
 import { productInfoType } from "../CartPage/types";
+import { productsInCartInfo } from "../services/appServices";
 class ProductPageView {
   getSmallImagesList(data: productInfoType) {
     const container = document.querySelector(".product__image-container");
@@ -15,8 +16,10 @@ class ProductPageView {
       container?.append(listItem);
     });
   }
-  handleAddBtnState(isInCart: boolean): void {
-    const addButton = <HTMLButtonElement>document.querySelector('.add-button')
+  handleAddBtnState(data: productInfoType): void {
+    const addButton = <HTMLButtonElement>document.querySelector('.add-button');
+    const isInCart = productsInCartInfo.quantity[data.id];
+
     if (isInCart) {
       addButton.textContent = "Drop from card";
       addButton.classList.add("card_add-button_active");
@@ -25,7 +28,7 @@ class ProductPageView {
       addButton.classList.remove("card_add-button_active");
     }
   }
-  // this.handleAddBtnState(addBtn, isInCart);
+  // this.handleAddBtnState(isInCart);
   drawProductPage(data: productInfoType) {
     const mainWrapper = document.querySelector(".main-wrapper") as HTMLElement;
     mainWrapper.innerHTML = "";
