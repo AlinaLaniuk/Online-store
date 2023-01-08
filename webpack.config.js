@@ -77,11 +77,13 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
+    // publicPath: "/", multi nested urls solution for deploy
   },
   resolve: {
     extensions: [".js", ".ts", ".json"],
     alias: {
       images: path.resolve(__dirname, "src/assets/images/"),
+      fonts: path.resolve(__dirname, "src/assets/fonts/"),
       audio: path.resolve(__dirname, "src/assets/audio/"),
     },
   },

@@ -75,15 +75,17 @@
         align-self: center;
 
         .card__button {
+          border: none;
+          border-radius: 20px;
           cursor: pointer;
           transition: all 0.5s ease;
         }
 
         .card__add-button {
-          background: rgb(84, 199, 199);
+          background-color: rgb(255, 230, 189);
 
           &:hover {
-            background: rgb(84, 156, 156);
+            background-color: rgb(255, 162, 11);
             color: white;
           }
         }

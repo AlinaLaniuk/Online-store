@@ -53,8 +53,8 @@ class ProductPageView{
                   <div class="content">${data.category}</div>
                 </div>
               </div>
-              <div class="order-container">
-                <div class="product-cost"></div>
+              <div class="order-container-product-page">
+                <div class="product-cost">$${data.price}</div>
                 <button class="add-button">ADD TO CART</button>
                 <button class="buy-button">BUY NOW</button>
               </div>

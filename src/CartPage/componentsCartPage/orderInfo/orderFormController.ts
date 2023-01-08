@@ -3,15 +3,17 @@ import OrderFormView from "./orderFormView";
 class OrderFormController{
     orderFormView: OrderFormView;
     orderFormModel: OrderFormModel;
-    constructor(){
+    redirectToMain: (isAllInputsValid: boolean) => void
+    constructor(redirectToMain: (isAllInputsValid: boolean) => void){
         this.orderFormView = new OrderFormView();
         this.orderFormModel = new OrderFormModel(
             {
                 showError: this.orderFormView.setErrorView,
                 setCurrentBankImg: this.orderFormView.setCurrentBankImg,
                 showErrorInCommonErrorBlock: this.orderFormView.showErrorInCommonErrorBlock,
-            }
+            },
         );
+        this.redirectToMain = redirectToMain;
     }
 
     setOrderFormBgListener(){
@@ -86,8 +88,9 @@ class OrderFormController{
     setConfirmButtonListener(){
         const confirmButton = document.querySelector('.confirm-button') as HTMLButtonElement;
         confirmButton.addEventListener('click', () => {
-            this.orderFormModel.checkValidInputs();
+            const isAllInputsValid = this.orderFormModel.checkValidInputs();
             this.orderFormModel.showCommonErrorBlock();
+            this.redirectToMain(isAllInputsValid);
         })
     }
 

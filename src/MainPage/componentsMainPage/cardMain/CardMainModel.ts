@@ -10,6 +10,7 @@ export class CardMainModel {
   refreshCardList: Function;
   handleAddBtnState: Function;
   data: IDataItem[];
+  // changeQuantity: (productId: string, quantity: number) => void;
 
   constructor(
     getCardTemplate: Function,
@@ -207,9 +208,11 @@ export class CardMainModel {
 
       if (isInCart) {
         // productsInCartInfo.quantity[cardId] = 0;
-        delete productsInCartInfo.quantity[cardId];
+        // delete productsInCartInfo.quantity[cardId];
+        productsInCartInfo.changeQuantity(`${cardId}`, 0);
       } else {
-        productsInCartInfo.quantity[cardId] = 1;
+        // productsInCartInfo.quantity[cardId] = 1;
+        productsInCartInfo.changeQuantity(`${cardId}`, 1);
       }
       this.handleAddBtnState(addBtn, !isInCart);
     }

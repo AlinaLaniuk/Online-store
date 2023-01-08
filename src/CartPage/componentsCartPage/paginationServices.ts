@@ -33,7 +33,7 @@ const paginationServices: PaginationServicesI = {
     },
     notify(){
         this.subscribers.forEach((func) => {
-            func(this.currentIndexesForDrawingCards, this.currentCardsNumbers);
+            func();
         })
     },
     setValuesFromQueryParams(limit, page){

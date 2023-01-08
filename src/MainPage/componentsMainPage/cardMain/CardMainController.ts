@@ -18,9 +18,11 @@ export class CardMainController {
   }
 
   addToCart(): void {
-    this.view.mainWrapper!.addEventListener("click", (event: Event) => {
+    const cardList = <HTMLElement>document.querySelector('.card-list');
+    cardList.addEventListener("click", (event: Event) => {
       const target = <HTMLElement>event.target;
       this.model.handleAddBtn(target);
+      console.log('click')
     });
   }
 
@@ -39,7 +41,7 @@ export class CardMainController {
 
   update(): void {
     this.model.updateCardsList();
-    this.addToCart();
+    // this.addToCart();
     // this.seeProductDetails();
   }
 }
