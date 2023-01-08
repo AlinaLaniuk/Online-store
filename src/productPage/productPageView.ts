@@ -20,7 +20,7 @@ class ProductPageView{
             <span>>></span>
             <span class="bread-crumps__model">${data.title}</span>
           </div>
-          <div class="product-container">
+          <div class="product-container" data-product-id="${data.id}">
             <div class="product-title">${data.title}</div>
             <div class="product-content">
               <div class="product-small-img-container">

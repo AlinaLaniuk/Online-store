@@ -111,10 +111,10 @@ export class CardMainView {
   handleAddBtnState(button: HTMLElement, isInCart: boolean): void {
     if (isInCart) {
       button.textContent = "Drop from card";
-      button.classList.add("card__add-button__active");
+      button.classList.add("card_add-button_active");
     } else {
       button.textContent = "Add to card";
-      button.classList.remove("card__add-button__active");
+      button.classList.remove("card_add-button_active");
     }
   }
 
