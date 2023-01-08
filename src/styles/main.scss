@@ -56,6 +56,9 @@ header{
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
     }
 }
+.main {
+    width: 100%;
+}
 .cart-container{
     margin-top: 30px;
     @include flex(space-around, row);
