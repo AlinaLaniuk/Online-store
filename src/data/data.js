@@ -654,7 +654,7 @@ const onlineStoreData = [
     id: 34,
     title: "Plastic Table",
     description:
-      "V﻿ery good quality plastic table for multi purpose now in reasonable price",
+      "Very good quality plastic table for multi purpose now in reasonable price",
     price: 50,
     discountPercentage: 4,
     rating: 4.01,

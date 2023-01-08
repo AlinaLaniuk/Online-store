@@ -121,9 +121,9 @@ export class CardMainModel {
         item.description
           .toLocaleLowerCase()
           .includes(view.search.toLocaleLowerCase()),
-        item.price.toString().includes(view.search),
-        item.discountPercentage.toString().includes(view.search),
-        item.rating.toString().includes(view.search),
+        `${currencySymbol}${item.price}.00`.includes(view.search),
+        (item.discountPercentage.toString() + '%') === (view.search),
+        item.rating.toString().includes(view.search.replace('%', '')),
         item.stock.toString().includes(view.search),
       ];
       return conditionList.some((el) => {
