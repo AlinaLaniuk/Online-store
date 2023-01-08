@@ -175,10 +175,6 @@ export class CardMainModel {
     view.filterList.stock = { min: 0, max: 0 };
 
     this.updateViewFilterList();
-    // console.table(view.filterList.category);
-    // console.table(view.filterList.brand);
-    // console.table(view.filterList.price);
-    // console.table(view.filterList.stock);
   }
 
   sortData(key: string, direction: string): void {

@@ -32,10 +32,8 @@ class ProductPageController {
 
       if (isInCart) {
         productsInCartInfo.changeQuantity(`${cardId}`, 0);
-        console.log("drop");
       } else {
         productsInCartInfo.changeQuantity(`${cardId}`, 1);
-        console.log("add");
       }
       this.handleAddBtnState(buyNowButton, !isInCart);
     });

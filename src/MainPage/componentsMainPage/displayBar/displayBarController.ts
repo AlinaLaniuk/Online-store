@@ -72,6 +72,9 @@ export class DisplayBarController {
       this.view.sortBar!.removeAttribute("value");
       this.view.sortBar!.selectedIndex = 0;
     }
+    if (view.sort.key === "discountPercentage") {
+      this.view.sortBar!.value = `discount ${view.sort.direction.toUpperCase()}`;
+    }
     this.view.searchBar!.value = view.search;
   }
   // run component

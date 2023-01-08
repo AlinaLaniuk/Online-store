@@ -22,7 +22,6 @@ export class CardMainController {
     cardList.addEventListener("click", (event: Event) => {
       const target = <HTMLElement>event.target;
       this.model.handleAddBtn(target);
-      console.log('click')
     });
   }
 

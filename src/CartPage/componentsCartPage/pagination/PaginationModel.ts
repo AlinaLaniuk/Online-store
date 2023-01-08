@@ -35,7 +35,7 @@ class PaginationModel{
         for(let i = firstCardNumberAtCurrentPage; i < firstCardNumberAtCurrentPage + paginationServices.limit; i += 1){
             currentCardsNumbers.push(i);
         }
-        console.log(currentCardsNumbers)
+        // console.log(currentCardsNumbers)
         this.currentNumbersForCards = [...currentCardsNumbers];
         paginationServices.setCurrentCardsNumbers(this.currentNumbersForCards);
     }

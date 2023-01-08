@@ -26,7 +26,7 @@ class CardCartModel{
     }
 
     getCurrentProductsInCartInfo(){
-        console.log(onlineStoreData)
+        // console.log(onlineStoreData)
         return this.currentIndexes.map((index) => onlineStoreData[index] );
     }
 
