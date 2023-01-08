@@ -1,3 +1,5 @@
+import { view } from "../../utils/constants";
+
 export class DisplayBarView {
   mainWrapper: HTMLElement | null;
   cardsViewButtons: NodeListOf<Element> | null;
@@ -94,8 +96,12 @@ export class DisplayBarView {
     this.cardsViewButtons = <NodeListOf<Element>>(
       this.mainWrapper!.querySelectorAll(".display-bar__view-button")
     );
-    this.cardsViewButtons[0].setAttribute("disabled", "");
-    this.cardsViewButtons[0].setAttribute("checked", "");
+
+    if (view.isBig) {
+      this.handleViewBig();
+    } else {
+      this.handleViewSmall();
+    }
 
     this.searchBar = <HTMLInputElement>(
       document.querySelector(".display-bar__search-bar")
@@ -109,15 +115,27 @@ export class DisplayBarView {
     this.generateDisplayTemplate(items);
     this.generateSortOptions(optionList);
 
+    this.cardsViewButtons = <NodeListOf<Element>>(
+      this.mainWrapper!.querySelectorAll(".display-bar__view-button")
+    );
+
     this.setViewInitial();
   }
 
   handleViewSmall(): void {
+    view.isBig = false;
+    this.cardsViewButtons![1].setAttribute("disabled", "");
+    this.cardsViewButtons![1].setAttribute("checked", "");
+    
     this.cardsViewButtons![0].removeAttribute("disabled");
     this.cardsViewButtons![0].removeAttribute("checked");
   }
-
+  
   handleViewBig() {
+    view.isBig = true;
+    this.cardsViewButtons![0].setAttribute("disabled", "");
+    this.cardsViewButtons![0].setAttribute("checked", "");
+
     this.cardsViewButtons![1].removeAttribute("disabled");
     this.cardsViewButtons![1].removeAttribute("checked");
   }

@@ -15,6 +15,17 @@ class ProductPageView {
       container?.append(listItem);
     });
   }
+  handleAddBtnState(isInCart: boolean): void {
+    const addButton = <HTMLButtonElement>document.querySelector('.add-button')
+    if (isInCart) {
+      addButton.textContent = "Drop from card";
+      addButton.classList.add("card_add-button_active");
+    } else {
+      addButton.textContent = "Add to card";
+      addButton.classList.remove("card_add-button_active");
+    }
+  }
+  // this.handleAddBtnState(addBtn, isInCart);
   drawProductPage(data: productInfoType) {
     const mainWrapper = document.querySelector(".main-wrapper") as HTMLElement;
     mainWrapper.innerHTML = "";

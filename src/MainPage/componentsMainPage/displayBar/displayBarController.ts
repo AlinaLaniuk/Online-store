@@ -13,7 +13,7 @@ export class DisplayBarController {
       this.view.generateSection.bind(this.view),
       this.view.handleViewBig.bind(this.view),
       this.view.handleViewSmall.bind(this.view),
-      this.view.updateFoundItemsNum.bind(this.view),
+      this.view.updateFoundItemsNum.bind(this.view)
     );
   }
 
@@ -55,19 +55,24 @@ export class DisplayBarController {
 
   update() {
     this.model.updateItemsNum();
+    this.updateSortBar();
+  }
 
+  updateSortBar() {
     if (view.sort.key === "id") {
       this.view.sortBar!.removeAttribute("value");
       this.view.sortBar!.selectedIndex = 0;
     }
 
-    if(view.search === '') {
-      this.view.searchBar!.value = '';
+    if (view.search === "") {
+      this.view.searchBar!.value = "";
     }
   }
 
   getPresetBar() {
-    this.view.sortBar!.value = `${view.sort.key} ${view.sort.direction.toUpperCase()}`;
+    this.view.sortBar!.value = `${
+      view.sort.key
+    } ${view.sort.direction.toUpperCase()}`;
     if (view.sort.key === "id") {
       this.view.sortBar!.removeAttribute("value");
       this.view.sortBar!.selectedIndex = 0;
@@ -77,12 +82,13 @@ export class DisplayBarController {
     }
     this.view.searchBar!.value = view.search;
   }
+
   // run component
   run(): void {
     this.model.getDisplayBar();
     this.setViewBar();
     this.setSortBar();
     this.updateSearchBar();
-    this.getPresetBar()
+    this.getPresetBar();
   }
 }

@@ -10,7 +10,6 @@ export class CardMainModel {
   refreshCardList: Function;
   handleAddBtnState: Function;
   data: IDataItem[];
-  // changeQuantity: (productId: string, quantity: number) => void;
 
   constructor(
     getCardTemplate: Function,
@@ -84,6 +83,7 @@ export class CardMainModel {
     this.filterData();
     this.sortData(view.sort.key, view.sort.direction);
     this.getCards();
+    this.updateCardsView();
     view.itemsFound = this.data.length;
   }
 
@@ -203,31 +203,16 @@ export class CardMainModel {
       const isInCart = productsInCartInfo.quantity[cardId];
 
       if (isInCart) {
-        // productsInCartInfo.quantity[cardId] = 0;
-        // delete productsInCartInfo.quantity[cardId];
         productsInCartInfo.changeQuantity(`${cardId}`, 0);
       } else {
-        // productsInCartInfo.quantity[cardId] = 1;
         productsInCartInfo.changeQuantity(`${cardId}`, 1);
       }
       this.handleAddBtnState(addBtn, !isInCart);
     }
   }
 
-  // public handleDetailsBtn(detailsBtn: HTMLElement): void {
-  //   if (detailsBtn.classList.contains("card__details-button")) {
-  //     const cardId = <string>(
-  //       (<HTMLElement>detailsBtn.closest(".card")).getAttribute(
-  //         "data-product-id"
-  //       )
-  //     );
-  //     history.pushState(null, "", "/product-details-" + cardId);
-  //   }
-  // }
-
   public updateCardsList(): void {
-    this.updateCardsView(view.isBig);
-
+    this.updateCardsView();
     this.filterData();
     this.sortData(view.sort.key, view.sort.direction);
     this.refreshCardList();

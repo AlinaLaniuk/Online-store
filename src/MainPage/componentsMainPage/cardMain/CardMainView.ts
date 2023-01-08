@@ -1,3 +1,4 @@
+import { view } from "../../utils/constants";
 import { IDataItem } from "../../utils/interface";
 
 export class CardMainView {
@@ -84,10 +85,6 @@ export class CardMainView {
 
     this.handleAddBtnState(addBtn, isInCart);
 
-    // const detailsBtn = document.createElement("button");
-    // detailsBtn.className = "card__button card__details-button";
-    // detailsBtn.textContent = "Details";
-
     const detailsBtn = document.createElement("a");
     detailsBtn.className = "card__button card__details-button";
     detailsBtn.textContent = "Details";
@@ -118,10 +115,10 @@ export class CardMainView {
     }
   }
 
-  updateCardsView(view: boolean): void {
+  updateCardsView(): void {
     const cardList = <HTMLElement>document.querySelector(".card-list");
 
-    if (view === true) {
+    if (view.isBig === true) {
       cardList.classList.remove("card-list_type_small");
     } else {
       cardList.classList.add("card-list_type_small");

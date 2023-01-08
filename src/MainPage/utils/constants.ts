@@ -152,6 +152,6 @@ export function setMainValuesFromQueryParams(
   }
 
   if (bigParam) {
-    view.isBig = Boolean(bigParam);
+    view.isBig = bigParam === 'true' ? true : false;
   }
 }

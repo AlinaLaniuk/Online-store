@@ -82,7 +82,7 @@ export class FiltersController {
       sortBar!.removeAttribute("value");
       sortBar!.selectedIndex = 0;
 
-      view.isBig = true;
+      // view.isBig = true;
     });
   }
 
