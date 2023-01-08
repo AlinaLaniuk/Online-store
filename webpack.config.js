@@ -77,6 +77,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
+    // publicPath: "/", multi nested urls solution for deploy
   },
   resolve: {
     extensions: [".js", ".ts", ".json"],
