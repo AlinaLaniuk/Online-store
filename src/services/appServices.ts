@@ -1,16 +1,7 @@
 import onlineStoreData from "../data/data";
 export const productsInCartInfo: productsInCartInfoI = {
     quantity: {
-        '0': 3,
-        '3': 4,
-        '5': 2,
-        '6': 1,
-        '7': 4,
-        '8': 3,
-        '9': 4,
-        '15': 2,
-        '45': 1,
-        '67': 4,
+
     },
     totalQuantity: 0,
     totalCost: 0,
@@ -42,10 +33,14 @@ export const productsInCartInfo: productsInCartInfoI = {
         } else {
             this.quantity[productId] = quantity;
         }
-
         this.countTotalQuantity();
         this.countTotalCost();
         this.notify();
+    },
+    cleanCart(){
+        Object.keys(productsInCartInfo.quantity).forEach(key => delete productsInCartInfo.quantity[key]);
+        this.countTotalQuantity();
+        this.countTotalCost();
     },
     subscribers: [],
     subscribe(func){
@@ -53,15 +48,7 @@ export const productsInCartInfo: productsInCartInfoI = {
     },
     notify(){
         this.subscribers.forEach((func, index) => {
-            if(index === 2){
-                if(this.totalQuantity === 0){
-                    func();
-                }
-            } else {
-                if(this.totalQuantity !== 0){
-                    func();
-                }
-            }
+           func();
         })
         this.setLocalStorageInfo();
     },
@@ -70,7 +57,7 @@ export const productsInCartInfo: productsInCartInfoI = {
         if(localStorageInfo){
             this.quantity = JSON.parse(localStorageInfo) ;
         }
-        console.log(JSON.parse(localStorageInfo))
+        
     },
     setLocalStorageInfo(){
         localStorage.setItem('online-store-info', JSON.stringify(this.quantity));
@@ -89,4 +76,5 @@ interface productsInCartInfoI {
     countTotalCostWithDiscount: (discountSize: number) => void;
     setLocalStorageInfo: () => void;
     getLocalStorageInfo: () => void;
+    cleanCart: () => void;
 }

@@ -1,0 +1,83 @@
+@mixin flex($justifyContent, $flexDirection) {
+    display: flex;
+    justify-content: $justifyContent;
+    flex-direction: $flexDirection;
+    align-items: center;
+}
+.summary-container{
+    width: 30%;
+    height: 600px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border: 1px solid black;
+    @include flex(center, column);
+    background: white;
+}
+.summary-body{
+    height: 80%;
+    @include flex(space-between, column);
+}
+.summary-title{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.summary__applied-codes{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    gap: 5px;
+    @include flex(space-between, column);
+    .promo-code-field{
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+.promo-code-field{
+    @include flex(space-between, row);
+}
+.summary__button{
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(255, 230, 189);
+}
+.summary__button:hover{
+    background-color: rgb(255, 162, 11);
+}
+.hide{
+    display: none;
+}
+.cross-out{
+    text-decoration: line-through;
+}
+.summary__promo-input{
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgb(136, 136, 136);
+}
+.summary__promo-help{
+    @include flex(center, row);
+    text-align: center;
+}
+.promo-code-field__title{
+    margin-right: 7px;
+}
+.add-button{
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 230, 189);
+}
+.drop-button{
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 230, 189);
+}
+.add-button:hover{
+    background-color: rgb(255, 162, 11);
+}
+.drop-button:hover{
+    background-color: rgb(255, 162, 11);
+}

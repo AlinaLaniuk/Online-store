@@ -8,7 +8,7 @@ class PaginationController{
         this.paginationModel = new PaginationModel(
             this.paginationView.drawCurrentPage.bind(this.paginationView)
         );
-        this.subscribeToAppServicesChanges = this.subscribeToAppServicesChanges.bind(this);
+        this.updateCurrentIndexesForCards = this.updateCurrentIndexesForCards.bind(this);
     }
 
     setPaginationButtonsListener(){
@@ -22,7 +22,7 @@ class PaginationController{
         })
     }
 
-    subscribeToAppServicesChanges(){
+    updateCurrentIndexesForCards(){
         this.paginationModel.getPaginatedIndexes();
         this.paginationModel.getCurrentPageIndexesForDrawing();
     }

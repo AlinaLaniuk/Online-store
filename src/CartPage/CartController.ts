@@ -13,13 +13,15 @@ class CartController{
     paginationController: PaginationController;
     summaryController: SummaryController;
     orderFormController: OrderFormController;
-    constructor(productPageRun: (id: number) => void){
+    constructor(productPageRun: (id: number) => void, redirectToMain: (isAllInputsValid: boolean) => void){
         this.cartView = new CartView();
         this.cartModel = new CartModel(this.cartView.drawEmptyCartPage);
         this.cardCartController = new CardCartController(productPageRun);
         this.paginationController = new PaginationController();
         this.summaryController = new SummaryController();
-        this.orderFormController = new OrderFormController();
+        this.orderFormController = new OrderFormController(redirectToMain);
+        this.updateCartState = this.updateCartState.bind(this);
+        this.updatePaginationState = this.updatePaginationState.bind(this);
     }
 
     setBuyNowButtonListener(){
@@ -28,21 +30,33 @@ class CartController{
             this.orderFormController.run();
         })
     }
+
+    updateCartState(){
+        if(productsInCartInfo.totalQuantity === 0){
+            this.cartView.drawEmptyCartPage();
+        } else {
+            this.paginationController.updateCurrentIndexesForCards();
+            this.summaryController.updateSummaryInfo();
+        }
+    }
+
+    updatePaginationState(){
+        if(productsInCartInfo.totalQuantity !== 0){
+            this.cardCartController.updateCards();
+        }
+    }
     
     runCart(){
         if(productsInCartInfo.totalQuantity === 0){
-            
             this.cartView.drawEmptyCartPage();
-        } else {
-            console.log(productsInCartInfo.totalQuantity)
+        } else {        
             this.cartView.drawProductsInCartBlock();
-            paginationServices.subscribe(this.cardCartController.subscribeToPaginationDataChanging);
             this.paginationController.run();
-            productsInCartInfo.subscribe(this.paginationController.subscribeToAppServicesChanges);
             this.summaryController.run();
-            productsInCartInfo.subscribe(this.summaryController.subscribeToTotalQuantityChanging);
-            productsInCartInfo.subscribe(this.cartView.drawEmptyCartPage);
             this.setBuyNowButtonListener();
+            this.cardCartController.updateCards();
+            productsInCartInfo.subscribe(this.updateCartState);
+            paginationServices.subscribe(this.updatePaginationState);
         }
     }
 }

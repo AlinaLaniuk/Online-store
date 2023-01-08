@@ -1,6 +1,5 @@
 import CardCartModel from "./CardCartModel";
 import CardCartView from "./CardCartView";
-
 class CardCartController{
     cardCartModel: CardCartModel;
     cardCartView: CardCartView;
@@ -15,7 +14,7 @@ class CardCartController{
             drawTotalCostPerProduct: this.cardCartView.drawTotalCostPerProduct,
             deleteCurrentCards: this.cardCartView.deleteCurrentCards,
         });  
-        this.subscribeToPaginationDataChanging = this.subscribeToPaginationDataChanging.bind(this);
+        this.updateCards = this.updateCards.bind(this);
     }
 
     setPlusMinusButtonsListener(){
@@ -33,24 +32,24 @@ class CardCartController{
         })
     }
 
-    setOpenProductPageListener(){
-        const cards = document.querySelectorAll('.product-info');
-        cards.forEach((card) => {
-            card.addEventListener('click', () => {
-                const cardParent = card.parentNode as HTMLElement;
-                const cardID = cardParent.dataset.id as string;
-                // this.productPageRun(+cardID)
-                // window.location.hash = 'product-details';
-                // window.location.pathname = '10';
-            })
-        })
-    }
+    // setOpenProductPageListener(){
+    //     const cards = document.querySelectorAll('.product-info');
+    //     cards.forEach((card) => {
+    //         card.addEventListener('click', () => {
+    //             const cardParent = card.parentNode as HTMLElement;
+    //             const cardID = cardParent.dataset.id as string;
+    //             this.cardCartModel.setProductPageUrl(cardID)
+    //             // this.productPageRun(+cardID)
+    //             // window.location.hash = 'product-details';
+    //             // window.location.pathname = '10';
+    //         })
+    //     })
+    // }
 
-    subscribeToPaginationDataChanging(indexes: number[], cardsNumbers: number[]){
-        this.cardCartModel.setCurrentIndexes(indexes);
-        this.cardCartModel.setCurrentCardsNumbers(cardsNumbers);
+    updateCards(){
+        this.cardCartModel.setCurrentIndexes();
+        this.cardCartModel.setCurrentCardsNumbers();
         this.cardCartModel.drawCards();
-        this.setOpenProductPageListener();
         this.setPlusMinusButtonsListener();
     }
 
