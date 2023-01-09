@@ -13,6 +13,7 @@ class CardCartView{
               </div>
               <div class="product-info__text">
                 <p class="product-info__title">${productInfo.title}</p>
+                <p class="product-info__category">Category:${productInfo.category}</p>
                 <div class="line"></div>
                 <p class="product-info__description">${productInfo.description}</p>
                 <div class="rating-discount-container">

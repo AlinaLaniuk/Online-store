@@ -48,8 +48,16 @@
             @include flex(center, row);
             width: 20px;
             height: 20px;
-            border: 1px solid black;
+            background-color: #ffe6bd;
             border-radius: 50%;
         }
+        .quantity-info__quantity-for-order__button:hover{
+            background-color: rgb(255, 162, 11);
+            cursor: pointer;
+        }
     }
+}
+.product-info__title{
+    font-size: 18px;
+    font-weight: 700;
 }
