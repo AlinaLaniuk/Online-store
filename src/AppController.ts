@@ -134,7 +134,7 @@ class AppController{
         )
     }
     changeTotalCost(){
-        this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
+        this.totalCostContainer.innerHTML = `Cart total: €${productsInCartInfo.totalCost}`;
     }
 
     goToOrderForm(productId: string){
