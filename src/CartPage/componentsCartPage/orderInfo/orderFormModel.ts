@@ -2,6 +2,7 @@ interface viewCallbacksI{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
     setCurrentBankImg: (inputElem: HTMLElement, imgPath: string) => void,
     showErrorInCommonErrorBlock: (inputName: string, isItError: boolean) => void,
+    hideCardImg: (inputElem: HTMLElement) => void
 }
 interface validInputI {
     name: boolean,
@@ -124,6 +125,7 @@ class OrderFormModel{
 
     validateCardNumberValue(inputValue: string, inputElem: HTMLInputElement){
         if(!banksFirstNumbersValues.includes(+inputValue[0])){
+            this.viewCallbacks.hideCardImg(inputElem);
             const correctInputValue = inputValue.slice(0, -1);
             inputElem.value = correctInputValue;
         } else {

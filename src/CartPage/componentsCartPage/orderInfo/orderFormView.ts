@@ -20,6 +20,12 @@ class OrderFormView{
         }
     }
 
+    hideCardImg(inputElem: HTMLElement){
+        const parentElem = inputElem.parentNode as HTMLElement;
+        const img = parentElem.querySelector('.bank-system-img') as HTMLImageElement;
+        img.src = '';
+    }
+
     setCurrentBankImg(inputElem: HTMLElement, imgPath: string){
         const parentElem = inputElem.parentNode as HTMLElement;
         const img = parentElem.querySelector('.bank-system-img') as HTMLImageElement;

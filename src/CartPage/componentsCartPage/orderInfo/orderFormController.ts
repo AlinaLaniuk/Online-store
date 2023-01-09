@@ -11,6 +11,7 @@ class OrderFormController{
                 showError: this.orderFormView.setErrorView,
                 setCurrentBankImg: this.orderFormView.setCurrentBankImg,
                 showErrorInCommonErrorBlock: this.orderFormView.showErrorInCommonErrorBlock,
+                hideCardImg: this.orderFormView.hideCardImg,
             },
         );
         this.redirectToMain = redirectToMain;
