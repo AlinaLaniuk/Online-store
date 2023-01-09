@@ -23,7 +23,7 @@ class ProductPageController {
     });
   }
 
-  setAAddBtnListener(): void {
+  setAddBtnListener(): void {
     const buyNowButton = <HTMLElement>document.querySelector(".add-button");
     buyNowButton.addEventListener("click", () => {
       const cardId = (<HTMLElement>document.querySelector(".product-container"))
@@ -72,7 +72,7 @@ class ProductPageController {
   run(id: number) {
     this.productPageModel.drawCurrentProductPage(id);
     this.setBuyNowButtonListener();
-    this.setAAddBtnListener();
+    this.setAddBtnListener();
     this.setGalleryListener();
   }
 }

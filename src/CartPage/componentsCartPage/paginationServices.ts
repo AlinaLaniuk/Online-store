@@ -8,17 +8,20 @@ const paginationServices: PaginationServicesI = {
    increasePageNumber(){
     if(this.pageNumber < this.pageQuantity){
         this.pageNumber += 1;
+        this.addPageToQueryString();
     }
     this.notify();
    },
    decreasePageNumber(){
     if(this.pageNumber > 1){
         this.pageNumber -= 1;
+        this.addPageToQueryString();
     }
     this.notify();
     },
     setCurrentLimitValue(currentLimitValue){
         this.limit = currentLimitValue;
+        this.addLimitsToQueryString();
         this.notify();
     },
     setCurrentCardsNumbers(newCardsNumber){
@@ -26,7 +29,7 @@ const paginationServices: PaginationServicesI = {
     },
     setCurrentIndexesForDrawingCards(indexesArray){
         this.currentIndexesForDrawingCards = indexesArray;
-
+        this.addPageToQueryString();
         this.notify();
     },
     subscribe(func){
@@ -44,6 +47,28 @@ const paginationServices: PaginationServicesI = {
         if(page){
             this.pageNumber = +page;
         }
+    },
+    addLimitsToQueryString(){
+        const url = new URL(window.location.href);
+        url.searchParams.set('limit', `${this.limit}`)
+        history.pushState(null, '', url);
+    },
+    addPageToQueryString(){
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', `${this.pageNumber}`)
+        history.pushState(null, '', url);
+    },
+    clearQueryParams(){
+        const url = new URL(window.location.href);
+        const pageParams = url.searchParams.get('page');
+        const limitParams = url.searchParams.get('limit');
+        if(pageParams){
+            url.searchParams.delete('page');
+        }
+        if(limitParams){
+            url.searchParams.delete('limit');
+        }
+        history.pushState(null, '', url);
     },
     clearPaginationServicesInfo(){
         this.pageNumber = 1;
@@ -70,4 +95,7 @@ interface PaginationServicesI {
     notify(): void;
     setValuesFromQueryParams(limit: string, page: string): void;
     clearPaginationServicesInfo(): void;
+    addLimitsToQueryString(): void;
+    addPageToQueryString(): void;
+    clearQueryParams(): void;
 }

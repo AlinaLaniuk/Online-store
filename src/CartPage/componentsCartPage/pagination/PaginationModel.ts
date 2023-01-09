@@ -53,24 +53,24 @@ class PaginationModel{
         }
     }
 
-    addLimitsToQueryString(){
-        const url = new URL(window.location.href);
-        url.searchParams.set('limit', `${paginationServices.limit}`)
-        history.pushState(null, '', url);
-    }
+    // addLimitsToQueryString(){
+    //     const url = new URL(window.location.href);
+    //     url.searchParams.set('limit', `${paginationServices.limit}`)
+    //     history.pushState(null, '', url);
+    // }
 
-    addPageToQueryString(){
-        const url = new URL(window.location.href);
-        url.searchParams.set('page', `${paginationServices.pageNumber}`)
-        history.pushState(null, '', url);
-    }
+    // addPageToQueryString(){
+    //     const url = new URL(window.location.href);
+    //     url.searchParams.set('page', `${paginationServices.pageNumber}`)
+    //     history.pushState(null, '', url);
+    // }
 
     passLimitValue(limitInputValue: number){
         if(limitInputValue > 0){
             paginationServices.setCurrentLimitValue(limitInputValue);
             this.getPaginatedIndexes();
             this.getCurrentPageIndexesForDrawing();
-            this.addLimitsToQueryString();
+            // this.addLimitsToQueryString();
         }
     }
 
@@ -88,7 +88,7 @@ class PaginationModel{
         this.drawCurrentPageNumber(paginationServices.pageNumber);
         this.getPaginatedIndexes();
         this.getCurrentPageIndexesForDrawing();
-        this.addPageToQueryString();
+        // this.addPageToQueryString();
     }
 
     goToPrevPage(){
@@ -96,7 +96,7 @@ class PaginationModel{
         this.drawCurrentPageNumber(paginationServices.pageNumber);
         this.getPaginatedIndexes();
         this.getCurrentPageIndexesForDrawing();
-        this.addPageToQueryString();
+        // this.addPageToQueryString();
     }
 }
 export default PaginationModel;
