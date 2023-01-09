@@ -3,8 +3,10 @@ export const productsInCartInfo: productsInCartInfoI = {
     quantity: {
 
     },
+    discountSize: 0,
     totalQuantity: 0,
     totalCost: 0,
+    totalCostWithDiscount: 0,
     countTotalQuantity(){
         const quantityObjValues = Object.values(this.quantity);
         if(quantityObjValues.length === 0){
@@ -22,10 +24,15 @@ export const productsInCartInfo: productsInCartInfoI = {
                 return acc + onlineStoreData[+key].price * this.quantity[+key] 
             }, 0 )
         }
+        if(this.discountSize !== 0){
+            this.countTotalCostWithDiscount();
+        }
     },
-    countTotalCostWithDiscount(discountSize){
-        this.countTotalCost();
-        this.totalCost = Math.floor(this.totalCost * (1 - (discountSize / 100)));
+    setDiscountSize(newDiscountSize){
+        this.discountSize = newDiscountSize;
+    },
+    countTotalCostWithDiscount(){
+        this.totalCostWithDiscount = Math.floor(this.totalCost * (1 - (this.discountSize / 100)));
     },
     changeQuantity(productId, quantity){
         if(quantity === 0){
@@ -68,12 +75,15 @@ interface productsInCartInfoI {
     subscribers: Function[];
     totalQuantity:number;
     totalCost: number;
+    discountSize: number;
+    totalCostWithDiscount: number;
     changeQuantity: (productId: string, quantity: number) => void;
     countTotalCost: () => void;
     countTotalQuantity: () => void;
     subscribe: (func: Function) => void;
     notify: () => void;
-    countTotalCostWithDiscount: (discountSize: number) => void;
+    countTotalCostWithDiscount: () => void;
+    setDiscountSize: (newDiscountSize: number) => void;
     setLocalStorageInfo: () => void;
     getLocalStorageInfo: () => void;
     cleanCart: () => void;
