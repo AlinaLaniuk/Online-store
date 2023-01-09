@@ -4,8 +4,8 @@ import ProductPageView from "./productPageView";
 class ProductPageController {
   productPageView: ProductPageView;
   productPageModel: ProductPageModel;
-  goToOrderForm: () => void;
-  constructor(goToOrderForm: () => void) {
+  goToOrderForm: (productId: string) => void;
+  constructor(goToOrderForm: (productId: string) => void) {
     this.productPageView = new ProductPageView();
     this.productPageModel = new ProductPageModel(
       this.productPageView.drawProductPage,
@@ -17,9 +17,10 @@ class ProductPageController {
   }
 
   setBuyNowButtonListener() {
+    const productId = (document.querySelector('.product-container') as HTMLElement).getAttribute("data-product-id") as string;
     const buyNowButton = document.querySelector(".buy-button") as HTMLElement;
     buyNowButton.addEventListener("click", () => {
-      this.goToOrderForm();
+      this.goToOrderForm(productId);
     });
   }
 

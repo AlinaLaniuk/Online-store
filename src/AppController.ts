@@ -137,7 +137,10 @@ class AppController{
         this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
     }
 
-    goToOrderForm(){
+    goToOrderForm(productId: string){
+        if(!productsInCartInfo.quantity[+productId]){
+            productsInCartInfo.changeQuantity(productId, 1)
+        }
         this.goTo('/cart');
         this.cartPageController.orderFormController.run();
     }
