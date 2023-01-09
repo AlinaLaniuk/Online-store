@@ -25,6 +25,7 @@ class SummaryController{
     updateSummaryInfo(){
         this.summaryModel.drawNewProductsQuantity();
         this.summaryModel.drawNewTotalCostInCart();
+        this.summaryModel.drawNewTotalCostWithDiscount();
     }
 
     setPromoInputListener(){
@@ -70,6 +71,7 @@ class SummaryController{
     }
 
     run(){
+        this.summaryModel.clearPromoCodesInUseArray();
         this.summaryView.drawStartSummaryState();
         productsInCartInfo.countTotalQuantity();
         this.summaryModel.drawNewProductsQuantity();

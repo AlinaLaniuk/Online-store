@@ -13,6 +13,7 @@ class CardCartView{
               </div>
               <div class="product-info__text">
                 <p class="product-info__title">${productInfo.title}</p>
+                <p class="product-info__category">Category:${productInfo.category}</p>
                 <div class="line"></div>
                 <p class="product-info__description">${productInfo.description}</p>
                 <div class="rating-discount-container">
@@ -54,7 +55,7 @@ class CardCartView{
     drawTotalCostPerProduct(productId: string, totalCost: number){
       const quantityInfoBlock = document.querySelector(`.quantity-info[data-id="${productId}"]`) as HTMLElement;
       const priceBlock = quantityInfoBlock.querySelector(`.quantity-info__price`) as HTMLElement;
-      priceBlock.innerHTML = `$${totalCost}`;
+      priceBlock.innerHTML = `€${totalCost}`;
     }
 }
 export default CardCartView;

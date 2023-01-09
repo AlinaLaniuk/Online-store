@@ -31,6 +31,12 @@ class SummaryModel{
         this.viewCallbacks.drawTotalCostInCart(productsInCartInfo.totalCost);
     }
 
+    drawNewTotalCostWithDiscount(){
+        if(this.promoCodesInUse.length){
+            this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCostWithDiscount);
+        }
+    }
+
     setCurrentPromoCode(event: Event){
         const eventTarget = event.target as HTMLInputElement;
         const inputValue = eventTarget.value;
@@ -54,9 +60,10 @@ class SummaryModel{
         this.promoCodesInUse.push(promoCode);
         const dropButton = this.viewCallbacks.drawAppliedCodesBlock(promoCode, promoCodesInfo.promoCodes[promoCode]) as HTMLElement;
         this.countDiscountSize();
-        productsInCartInfo.countTotalCostWithDiscount(this.discountSize);
+        productsInCartInfo.setDiscountSize(this.discountSize);
+        productsInCartInfo.countTotalCostWithDiscount();
         this.viewCallbacks.crossOutTotalCost();
-        this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
+        this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCostWithDiscount);
         return dropButton;
     }
 
@@ -64,11 +71,12 @@ class SummaryModel{
         const indexOfPromoCodeForDrop = this.promoCodesInUse.indexOf(promoCode);
         this.promoCodesInUse.splice(indexOfPromoCodeForDrop, 1);
         this.countDiscountSize();
-        productsInCartInfo.countTotalCostWithDiscount(this.discountSize);
+        productsInCartInfo.setDiscountSize(this.discountSize);
+        productsInCartInfo.countTotalCostWithDiscount();
         if(this.promoCodesInUse.length === 0){
             this.viewCallbacks.drawStateNoCodeInUse();
         } else {
-            this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCost);
+            this.viewCallbacks.drawNewTotalCost(productsInCartInfo.totalCostWithDiscount);
         }
     }
 
@@ -84,6 +92,10 @@ class SummaryModel{
 
     showCurrentPromoCodeInfo(promoCode: string, discountSize: number){
         return this.viewCallbacks.drawPromoCodeInfoBlock(promoCode, discountSize)
+    }
+
+    clearPromoCodesInUseArray(){
+        this.promoCodesInUse.length = 0;
     }
 }
 export default SummaryModel;

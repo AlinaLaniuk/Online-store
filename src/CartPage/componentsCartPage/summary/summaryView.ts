@@ -13,7 +13,7 @@ class SummaryView{
 
     drawTotalCostInCart(totalCost: number){
         const totalCostInCartContainer = document.querySelector('.summary__total-cost') as HTMLElement;
-        totalCostInCartContainer.innerHTML = `Total: $${totalCost}`;
+        totalCostInCartContainer.innerHTML = `Total: €${totalCost}`;
     }
 
     deletePromoCodeBlockForAdd(){
@@ -75,7 +75,7 @@ class SummaryView{
     drawNewTotalCost(newTotalCost: number){
         const newCost = document.querySelector('.summary__new-total-cost') as HTMLElement;
         newCost.classList.remove('hide');
-        newCost.innerHTML = `Total: $${newTotalCost}`;
+        newCost.innerHTML = `Total: €${newTotalCost}`;
     }
 }
 export default SummaryView;

@@ -48,6 +48,7 @@ class AppController{
         } else if(pathName === '/cart'){
             productsInCartInfo.subscribers.length = 0;
             paginationServices.subscribers.length = 0;
+            paginationServices.clearPaginationServicesInfo();
             productsInCartInfo.subscribe(this.changeCartTotalQuantity);
             productsInCartInfo.subscribe(this.changeTotalCost);
             this.getCartParamsFromURL();
@@ -57,8 +58,16 @@ class AppController{
             this.addElementsWithHrefListener(cartCardsContainer);
         } else if(pathName.startsWith('/product-details-')){
             const productId = pathName.slice(17);
-            this.mainWrapper.innerHTML = '';
-            this.productPageController.run(+productId);
+            if(Number.isNaN(+productId) || +productId > 99 || +productId < 0){
+                this.mainWrapper.innerHTML = '';
+                const notFoundProductPage = document.createElement('div');
+                notFoundProductPage.classList.add('not-found-product');
+                notFoundProductPage.innerHTML = `Product number ${productId} not found`;
+                this.mainWrapper.append(notFoundProductPage);
+            } else {
+                this.mainWrapper.innerHTML = '';
+                this.productPageController.run(+productId);
+            }
         } else {
             this.show404Page();
         }         
@@ -133,10 +142,13 @@ class AppController{
         )
     }
     changeTotalCost(){
-        this.totalCostContainer.innerHTML = `Cart total: $${productsInCartInfo.totalCost}`;
+        this.totalCostContainer.innerHTML = `Cart total: €${productsInCartInfo.totalCost}`;
     }
 
-    goToOrderForm(){
+    goToOrderForm(productId: string){
+        if(!productsInCartInfo.quantity[+productId]){
+            productsInCartInfo.changeQuantity(productId, 1)
+        }
         this.goTo('/cart');
         this.cartPageController.orderFormController.run();
     }

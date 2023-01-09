@@ -2,6 +2,7 @@ interface viewCallbacksI{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
     setCurrentBankImg: (inputElem: HTMLElement, imgPath: string) => void,
     showErrorInCommonErrorBlock: (inputName: string, isItError: boolean) => void,
+    hideCardImg: (inputElem: HTMLElement) => void
 }
 interface validInputI {
     name: boolean,
@@ -122,8 +123,9 @@ class OrderFormModel{
         }
     }
 
-    validateCardNumberValue(inputValue: string, inputElem: HTMLInputElement){
+    validateCardNumberValue(inputValue: string, eventData: string, inputElem: HTMLInputElement){
         if(!banksFirstNumbersValues.includes(+inputValue[0])){
+            this.viewCallbacks.hideCardImg(inputElem);
             const correctInputValue = inputValue.slice(0, -1);
             inputElem.value = correctInputValue;
         } else {
@@ -134,10 +136,12 @@ class OrderFormModel{
             const correctInputValue = inputValue.slice(0, -1);
             inputElem.value = correctInputValue
         }
-        let newValue = inputElem.value.replace(/\D/g, "");
-        newValue = newValue.replace(/(.{4})/g, "$1 ");
-        inputElem.value = newValue;
-        const isCardNumberCorrect = inputElem.value.length === 20;
+        if(eventData && inputValue.length <= 18){
+            let newValue = inputElem.value.replace(/\D/g, "");
+            newValue = newValue.replace(/(.{4})/g, "$1 ");
+            inputElem.value = newValue;
+        }
+        const isCardNumberCorrect = inputElem.value.length === 19;
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
         this.validInputs.cardNumber = isCardNumberCorrect;
         if(this.isCommonBlockOpen){
@@ -147,8 +151,8 @@ class OrderFormModel{
 
     checkIsValueNumber(inputElem: HTMLInputElement){
         const inputValueArray = inputElem.value.split('');
-        const correctInputValueArray = inputValueArray.filter((elem) => {
-            if(!Number.isNaN(+elem) || elem === '/'){
+        const correctInputValueArray = inputValueArray.filter((elem, index) => {
+            if(!Number.isNaN(+elem) || (elem === '/' && index === 2)){
                 return true;
             } else {
                 return false;

@@ -34,6 +34,7 @@ class CartController{
     updateCartState(){
         if(productsInCartInfo.totalQuantity === 0){
             this.cartView.drawEmptyCartPage();
+            paginationServices.clearQueryParams();
         } else {
             this.paginationController.updateCurrentIndexesForCards();
             this.summaryController.updateSummaryInfo();
