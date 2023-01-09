@@ -59,6 +59,9 @@ header{
 .main {
     width: 100%;
 }
+.main-wrapper{
+    text-align: center;
+}
 .cart-container{
     margin-top: 30px;
     @include flex(space-around, row);

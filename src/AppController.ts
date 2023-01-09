@@ -58,8 +58,12 @@ class AppController{
             this.addElementsWithHrefListener(cartCardsContainer);
         } else if(pathName.startsWith('/product-details-')){
             const productId = pathName.slice(17);
-            this.mainWrapper.innerHTML = '';
-            this.productPageController.run(+productId);
+            if(Number.isNaN(+productId) || +productId > 100 || +productId < 0){
+                this.mainWrapper.innerHTML = `Product number ${productId} not found`;
+            } else {
+                this.mainWrapper.innerHTML = '';
+                this.productPageController.run(+productId);
+            }
         } else {
             this.show404Page();
         }         
