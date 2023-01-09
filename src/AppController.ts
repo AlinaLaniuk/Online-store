@@ -58,7 +58,7 @@ class AppController{
             this.addElementsWithHrefListener(cartCardsContainer);
         } else if(pathName.startsWith('/product-details-')){
             const productId = pathName.slice(17);
-            if(Number.isNaN(+productId) || +productId > 100 || +productId < 0){
+            if(Number.isNaN(+productId) || +productId > 99 || +productId < 0){
                 this.mainWrapper.innerHTML = `Product number ${productId} not found`;
             } else {
                 this.mainWrapper.innerHTML = '';

@@ -1,7 +1,8 @@
+const defaultLimit = 3;
 const paginationServices: PaginationServicesI = {
    pageNumber: 1,
    pageQuantity: 0,
-   limit: 3,
+   limit: defaultLimit,
    currentIndexesForDrawingCards: [],
    currentCardsNumbers: [],
    subscribers: [],
@@ -42,7 +43,11 @@ const paginationServices: PaginationServicesI = {
     },
     setValuesFromQueryParams(limit, page){
         if(limit){
-            this.limit = +limit;
+            if(Number.isNaN(+limit)){
+                this.limit = defaultLimit;
+            } else {
+                this.limit = +limit;
+            }
         }
         if(page){
             this.pageNumber = +page;
