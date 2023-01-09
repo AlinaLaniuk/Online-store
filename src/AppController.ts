@@ -59,7 +59,11 @@ class AppController{
         } else if(pathName.startsWith('/product-details-')){
             const productId = pathName.slice(17);
             if(Number.isNaN(+productId) || +productId > 99 || +productId < 0){
-                this.mainWrapper.innerHTML = `Product number ${productId} not found`;
+                this.mainWrapper.innerHTML = '';
+                const notFoundProductPage = document.createElement('div');
+                notFoundProductPage.classList.add('not-found-product');
+                notFoundProductPage.innerHTML = `Product number ${productId} not found`;
+                this.mainWrapper.append(notFoundProductPage);
             } else {
                 this.mainWrapper.innerHTML = '';
                 this.productPageController.run(+productId);
