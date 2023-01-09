@@ -48,6 +48,7 @@ class PaginationModel{
             indexOfCurrentArrayForDrawing = this.paginatedIndexes.length - 1;
             paginationServices.pageNumber = this.paginatedIndexes.length;
             this.drawStartPageNumber();
+            this.getCurrentCardsNumbers();
             paginationServices.setCurrentIndexesForDrawingCards(this.paginatedIndexes[indexOfCurrentArrayForDrawing]);
         }
     }

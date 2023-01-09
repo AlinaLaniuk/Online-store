@@ -48,6 +48,7 @@ class AppController{
         } else if(pathName === '/cart'){
             productsInCartInfo.subscribers.length = 0;
             paginationServices.subscribers.length = 0;
+            paginationServices.clearPaginationServicesInfo();
             productsInCartInfo.subscribe(this.changeCartTotalQuantity);
             productsInCartInfo.subscribe(this.changeTotalCost);
             this.getCartParamsFromURL();

@@ -21,11 +21,12 @@ const paginationServices: PaginationServicesI = {
         this.limit = currentLimitValue;
         this.notify();
     },
-    setCurrentCardsNumbers(newCardsNumbers){
-        this.currentCardsNumbers = newCardsNumbers;
+    setCurrentCardsNumbers(newCardsNumber){
+        this.currentCardsNumbers = newCardsNumber;
     },
     setCurrentIndexesForDrawingCards(indexesArray){
         this.currentIndexesForDrawingCards = indexesArray;
+
         this.notify();
     },
     subscribe(func){
@@ -43,6 +44,13 @@ const paginationServices: PaginationServicesI = {
         if(page){
             this.pageNumber = +page;
         }
+    },
+    clearPaginationServicesInfo(){
+        this.pageNumber = 1;
+        this.pageQuantity = 0;
+        this.limit = 3;
+        this.currentIndexesForDrawingCards.length = 0;
+        this.currentCardsNumbers.length = 0;
     }
 }
 export default paginationServices;
@@ -61,4 +69,5 @@ interface PaginationServicesI {
     subscribe(func: Function): void;
     notify(): void;
     setValuesFromQueryParams(limit: string, page: string): void;
+    clearPaginationServicesInfo(): void;
 }
