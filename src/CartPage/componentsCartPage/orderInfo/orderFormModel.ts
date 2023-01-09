@@ -149,8 +149,8 @@ class OrderFormModel{
 
     checkIsValueNumber(inputElem: HTMLInputElement){
         const inputValueArray = inputElem.value.split('');
-        const correctInputValueArray = inputValueArray.filter((elem) => {
-            if(!Number.isNaN(+elem) || elem === '/'){
+        const correctInputValueArray = inputValueArray.filter((elem, index) => {
+            if(!Number.isNaN(+elem) || (elem === '/' && index === 2)){
                 return true;
             } else {
                 return false;
