@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --open --config ./webpack.config.js --env mode=development ",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --env mode=production",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
