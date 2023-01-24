@@ -73,7 +73,6 @@ class AppController{
         }         
     }
   getMainParamsFromURL() {
-    // вот эта функция нужна для разбора query строки.
     const params = window.location.search;
     if (params) {
       const paramsObj = new URLSearchParams(params);
@@ -170,15 +169,16 @@ class AppController{
       }
 
     addElementsWithHrefListener(container: HTMLElement){
-        if(container){
-            container.querySelectorAll('[href^="/"]').forEach(el => {
-                el.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
-                    this.goTo(path);
-                })
-            })
+        if(!container){
+            return;
         }
+        container.querySelectorAll('[href^="/"]').forEach(el => {
+            el.addEventListener('click', (event) => {
+                event.preventDefault();
+                const {pathname: path} = new URL((event.currentTarget as HTMLAnchorElement).href);
+                this.goTo(path);
+            })
+        })
     }
 
     run(){
