@@ -1,7 +1,7 @@
 import { productsInCartInfo } from "../../../services/appServices";
 import promoCodesInfo from "../../../services/promoCodes";
 
-interface viewCallbacksI{
+interface IViewCallbacks{
     drawProductsQuantity: (productsQuantity: number) => void,
     drawTotalCostInCart: (totalCost: number) => void,
     drawPromoCodeForAddBlock: (promoCode: string, discountSize: number) => HTMLElement,
@@ -13,10 +13,10 @@ interface viewCallbacksI{
     drawStateNoCodeInUse: () => void,
 }
 class SummaryModel{
-    viewCallbacks: viewCallbacksI;
+    viewCallbacks: IViewCallbacks;
     promoCodesInUse: string[];
     discountSize: number;
-    constructor(viewCallbacks: viewCallbacksI){
+    constructor(viewCallbacks: IViewCallbacks){
         this.viewCallbacks = viewCallbacks;
         this.promoCodesInUse = [];
         this.setCurrentPromoCode = this.setCurrentPromoCode.bind(this);

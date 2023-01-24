@@ -1,6 +1,6 @@
 import { productInfoType } from "../../types";
 
-interface viewCallbacksI {
+interface IViewCallbacks {
     drawStartState: (productInfo: productInfoType, index: number, quantity: number) => void;
     drawNewProductQuantity: (productId: string, newQuantityValue: number) => void;
     deleteCard: (productId: string) => void;
@@ -8,4 +8,4 @@ interface viewCallbacksI {
     deleteCurrentCards: () => void;
 }
 
-export default viewCallbacksI;
+export default IViewCallbacks;

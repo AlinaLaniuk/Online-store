@@ -1,12 +1,12 @@
-import viewCallbacksI from "./cardCartTypes";
+import IViewCallbacksI from "./cardCartTypes";
 import onlineStoreData from "../../../data/data";
 import { productsInCartInfo } from "../../../services/appServices";
 import paginationServices from "../paginationServices";
 class CardCartModel{
-    viewCallbacks: viewCallbacksI;
+    viewCallbacks: IViewCallbacksI;
     currentIndexes: number[];
     currentCardsNumbers: number[];
-    constructor(viewCallbacks: viewCallbacksI){
+    constructor(viewCallbacks: IViewCallbacksI){
         this.viewCallbacks = viewCallbacks;
         this.currentIndexes = [];
         this.currentCardsNumbers = [];

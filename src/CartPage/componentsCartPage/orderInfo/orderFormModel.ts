@@ -1,10 +1,10 @@
-interface viewCallbacksI{
+interface IViewCallbacks{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
     setCurrentBankImg: (inputElem: HTMLElement, imgPath: string) => void,
     showErrorInCommonErrorBlock: (inputName: string, isItError: boolean) => void,
     hideCardImg: (inputElem: HTMLElement) => void
 }
-interface validInputI {
+interface IValidInput {
     name: boolean,
     phone: boolean,
     delivery: boolean,
@@ -13,7 +13,7 @@ interface validInputI {
     thru: boolean,
     cvv: boolean
 }
-type typeOfFieldI = 'name' | 'delivery';
+type typeOfField = 'name' | 'delivery';
 type validInputKeys = 'name' | 'phone' | 'delivery' | 'email' | 'cardNumber' | 'thru' | 'cvv';
 const minWordsLengthForDelivery = 5;
 const minWordsQuantityForDelivery = 3;
@@ -30,10 +30,10 @@ const banksFirstNumbers: { [key: string]: string } = {
 const banksFirstNumbersValues = [4, 5, 3];
  
 class OrderFormModel{
-    viewCallbacks: viewCallbacksI;
-    validInputs: validInputI;
+    viewCallbacks: IViewCallbacks;
+    validInputs: IValidInput;
     isCommonBlockOpen: boolean;
-    constructor(viewCallbacks: viewCallbacksI){
+    constructor(viewCallbacks: IViewCallbacks){
         this.viewCallbacks = viewCallbacks;
         this.validInputs = {
             name: false,
@@ -92,7 +92,7 @@ class OrderFormModel{
         }
     }
 
-    validateDeliveryAndNameValue(inputValue: string, inputElem: HTMLElement, typeOfField: typeOfFieldI){
+    validateDeliveryAndNameValue(inputValue: string, inputElem: HTMLElement, typeOfField: typeOfField){
         const arrayOfInputValue = inputValue.split(' ');
         let isWordsLengthCorrect = true;
         let isValueCorrect = true;
