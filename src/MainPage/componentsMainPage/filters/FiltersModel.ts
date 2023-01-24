@@ -1,4 +1,4 @@
-import onlineStoreData from "../../../data/data";
+import onlineStoreData from "../../../data/onlineStoreData";
 import { filterOptionsList, view } from "../../utils/constants";
 import { currencySymbol } from "../../utils/constants";
 import {

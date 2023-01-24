@@ -1,4 +1,4 @@
-import onlineStoreData from "../../../data/data";
+import onlineStoreData from "../../../data/onlineStoreData";
 import { sortOptionsList } from "../../utils/constants";
 import { view } from "../../utils/constants";
 

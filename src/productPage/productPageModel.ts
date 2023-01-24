@@ -1,4 +1,4 @@
-import onlineStoreData from "../data/data";
+import onlineStoreData from "../data/onlineStoreData";
 import { productInfoType } from "../CartPage/types";
 class ProductPageModel {
   drawProductPage: (data: productInfoType) => void;

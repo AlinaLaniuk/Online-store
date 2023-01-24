@@ -1,5 +1,5 @@
 import IViewCallbacksI from "./cardCartTypes";
-import onlineStoreData from "../../../data/data";
+import onlineStoreData from "../../../data/onlineStoreData";
 import { productsInCartInfo } from "../../../services/appServices";
 import paginationServices from "../paginationServices";
 class CardCartModel{
