@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --open --config ./webpack.config.js --env mode=development ",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --env mode=production",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "file-loader": "^6.2.0",
     "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.4.0",
     "mini-css-extract-plugin": "^2.6.1",
     "node-sass": "^7.0.3",
     "prettier": "2.2.1",
