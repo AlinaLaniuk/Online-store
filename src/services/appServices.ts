@@ -1,4 +1,4 @@
-import onlineStoreData from "../data/data";
+import onlineStoreData from "../data/onlineStoreData";
 export const productsInCartInfo: productsInCartInfoI = {
     quantity: {
 

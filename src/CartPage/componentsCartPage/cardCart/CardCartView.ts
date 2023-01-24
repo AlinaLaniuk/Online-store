@@ -1,4 +1,4 @@
-import { productInfoType, productsInfo } from "../../types";
+import { productInfoType } from "../../types";
 
 class CardCartView{
     drawStartState(productInfo: productInfoType, index: number, quantity: number){
@@ -9,7 +9,7 @@ class CardCartView{
             <div class="number">${index}</div>
             <a class="product-info" href="/product-details-${productInfo.id}">
               <div class="product-info__img">
-                <img src="${productInfo.thumbnail}">
+                <img src="${productInfo.thumbnail}" alt=${productInfo.title}>
               </div>
               <div class="product-info__text">
                 <p class="product-info__title">${productInfo.title}</p>

@@ -1,21 +1,16 @@
-import viewCallbacksI from "./cardCartTypes";
-import onlineStoreData from "../../../data/data";
+import IViewCallbacksI from "./cardCartTypes";
+import onlineStoreData from "../../../data/onlineStoreData";
 import { productsInCartInfo } from "../../../services/appServices";
 import paginationServices from "../paginationServices";
 class CardCartModel{
-    viewCallbacks: viewCallbacksI;
+    viewCallbacks: IViewCallbacksI;
     currentIndexes: number[];
     currentCardsNumbers: number[];
-    constructor(viewCallbacks: viewCallbacksI){
+    constructor(viewCallbacks: IViewCallbacksI){
         this.viewCallbacks = viewCallbacks;
         this.currentIndexes = [];
         this.currentCardsNumbers = [];
     }
-
-    // setProductPageUrl(id: string){
-    //     const url = new URL(`/product-details/${id}`, window.location.href);
-    //     history.pushState(null, '', url);
-    // }
 
     setCurrentIndexes(){
         this.currentIndexes = [...paginationServices.currentIndexesForDrawingCards];
@@ -26,7 +21,6 @@ class CardCartModel{
     }
 
     getCurrentProductsInCartInfo(){
-        // console.log(onlineStoreData)
         return this.currentIndexes.map((index) => onlineStoreData[index] );
     }
 
@@ -44,7 +38,6 @@ class CardCartModel{
         const productQuantityValue = productsInCartInfo.quantity[productId];
         if(productsInCartInfo.quantity[productId] === 1){
             productsInCartInfo.changeQuantity(productId, 0);
-            // this.deleteProductFromCart(productId);
         } else {
             const newProductQuantityValue = productQuantityValue - 1;
             productsInCartInfo.changeQuantity(productId, newProductQuantityValue); 

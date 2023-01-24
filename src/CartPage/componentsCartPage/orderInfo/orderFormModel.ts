@@ -1,10 +1,10 @@
-interface viewCallbacksI{
+interface IViewCallbacks{
     showError: (inputElem: HTMLElement, isValueCorrect: boolean) => void,
     setCurrentBankImg: (inputElem: HTMLElement, imgPath: string) => void,
     showErrorInCommonErrorBlock: (inputName: string, isItError: boolean) => void,
     hideCardImg: (inputElem: HTMLElement) => void
 }
-interface validInputI {
+interface IValidInput {
     name: boolean,
     phone: boolean,
     delivery: boolean,
@@ -13,12 +13,18 @@ interface validInputI {
     thru: boolean,
     cvv: boolean
 }
-type typeOfFieldI = 'name' | 'delivery';
+type typeOfField = 'name' | 'delivery';
 type validInputKeys = 'name' | 'phone' | 'delivery' | 'email' | 'cardNumber' | 'thru' | 'cvv';
 const minWordsLengthForDelivery = 5;
 const minWordsQuantityForDelivery = 3;
 const minWordsLengthForName = 3;
 const minWordsQuantityForName = 2;
+const indexForSlash = 2;
+const firstNumberCharInPhone = 2;
+const maxPhoneLength = 10;
+const maxBankCardLengthWithSpaces = 19;
+const monthQuantity = 12;
+const maxCvvLength = 3;
 let currentWorldLengthValue: number;
 let currentWorldQuantityValue: number;
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -30,10 +36,10 @@ const banksFirstNumbers: { [key: string]: string } = {
 const banksFirstNumbersValues = [4, 5, 3];
  
 class OrderFormModel{
-    viewCallbacks: viewCallbacksI;
-    validInputs: validInputI;
+    viewCallbacks: IViewCallbacks;
+    validInputs: IValidInput;
     isCommonBlockOpen: boolean;
-    constructor(viewCallbacks: viewCallbacksI){
+    constructor(viewCallbacks: IViewCallbacks){
         this.viewCallbacks = viewCallbacks;
         this.validInputs = {
             name: false,
@@ -79,8 +85,8 @@ class OrderFormModel{
             }
         }
         if(inputValue[0] !== '+' ||
-        (inputValue.length >= 2 && !isPhoneConsistOfNumbers) ||
-        (isPhoneConsistOfNumbers && inputValue.length < 10) 
+        (inputValue.length >= firstNumberCharInPhone && !isPhoneConsistOfNumbers) ||
+        (isPhoneConsistOfNumbers && inputValue.length < maxPhoneLength) 
         
         ){
             isValueCorrect = false;
@@ -92,7 +98,7 @@ class OrderFormModel{
         }
     }
 
-    validateDeliveryAndNameValue(inputValue: string, inputElem: HTMLElement, typeOfField: typeOfFieldI){
+    validateDeliveryAndNameValue(inputValue: string, inputElem: HTMLElement, typeOfField: typeOfField){
         const arrayOfInputValue = inputValue.split(' ');
         let isWordsLengthCorrect = true;
         let isValueCorrect = true;
@@ -141,7 +147,7 @@ class OrderFormModel{
             newValue = newValue.replace(/(.{4})/g, "$1 ");
             inputElem.value = newValue;
         }
-        const isCardNumberCorrect = inputElem.value.length === 19;
+        const isCardNumberCorrect = inputElem.value.length === maxBankCardLengthWithSpaces;
         this.viewCallbacks.showError(inputElem, isCardNumberCorrect);
         this.validInputs.cardNumber = isCardNumberCorrect;
         if(this.isCommonBlockOpen){
@@ -152,7 +158,7 @@ class OrderFormModel{
     checkIsValueNumber(inputElem: HTMLInputElement){
         const inputValueArray = inputElem.value.split('');
         const correctInputValueArray = inputValueArray.filter((elem, index) => {
-            if(!Number.isNaN(+elem) || (elem === '/' && index === 2)){
+            if(!Number.isNaN(+elem) || (elem === '/' && index === indexForSlash)){
                 return true;
             } else {
                 return false;
@@ -181,7 +187,7 @@ class OrderFormModel{
     checkIsMonthCorrect(inputElem: HTMLInputElement){
         const inputValueArrayWithoutSlash = inputElem.value.split('/');
         const monthValue = inputValueArrayWithoutSlash[0];
-        const isMonthValueCorrect = +monthValue <= 12 && +monthValue !== 0;
+        const isMonthValueCorrect = +monthValue <= monthQuantity && +monthValue !== 0;
         this.viewCallbacks.showError(inputElem, isMonthValueCorrect);
     }
 
@@ -197,7 +203,7 @@ class OrderFormModel{
         const inputValue = inputElem.value;
         let isValueCorrect = false;
         const inputValueArray = inputValue.split('/');
-        if(+inputValueArray[0] <= 12 && inputValue.length === 5){
+        if(+inputValueArray[0] <= monthQuantity && inputValue.length === 5){
             isValueCorrect = true;
         }
         this.validInputs.thru = isValueCorrect;
@@ -221,7 +227,7 @@ class OrderFormModel{
             inputElem.value = correctInputValue
         }
         let isValueCorrect = false;
-        if(inputElem.value.length === 3){
+        if(inputElem.value.length === maxCvvLength){
             isValueCorrect = true;
         }
         this.viewCallbacks.showError(inputElem, isValueCorrect);

@@ -1,4 +1,4 @@
-import onlineStoreData from "../../../data/data";
+import onlineStoreData from "../../../data/onlineStoreData";
 import { productsInCartInfo } from "../../../services/appServices";
 import { currencySymbol, view } from "../../utils/constants";
 import { IDataItem } from "../../utils/interface";

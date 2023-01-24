@@ -65,7 +65,6 @@ class ProductPageController {
         document.querySelector(".product-main-img")
       );
       const mainPictureSrc = <string>item.getAttribute("src");
-
       mainPicture.src = mainPictureSrc;
     }
   }
