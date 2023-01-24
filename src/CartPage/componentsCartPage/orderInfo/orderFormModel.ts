@@ -24,7 +24,9 @@ const firstNumberCharInPhone = 2;
 const maxPhoneLength = 10;
 const maxBankCardLengthWithSpaces = 19;
 const monthQuantity = 12;
+const maxDozen = `${monthQuantity}`[0];
 const maxCvvLength = 3;
+const maxDateLength = 5;
 let currentWorldLengthValue: number;
 let currentWorldQuantityValue: number;
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -142,7 +144,7 @@ class OrderFormModel{
             const correctInputValue = inputValue.slice(0, -1);
             inputElem.value = correctInputValue
         }
-        if(eventData && inputValue.length <= 18){
+        if(eventData && inputValue.length < maxBankCardLengthWithSpaces){
             let newValue = inputElem.value.replace(/\D/g, "");
             newValue = newValue.replace(/(.{4})/g, "$1 ");
             inputElem.value = newValue;
@@ -168,7 +170,7 @@ class OrderFormModel{
     }
 
     addZeroToMonth(inputElem: HTMLInputElement){
-        if(+inputElem.value[0] >= 2 && +inputElem.value[0] <= 9){
+        if(+inputElem.value[0] >= +maxDozen){
             const correctInputValue = `0${inputElem.value.slice(0, 1)}`;
             inputElem.value = correctInputValue
         }
@@ -203,7 +205,7 @@ class OrderFormModel{
         const inputValue = inputElem.value;
         let isValueCorrect = false;
         const inputValueArray = inputValue.split('/');
-        if(+inputValueArray[0] <= monthQuantity && inputValue.length === 5){
+        if(+inputValueArray[0] <= monthQuantity && inputValue.length === maxDateLength){
             isValueCorrect = true;
         }
         this.validInputs.thru = isValueCorrect;
