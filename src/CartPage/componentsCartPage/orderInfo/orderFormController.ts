@@ -74,7 +74,6 @@ class OrderFormController{
     setValidThruInputListener(){
         const validThruInput = document.getElementById('card-thru') as HTMLInputElement;
         validThruInput.addEventListener('input', () => {
-            const cardNumberInputValue = validThruInput.value;
             this.orderFormModel.validateThruValue(validThruInput);
         })
     }
