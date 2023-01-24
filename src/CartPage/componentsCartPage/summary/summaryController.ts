@@ -1,6 +1,15 @@
 import SummaryModel from "./summaryModel";
 import SummaryView from "./summaryView";
 import { productsInCartInfo } from "../../../services/appServices";
+
+function debounce (func: Function, ms: number){
+    let timeout: ReturnType<typeof setTimeout>;
+    return (...args: Event[]) =>{
+        const funcCall = () => { func(...args)};
+        clearTimeout(timeout);
+        timeout = setTimeout(funcCall, ms);
+    }
+}
 class SummaryController{
     summaryModel: SummaryModel;
     summaryView: SummaryView;
@@ -33,17 +42,7 @@ class SummaryController{
         promoInputContainer.addEventListener('keyup', this.setCurrentPromoCodeDebounced)
     }
 
-    setCurrentPromoCodeDebounced = this.debounce(this.setAddButtonListener, 500)
-
-    debounce(func: Function, ms: number){
-        let timeout: ReturnType<typeof setTimeout>;
-        return (...args: Event[]) =>{
-            const funcCall = () => { func.apply(this, args) };
-            clearTimeout(timeout);
-            timeout = setTimeout(funcCall, ms);
-            funcCall;
-        }
-    }
+    setCurrentPromoCodeDebounced = debounce(this.setAddButtonListener, 500)
 
     async setAddButtonListener(event: Event){
         const addButtonElem: HTMLElement = await new Promise((resolve, reject) => {
