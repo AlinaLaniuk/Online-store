@@ -40,6 +40,7 @@ export class CardMainView {
     const cardImage = document.createElement("img");
     cardImage.className = "card__image";
     cardImage.src = data.thumbnail;
+    cardImage.alt = data.title;
 
     const cardContent = document.createElement("div");
     cardContent.className = "card__content";

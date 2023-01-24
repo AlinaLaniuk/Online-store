@@ -11,6 +11,7 @@ class ProductPageView {
       const image = document.createElement("img");
       image.className = "product__image-small";
       image.src = item;
+      image.alt = data.title;
 
       listItem.append(image);
       container?.append(listItem);
@@ -54,7 +55,7 @@ class ProductPageView {
             <div class="product-content">
               <ul class="product__image-container">
               </ul>
-              <img class="product-main-img" src=${data.thumbnail}>
+              <img class="product-main-img" src=${data.thumbnail} alt=${data.title}>
               <div class="product-info-container">
                 <div class="product-info-block description">
                   <div class="title">Description</div>
