@@ -58,7 +58,7 @@ class SummaryModel{
     
     addPromoCode(promoCode: string){
         this.promoCodesInUse.push(promoCode);
-        const dropButton = this.viewCallbacks.drawAppliedCodesBlock(promoCode, promoCodesInfo.promoCodes[promoCode]) as HTMLElement;
+        const dropButton = this.viewCallbacks.drawAppliedCodesBlock(promoCode, promoCodesInfo.promoCodes[promoCode]);
         this.countDiscountSize();
         productsInCartInfo.setDiscountSize(this.discountSize);
         productsInCartInfo.countTotalCostWithDiscount();
