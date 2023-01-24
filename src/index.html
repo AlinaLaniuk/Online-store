@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
-    <link rel="icon" href="favicon.ico" type="image/ico" />
+    <link rel="icon" href="favicon.ico" type="image/ico">
   </head>
 
   <body class="page">
     <header>
       <div class="header-wrapper">
         <a class="logo-container" href="/">
-          <img src="./assets/icon/logo.png" alt="online-store" />
+          <img src="./assets/icon/logo.png" alt="online-store">
           <!-- <img src="https://DEPLOY_URL/assets/icon/logo.png" alt="online-store" /> multi nested urls solution for deploy -->
         </a>
         <div class="cart-total">
@@ -20,14 +20,14 @@
           <div class="cart-total-value"></div>
         </div>
         <a class="cart-in-header-container" href="/cart">
-          <img src="./assets/icon/cart.png" alt="cart" />
+          <img src="./assets/icon/cart.png" alt="cart">
           <!-- <img src="https://DEPLOY_URL/assets/icon/cart.png" alt="cart" /> multi nested urls solution for deploy -->
           <div class="cart-quantity"></div>
         </a>
       </div>
     </header>
     <main class="main">
-      <section class="main-wrapper"></section>
+      <div class="main-wrapper"></div>
     </main>
     <template id="products-in-cart">
       <div class="products-in-cart-wrapper">
@@ -43,9 +43,9 @@
           </div>
           <div class="products-in-cart__pagination">
             <div class="products-in-cart__pagination__title">Page:</div>
-            <div class="products-in-cart__pagination__button left"><</div>
+            <div class="products-in-cart__pagination__button left">&lt;</div>
             <div class="products-in-cart__pagination__value"></div>
-            <div class="products-in-cart__pagination__button right">></div>
+            <div class="products-in-cart__pagination__button right">&gt;</div>
           </div>
         </div>
         <div class="products-in-cart__content"></div>
@@ -94,7 +94,7 @@
               class="order-input"
               id="phone"
               placeholder="Phone number"
-            />
+            >
             <div class="error hide">Error</div>
           </div>
           <div class="order-input-container">
@@ -103,7 +103,7 @@
               class="order-input"
               id="delivery"
               placeholder="Delivery address"
-            />
+            >
             <div class="error hide">Error</div>
           </div>
           <div class="order-input-container">
@@ -112,21 +112,21 @@
               class="order-input"
               id="email"
               placeholder="E-mail"
-            />
+            >
             <div class="error hide">Error</div>
           </div>
           <div class="bank-card-container">
             <div class="bank-card-title">Credit card details</div>
             <div class="bank-card">
               <div class="bank-card__top">
-                <img class="bank-system-img" />
+                <img class="bank-system-img">
                 <input
                   type="text"
                   class="bank-card-input top"
                   id="card-number"
                   maxlength="19"
                   placeholder="Card number"
-                />
+                >
                 <div class="error hide">Error</div>
               </div>
               <div class="available-sys">Available payment systems: American Express (first number - 3), Visa (first number - 4), MasterCard (first number - 5)</div>
@@ -139,7 +139,7 @@
                     id="card-thru"
                     maxlength="5"
                     placeholder="Valid thru"
-                  />
+                  >
                   <div class="error hide">Error</div>
                 </form>
                 <div class="bank-card__cvv">
@@ -150,7 +150,7 @@
                     id="cvv"
                     maxlength="3"
                     placeholder="Code"
-                  />
+                  >
                   <div class="error hide">Error</div>
                 </div>
               </div>
@@ -183,7 +183,7 @@
         <div class="product-title"></div>
         <div class="product-content">
           <div class="product-small-img-container"></div>
-          <img class="product-main-img" />
+          <img class="product-main-img">
           <div class="product-info-container">
             <div class="product-info-block description">
               <div class="title">Description</div>
@@ -228,7 +228,7 @@
         <a class="author" href="https://github.com/sergeyladorski">& Sergey Ladorski</a>
       </div>
       <div>2022</div>
-      <a class="rs-link" href="https://rs.school/js/"><img src="assets/icon/rs_school_js.svg"></a>
+      <a class="rs-link" href="https://rs.school/js/"><img src="assets/icon/rs_school_js.svg" alt="rs-school"></a>
       <!-- <a class="rs-link" href="https://rs.school/js/"><img src="https://DEPLUT_URL/assets/icon/rs_school_js.svg"></a> multi nested urls solution for deploy -->
     </footer>
   </body>
