@@ -20,8 +20,7 @@ class OrderFormController{
     setOrderFormBgListener(){
         const orderFormBg = document.querySelector('.order-background') as HTMLElement;
         orderFormBg.addEventListener('click', (event) => {
-            const eventTarget = event.target;
-            if(eventTarget === orderFormBg){
+            if(event.target === orderFormBg){
                 const cartContainer = document.querySelector('.cart-container') as HTMLElement;
                 cartContainer.removeChild(orderFormBg);
             }
