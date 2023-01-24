@@ -32,30 +32,11 @@ class CardCartController{
         })
     }
 
-    // setOpenProductPageListener(){
-    //     const cards = document.querySelectorAll('.product-info');
-    //     cards.forEach((card) => {
-    //         card.addEventListener('click', () => {
-    //             const cardParent = card.parentNode as HTMLElement;
-    //             const cardID = cardParent.dataset.id as string;
-    //             this.cardCartModel.setProductPageUrl(cardID)
-    //             // this.productPageRun(+cardID)
-    //             // window.location.hash = 'product-details';
-    //             // window.location.pathname = '10';
-    //         })
-    //     })
-    // }
-
     updateCards(){
         this.cardCartModel.setCurrentIndexes();
         this.cardCartModel.setCurrentCardsNumbers();
         this.cardCartModel.drawCards();
         this.setPlusMinusButtonsListener();
     }
-
-    // run(){
-    //     this.cardCartModel.drawCards();
-    //     this.setPlusMinusButtonsListener();
-    // }
 }
 export default CardCartController;

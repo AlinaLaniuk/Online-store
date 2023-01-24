@@ -1,4 +1,4 @@
-import { productInfoType, productsInfo } from "../../types";
+import { productInfoType } from "../../types";
 
 class CardCartView{
     drawStartState(productInfo: productInfoType, index: number, quantity: number){

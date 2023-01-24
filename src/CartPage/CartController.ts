@@ -1,4 +1,3 @@
-import CartModel from "./CartModel";
 import CartView from "./CartView";
 import CardCartController from "./componentsCartPage/cardCart/CardCartController";
 import PaginationController from "./componentsCartPage/pagination/PaginationController";
@@ -7,7 +6,6 @@ import OrderFormController from "./componentsCartPage/orderInfo/orderFormControl
 import paginationServices from "./componentsCartPage/paginationServices";
 import { productsInCartInfo } from "../services/appServices";
 class CartController{
-    cartModel: CartModel;
     cartView: CartView;
     cardCartController: CardCartController;
     paginationController: PaginationController;
@@ -15,7 +13,6 @@ class CartController{
     orderFormController: OrderFormController;
     constructor(productPageRun: (id: number) => void, redirectToMain: (isAllInputsValid: boolean) => void){
         this.cartView = new CartView();
-        this.cartModel = new CartModel(this.cartView.drawEmptyCartPage);
         this.cardCartController = new CardCartController(productPageRun);
         this.paginationController = new PaginationController();
         this.summaryController = new SummaryController();
