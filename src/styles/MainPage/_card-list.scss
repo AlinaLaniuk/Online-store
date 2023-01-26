@@ -1,0 +1,169 @@
+.card-section {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  .card-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    box-sizing: border-box;
+
+    .card {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 5px;
+      height: 265px;
+      border: 1px solid black;
+      box-sizing: border-box;
+
+      .card__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 265px;
+        object-fit: cover;
+        object-position: center;
+        z-index: -1;
+      }
+
+      .card__content {
+        width: 100%;
+        height: 85%;
+
+        .card__title {
+          margin: 0;
+          padding: 5px 0;
+          border-bottom: 1px solid black;
+          background: rgba(0, 0, 0, .7);
+          color: white;
+          text-align: center;
+          box-sizing: border-box;
+        }
+
+        .card__desc {
+          width: 50%;
+          height: min-content;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          background: rgba(150, 150, 150, 0.842);
+          border: 1px solid black;
+          font-size: 14px;
+
+          .card__category,
+          .card__brand,
+          .card__price,
+          .card__discount,
+          .card__rating,
+          .card__stock {
+            margin: 0;
+          }
+        }
+      }
+
+      .card__buttons {
+        height: 15%;
+        display: flex;
+        gap: 20px;
+        align-self: center;
+
+        .card__button {
+          border: none;
+          border-radius: 20px;
+          cursor: pointer;
+          transition: all 0.5s ease;
+        }
+
+        .card__add-button {
+          background-color: rgb(255, 230, 189);
+
+          &:hover {
+            background-color: rgb(255, 162, 11);
+            color: white;
+          }
+        }
+
+        .card__add-button_active {
+          background: rgb(255, 161, 151);
+
+          &:hover {
+            background: rgb(187, 101, 92);
+            color: white;
+          }
+        }
+
+        .card__details-button {
+          padding: 7.5px 10px;
+          border: 2px solid black;
+          background: rgb(240, 240, 240);
+          color: black;
+          text-decoration: none;
+
+          &:hover {
+            background: rgb(100, 100, 100);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  // TYPE SMALL
+  .card-list_type_small {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    box-sizing: border-box;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 5px;
+      height: 265px;
+      border: 1px solid black;
+      box-sizing: border-box;
+
+      .card__content {
+        width: 100%;
+        height: 70%;
+
+        .card__title {
+          margin: 0;
+          padding: 5px 0;
+          border-bottom: 1px solid black;
+          background: rgba(0, 0, 0, .7);
+          color: white;
+          text-align: center;
+          box-sizing: border-box;
+        }
+
+        .card__desc {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .card-list_empty {
+    margin: 0 auto;
+    width: 80%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    line-height: 0.8;
+    text-align: center;
+    white-space: pre;
+  }
+}
