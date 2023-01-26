@@ -1,3 +1,6 @@
 import '../src/styles/main.scss';
 import AppController from './AppController';
-new AppController().run();
+const appController = new AppController();
+appController.run();
+
+export default appController;
