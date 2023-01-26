@@ -70,6 +70,7 @@ class SummaryView{
     crossOutTotalCost(){
         const totalCostElem = document.querySelector('.summary__total-cost') as HTMLElement;
         totalCostElem.classList.add('cross-out');
+        return totalCostElem
     }
 
     drawNewTotalCost(newTotalCost: number){
