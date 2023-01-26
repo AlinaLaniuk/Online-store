@@ -13,6 +13,7 @@ function debounce (func: Function, ms: number){
 class SummaryController{
     summaryModel: SummaryModel;
     summaryView: SummaryView;
+    setCurrentPromoCodeDebounced: (...args: Event[]) => void;
     constructor(){
         this.summaryView = new SummaryView();
         this.summaryModel = new SummaryModel({
@@ -29,6 +30,7 @@ class SummaryController{
         this.updateSummaryInfo = this.updateSummaryInfo.bind(this);
         this.setAddButtonListener = this.setAddButtonListener.bind(this);
         this.setDropButtonListener = this.setDropButtonListener.bind(this);
+        this.setCurrentPromoCodeDebounced = debounce(this.setAddButtonListener, 500);
     }
 
     updateSummaryInfo(){
@@ -41,8 +43,6 @@ class SummaryController{
         const promoInputContainer = document.querySelector('.summary__promo-input') as HTMLInputElement;
         promoInputContainer.addEventListener('keyup', this.setCurrentPromoCodeDebounced)
     }
-
-    setCurrentPromoCodeDebounced = debounce(this.setAddButtonListener, 500)
 
     async setAddButtonListener(event: Event){
         const addButtonElem: HTMLElement = await new Promise((resolve, reject) => {
